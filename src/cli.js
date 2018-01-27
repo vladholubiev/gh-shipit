@@ -3,6 +3,7 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
+const {distanceInWordsToNow} = require('date-fns');
 const {getUserOrgs, getOrgRepos} = require('./repos');
 const {getReposBranchesDiff} = require('./diff');
 
@@ -27,7 +28,7 @@ inquirer
     diffSpinner.stop();
 
     const output = diffs.map(({status, behind_by, ahead_by, lastCommitDate, repo}) => {
-      const formattedDate = lastCommitDate ? new Date(lastCommitDate).toLocaleDateString() : '';
+      const formattedDate = distanceInWordsToNow(new Date(lastCommitDate), {addSuffix: true});
 
       return chalk`{bold ${repo}}: {red -${behind_by}} {green +${ahead_by}} {dim ${formattedDate}}`;
     });
