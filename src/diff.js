@@ -1,18 +1,20 @@
 const _ = require('lodash');
+const fp = require('lodash/fp');
 const {relativeTime} = require('human-date');
 const longest = require('longest');
 const {getBranchDiff} = require('./repos');
 
 module.exports.getReposBranchesDiff = async function({org, repos}) {
   const diffs = await Promise.all(repos.map(repo => getBranchDiff({org, repo})));
-  const diffsFormatted = _.flow(
-    diffs => _.reject(diffs, {status: 'no-branch'}),
-    diffs => _.orderBy(diffs, [d => new Date(d.lastCommitDate)], ['desc']),
-    diffs => _.map(diffs, d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
+  const diffsFormatted = fp.flow(
+    fp.reject({status: 'no-branch'}),
+    fp.orderBy([d => new Date(d.lastCommitDate)], ['desc']),
+    fp.map(d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
   )(diffs);
 
-  const datesFormatted = _.map(diffsFormatted, 'lastCommitDateFormatted');
-  const widestDateLength = longest(datesFormatted).length;
+  const widestDateLength = fp.flow(fp.map('lastCommitDateFormatted'), longest, fp.size)(
+    diffsFormatted
+  );
 
   return _.map(diffsFormatted, d => {
     _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength));
