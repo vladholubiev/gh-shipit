@@ -39,6 +39,28 @@ module.exports.askRepo = async function(org) {
   return repo;
 };
 
+module.exports.askRepoAction = async function() {
+  const {action} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'action',
+      message: 'Action?',
+      choices: [
+        {
+          name: 'Release Changes (create release branch, PR, notes draft)',
+          value: 'release'
+        },
+        {
+          name: 'Update master -> develop',
+          value: 'sync-develop'
+        }
+      ]
+    }
+  ]);
+
+  return action;
+};
+
 async function loadRepos(org) {
   const reposSpinner = ora('Loading Repos').start();
 
