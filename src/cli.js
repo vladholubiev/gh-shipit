@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 const inquirer = require('inquirer');
-const {getUserOrgs, getBranchDiff} = require('./repos');
+const chalk = require('chalk');
+const ora = require('ora');
+const {getUserOrgs, getOrgRepos} = require('./repos');
+const {getReposBranchesDiff} = require('./diff');
 
 inquirer
   .prompt([
@@ -14,4 +17,24 @@ inquirer
       }
     }
   ])
-  .then(async ({org}) => {});
+  .then(async ({org}) => {
+    const reposSpinner = ora('Loading org repos').start();
+    const repos = await getOrgRepos(org);
+    reposSpinner.stop();
+
+    const diffSpinner = ora('Gathering repos diff').start();
+    const diffs = await getReposBranchesDiff({org, repos});
+    diffSpinner.stop();
+
+    const output = diffs.map(({status, behind_by, ahead_by, lastCommitDate, repo}) => {
+      const formattedDate = lastCommitDate ? new Date(lastCommitDate).toLocaleDateString() : '';
+
+      return chalk`{bold ${repo}}: {red -${behind_by}} {green +${ahead_by}} {dim ${formattedDate}}`;
+    });
+
+    console.log(output.join('\n'));
+  });
+
+process.on('uncaughtException', function(err) {
+  console.log(err);
+});

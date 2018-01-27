@@ -16,20 +16,6 @@ async function getOrgRepos(org) {
   return _.map(repos.data, 'name');
 }
 
-async function getBranchDiff({org, repo}) {
-  if (!await hasMasterAndDevelop({org, repo})) {
-    return {org, repo, status: 'no-branch'};
-  }
-
-  const {status, ahead_by, behind_by, commits, base_commit} = await compareBranches({org, repo});
-
-  const lastHeadCommitDate = _.get(commits.reverse(), '[0].commit.author.date', '');
-  const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
-  const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
-
-  return {org, repo, status, ahead_by, behind_by, lastCommitDate};
-}
-
 async function hasMasterAndDevelop({org, repo}) {
   const branches = await getRepoBranches({org, repo});
   return branches.includes('develop') && branches.includes('master');
@@ -63,5 +49,6 @@ async function compareBranches({org, repo}) {
 module.exports = {
   getUserOrgs,
   getOrgRepos,
-  getBranchDiff
+  hasMasterAndDevelop,
+  compareBranches
 };
