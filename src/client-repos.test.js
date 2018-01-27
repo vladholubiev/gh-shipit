@@ -107,7 +107,7 @@ describe('#createReleaseBranch', () => {
 
     expect(createReferenceMock).toBeCalledWith({
       owner: 'my-org',
-      ref: 'release/v1.0.0',
+      ref: 'refs/heads/release/v1.0.0',
       repo: 'my-repo',
       sha: 'b4c59e'
     });

@@ -38,7 +38,7 @@ module.exports.getOrgRepos = async function(org) {
 
 module.exports.createReleaseBranch = async function({org, repo, version, commitHash}) {
   const gh = getClient();
-  const branchName = `release/v${version}`;
+  const branchName = `refs/heads/release/v${version}`;
   const {data} = await gh.gitdata.createReference({
     owner: org,
     repo,
