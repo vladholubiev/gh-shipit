@@ -25,7 +25,8 @@ module.exports.askOrg = async function() {
 
 module.exports.askRepo = async function(org) {
   const repos = await loadRepos(org);
-  const choices = await loadDiffsChoices({org, repos});
+  // TODO remove slice after testing, added during development to load faster
+  const choices = await loadDiffsChoices({org, repos: repos.slice(0, 4)});
 
   const {repo} = await inquirer.prompt([
     {
