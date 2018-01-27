@@ -38,7 +38,7 @@ describe('#formatReposDiffsForChoices', () => {
     const result = formatReposDiffsForChoices(diffs);
     expect(result).toEqual([
       {
-        name: '  -4 +0   some-repo-long-name-3 v1.0.0   4 years ago',
+        name: '  -4 0    some-repo-long-name-3 v1.0.0   4 years ago',
         value: 'some-repo-long-name-3'
       },
       {

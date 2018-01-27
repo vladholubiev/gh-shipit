@@ -46,23 +46,19 @@ function padByWidest(diff) {
 }
 
 function formatBehindBy(behindBy) {
-  const padded = _.padStart(`-${behindBy}`, 4);
-
   if (behindBy === 0) {
-    return chalk`{red.dim ${padded}}`;
+    return chalk`{red.dim ${_.padStart(`${behindBy}`, 4)}}`;
   }
 
-  return chalk`{red ${padded}}`;
+  return chalk`{red ${_.padStart(`-${behindBy}`, 4)}}`;
 }
 
 function formatAheadBy(aheadBy) {
-  const padded = _.padEnd(`+${aheadBy}`, 4);
-
   if (aheadBy === 0) {
-    return chalk`{green.dim ${padded}}`;
+    return chalk`{green.dim ${_.padEnd(`${aheadBy}`, 4)}}`;
   }
 
-  return chalk`{green ${padded}}`;
+  return chalk`{green ${_.padEnd(`+${aheadBy}`, 4)}}`;
 }
 
 function formatDate(date) {
