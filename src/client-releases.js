@@ -1,5 +1,3 @@
-const _ = require('lodash');
-const fp = require('lodash/fp');
 const {getClient} = require('./client');
 
 module.exports.getLastRelease = async function({org, repo}) {
