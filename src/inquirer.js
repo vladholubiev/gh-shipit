@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 const ora = require('ora');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
@@ -47,12 +48,12 @@ module.exports.askRepoAction = async function() {
       message: 'Action?',
       choices: [
         {
-          name: 'Release Changes (create release branch, PR, notes draft)',
-          value: 'release'
+          name: chalk`Release {dim (create release branch, PR, notes draft)}`,
+          value: 'prepare-release'
         },
         {
-          name: 'Update master -> develop',
-          value: 'sync-develop'
+          name: 'PR master -> develop',
+          value: 'pr-master-develop'
         }
       ]
     }
