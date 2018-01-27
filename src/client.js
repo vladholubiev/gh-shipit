@@ -2,7 +2,7 @@ const octokit = require('@octokit/rest')();
 
 let client;
 
-function getClient() {
+module.exports.getClient = function() {
   if (client) {
     return client;
   }
@@ -15,8 +15,4 @@ function getClient() {
   client = octokit;
 
   return client;
-}
-
-module.exports = {
-  getClient
 };
