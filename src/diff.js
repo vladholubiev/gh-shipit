@@ -3,8 +3,9 @@ const {compareBranches, hasMasterAndDevelop} = require('./repos');
 
 module.exports.getReposBranchesDiff = async function({org, repos}) {
   const diffs = await Promise.all(repos.map(repo => getBranchDiff({org, repo})));
+  const diffsWithBranches = _.reject(diffs, {status: 'no-branch'});
 
-  return _.reject(diffs, {status: 'no-branch'});
+  return _.orderBy(diffsWithBranches, [d => new Date(d.lastCommitDate)], ['desc']);
 };
 
 async function getBranchDiff({org, repo}) {
