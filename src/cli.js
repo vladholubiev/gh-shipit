@@ -11,18 +11,18 @@ inquirer
     {
       type: 'list',
       name: 'org',
-      message: 'Select organization',
+      message: 'Organization?',
       choices() {
         return getUserOrgs();
       }
     }
   ])
   .then(async ({org}) => {
-    const reposSpinner = ora('Loading org repos').start();
+    const reposSpinner = ora('Loading repos').start();
     const repos = await getOrgRepos(org);
     reposSpinner.stop();
 
-    const diffSpinner = ora('Gathering repos diff').start();
+    const diffSpinner = ora('Loading diff').start();
     const diffs = await getReposBranchesDiff({org, repos});
     diffSpinner.stop();
 
