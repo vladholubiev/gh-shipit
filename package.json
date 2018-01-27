@@ -29,7 +29,8 @@
     "lodash": "^4.17.4",
     "longest": "^2.0.1",
     "ora": "^1.3.0",
-    "p-progress": "^0.1.1"
+    "p-progress": "^0.1.1",
+    "progress": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^4.15.0",

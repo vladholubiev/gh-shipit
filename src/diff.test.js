@@ -1,63 +1,78 @@
 jest.mock('./repos');
 
 const {getBranchDiff} = require('./repos');
-const {getReposBranchesDiff} = require('./diff');
+const {getAllReposDiffs, formatDiffs} = require('./diff');
 
-describe('#getReposBranchesDiff', () => {
-  it('should export getReposBranchesDiff function', () => {
-    expect(getReposBranchesDiff).toBeInstanceOf(Function);
+describe('#getAllReposDiffs', () => {
+  beforeEach(() => {
+    getBranchDiff.mockClear();
   });
 
-  it('should return repos diff', async () => {
-    getBranchDiff
-      .mockReturnValueOnce({
-        org: 'some-org',
-        repo: 'some-repo-1',
-        status: 'ahead',
-        ahead_by: 12,
-        behind_by: 1,
-        lastCommitDate: '2010-01-31T22:00:00.000Z'
-      })
-      .mockReturnValueOnce({
-        org: 'some-org',
-        repo: 'some-repo-2',
-        status: 'no-branch'
-      })
-      .mockReturnValueOnce({
-        org: 'some-org',
-        repo: 'some-repo-3',
-        status: 'behind',
-        ahead_by: 0,
-        behind_by: 4,
-        lastCommitDate: '2014-01-31T22:00:00.000Z'
-      });
+  it('should export getAllReposDiffs function', () => {
+    expect(getAllReposDiffs).toBeInstanceOf(Function);
+  });
 
-    const diff = await getReposBranchesDiff({
+  it('should call getBranchDiff 3 times for 3 repos', async () => {
+    await getAllReposDiffs({
       org: 'some-org',
       repos: ['some-repo-1', 'some-repo-2', 'some-repo-3']
     });
 
-    expect(diff).toEqual(
-      expect.arrayContaining([
-        {
-          ahead_by: '+0  ',
-          behind_by: '  -4',
-          lastCommitDate: '2014-01-31T22:00:00.000Z',
-          lastCommitDateFormatted: expect.stringContaining('years ago'),
-          org: 'some-org',
-          repo: 'some-repo-3',
-          status: 'behind'
-        },
-        {
-          ahead_by: '+12 ',
-          behind_by: '  -1',
-          lastCommitDate: '2010-01-31T22:00:00.000Z',
-          lastCommitDateFormatted: expect.stringContaining('years ago'),
-          org: 'some-org',
-          repo: 'some-repo-1',
-          status: 'ahead'
-        }
-      ])
-    );
+    expect(getBranchDiff).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('#formatDiffs', () => {
+  const diff = [
+    {
+      org: 'some-org',
+      repo: 'some-repo-1',
+      status: 'ahead',
+      ahead_by: 12,
+      behind_by: 1,
+      lastCommitDate: '2010-01-31T22:00:00.000Z'
+    },
+    {
+      org: 'some-org',
+      repo: 'some-repo-2',
+      status: 'no-branch'
+    },
+    {
+      org: 'some-org',
+      repo: 'some-repo-3',
+      status: 'behind',
+      ahead_by: 0,
+      behind_by: 4,
+      lastCommitDate: '2014-01-31T22:00:00.000Z'
+    }
+  ];
+
+  it('should export formatDiffs function', () => {
+    expect(formatDiffs).toBeInstanceOf(Function);
+  });
+
+  it('should return formatted diff', async () => {
+    const formattedDiff = await formatDiffs(diff);
+
+    expect(formattedDiff).toEqual([
+      {
+        ahead_by: '+0  ',
+        behind_by: '  -4',
+        lastCommitDate: expect.any(String),
+        lastCommitDateFormatted: expect.stringContaining('years ago'),
+        org: 'some-org',
+        repo: 'some-repo-3',
+        status: 'behind'
+      },
+      {
+        ahead_by: '+12 ',
+        behind_by: '  -1',
+        lastCommitDate: expect.any(String),
+        lastCommitDateFormatted: expect.stringContaining('years ago'),
+        org: 'some-org',
+        repo: 'some-repo-1',
+        status: 'ahead'
+      }
+    ]);
   });
 });

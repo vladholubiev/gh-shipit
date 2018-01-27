@@ -5,12 +5,7 @@ const longest = require('longest');
 const PProgress = require('p-progress');
 const {getBranchDiff} = require('./repos');
 
-module.exports.getReposBranchesDiff = async function({org, repos}) {
-  const diffs = await getAllReposDiffs({org, repos});
-  return fp.flow(sortDiffs, padDiffs)(diffs);
-};
-
-function getAllReposDiffs({org, repos}) {
+module.exports.getAllReposDiffs = function({org, repos}) {
   return Promise.all(
     repos.map((repo, i) =>
       PProgress.fn(async (repo, i, progress) => {
@@ -22,7 +17,11 @@ function getAllReposDiffs({org, repos}) {
       })(repo, i)
     )
   );
-}
+};
+
+module.exports.formatDiffs = function(diffs) {
+  return fp.flow(sortDiffs, padDiffs)(diffs);
+};
 
 function sortDiffs(diffs) {
   return fp.flow(
