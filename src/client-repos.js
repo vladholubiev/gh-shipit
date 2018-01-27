@@ -35,3 +35,16 @@ module.exports.getOrgRepos = async function(org) {
 
   return fp.flow(withoutArchived, getName)(repos);
 };
+
+module.exports.createReleaseBranch = async function({org, repo, version, commitHash}) {
+  const gh = getClient();
+  const branchName = `release/v${version}`;
+  const {data} = await gh.gitdata.createReference({
+    owner: org,
+    repo,
+    ref: branchName,
+    sha: commitHash
+  });
+
+  return data;
+};
