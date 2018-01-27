@@ -1,21 +1,28 @@
 const _ = require('lodash');
 const {getClient} = require('./client');
+const {compareBranches} = require('./client-repos');
 
-async function getUserOrgs() {
+module.exports.getUserOrgs = async function() {
   const gh = getClient();
   const orgs = await gh.users.getOrgs();
   const orgNames = _.map(orgs.data, 'login');
 
   return orgNames.sort();
-}
+};
 
-async function getOrgRepos(org) {
-  const gh = getClient();
-  const {data: repos} = await gh.repos.getForOrg({org, type: 'sources', per_page: 100});
-  const reposNonArchived = _.reject(repos, {archived: true});
+module.exports.getBranchDiff = async function({org, repo}) {
+  if (!await hasMasterAndDevelop({org, repo})) {
+    return {org, repo, status: 'no-branch'};
+  }
 
-  return _.map(reposNonArchived, 'name');
-}
+  const {status, ahead_by, behind_by, commits, base_commit} = await compareBranches({org, repo});
+
+  const lastHeadCommitDate = _.get(commits.reverse(), '[0].commit.author.date', '');
+  const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
+  const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
+
+  return {org, repo, status, ahead_by, behind_by, lastCommitDate};
+};
 
 async function hasMasterAndDevelop({org, repo}) {
   const branches = await getRepoBranches({org, repo});
@@ -33,36 +40,3 @@ async function getRepoBranches({org, repo}) {
 
   return _.map(branchesResponse.data, 'name');
 }
-
-async function compareBranches({org, repo}) {
-  const gh = getClient();
-
-  const {data} = await gh.repos.compareCommits({
-    owner: org,
-    repo,
-    base: 'master',
-    head: 'develop'
-  });
-
-  return data;
-}
-
-async function getBranchDiff({org, repo}) {
-  if (!await hasMasterAndDevelop({org, repo})) {
-    return {org, repo, status: 'no-branch'};
-  }
-
-  const {status, ahead_by, behind_by, commits, base_commit} = await compareBranches({org, repo});
-
-  const lastHeadCommitDate = _.get(commits.reverse(), '[0].commit.author.date', '');
-  const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
-  const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
-
-  return {org, repo, status, ahead_by, behind_by, lastCommitDate};
-}
-
-module.exports = {
-  getUserOrgs,
-  getOrgRepos,
-  getBranchDiff
-};

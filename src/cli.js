@@ -3,7 +3,8 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
-const {getUserOrgs, getOrgRepos} = require('./repos');
+const {getUserOrgs} = require('./repos');
+const {getOrgRepos} = require('./client-repos');
 const {getReposBranchesDiff} = require('./diff');
 
 inquirer
