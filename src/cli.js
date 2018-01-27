@@ -24,8 +24,8 @@ const {createReleaseNotes} = require('./client-releases');
       await createReleaseNotes({org, repo, version, releaseTitle});
       console.log(logSymbols.success, `Created Release Notes!`);
 
-      await createReleasePR({org, repo, version, releaseTitle});
-      console.log(logSymbols.success, `Created Pull Request!`);
+      const {id} = await createReleasePR({org, repo, version, releaseTitle});
+      console.log(logSymbols.success, `Created Pull Request #${id}!`);
 
       // todo open in browser
     } catch (error) {
