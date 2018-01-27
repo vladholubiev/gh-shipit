@@ -34,14 +34,16 @@ inquirer
       bar.tick(1);
     });
 
+    const choices = formatReposDiffsForChoices(diffs);
+
     inquirer
       .prompt([
         {
           type: 'list',
           name: 'repo',
-          message: 'Repository',
-          pageSize: 20,
-          choices: formatReposDiffsForChoices(diffs)
+          message: 'Repository?',
+          pageSize: choices.length,
+          choices
         }
       ])
       .then(async ({repo}) => {
