@@ -5,36 +5,16 @@
 ## Install
 
 ```
-$ yarn add gh-shipit
+$ yarn global add gh-shipit
 ```
 
 ## Usage
 
-```js
-const ghShipit = require('gh-shipit');
+Follow interactive instructions
 
-ghShipit('unicorns');
-//=> 'unicorns & rainbows'
+```bash
+$ gh-shipit
 ```
-
-## API
-
-### ghShipit(input, [options])
-
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-##### foo
-
-Type: `boolean`<br>
-Default: `false`
-
-Lorem ipsum.
 
 ## License
 
