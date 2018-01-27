@@ -4,8 +4,9 @@ const {getClient} = require('./client');
 async function getUserOrgs() {
   const gh = getClient();
   const orgs = await gh.users.getOrgs();
+  const orgNames = _.map(orgs.data, 'login');
 
-  return _.map(orgs.data, 'login');
+  return orgNames.sort();
 }
 
 async function getOrgRepos(org) {
