@@ -1,6 +1,5 @@
 const _ = require('lodash');
-const {getClient} = require('./client');
-const {compareBranches} = require('./client-repos');
+const {compareBranches, getRepoBranches} = require('./client-repos');
 
 module.exports.getBranchDiff = async function({org, repo}) {
   if (!await hasMasterAndDevelop({org, repo})) {
@@ -19,16 +18,4 @@ module.exports.getBranchDiff = async function({org, repo}) {
 async function hasMasterAndDevelop({org, repo}) {
   const branches = await getRepoBranches({org, repo});
   return branches.includes('develop') && branches.includes('master');
-}
-
-async function getRepoBranches({org, repo}) {
-  const gh = getClient();
-
-  const branchesResponse = await gh.repos.getBranches({
-    owner: org,
-    repo,
-    per_page: 100
-  });
-
-  return _.map(branchesResponse.data, 'name');
 }
