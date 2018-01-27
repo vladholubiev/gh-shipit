@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 const inquirer = require('inquirer');
-const chalk = require('chalk');
 const ora = require('ora');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
 const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
-const {getAllReposDiffs, formatDiffs} = require('./diff');
+const {formatReposDiffsForChoices} = require('./format');
+const {getAllReposDiffs} = require('./diff');
 
 inquirer
   .prompt([
@@ -34,15 +34,6 @@ inquirer
       bar.tick(1);
     });
 
-    const choices = formatDiffs(diffs).map(
-      ({status, behind_by, ahead_by, lastCommitDateFormatted, repo}) => {
-        return {
-          name: chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {bold ${repo}}`,
-          value: repo
-        };
-      }
-    );
-
     inquirer
       .prompt([
         {
@@ -50,7 +41,7 @@ inquirer
           name: 'repo',
           message: 'Repository',
           pageSize: 20,
-          choices
+          choices: formatReposDiffsForChoices(diffs)
         }
       ])
       .then(async ({repo}) => {
