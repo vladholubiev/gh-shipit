@@ -34,12 +34,17 @@ describe('#createReleaseNotes', () => {
   });
 
   it('should call createRelease w/ proper params', async () => {
-    const params = {org: 'my-org', repo: 'my-repo', version: '1.0.0'};
+    const params = {
+      org: 'my-org',
+      repo: 'my-repo',
+      version: '1.0.0',
+      releaseTitle: 'New Login Page'
+    };
     await createReleaseNotes(params);
 
     expect(createReleaseMock).toBeCalledWith({
       draft: true,
-      name: 'Release v1.0.0: ...',
+      name: 'Release v1.0.0: New Login Page',
       owner: 'my-org',
       repo: 'my-repo',
       tag_name: 'v1.0.0',

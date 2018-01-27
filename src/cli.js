@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const logSymbols = require('log-symbols');
-const {askOrg, askRepo, askRepoAction, askVersion} = require('./inquirer');
+const {askOrg, askRepo, askRepoAction, askVersion, askReleaseTitle} = require('./inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('./client-repos');
 const {createReleasePR} = require('./client-prs');
 const {createReleaseNotes} = require('./client-releases');
@@ -15,15 +15,15 @@ const {createReleaseNotes} = require('./client-releases');
     const version = await askVersion({org, repo});
     const commitHash = await getLastDevelopCommitSHA({org, repo});
 
-    console.log({version, commitHash});
-
     await createReleaseBranch({org, repo, version, commitHash});
     console.log(logSymbols.success, `Created branch release/v${version}!`);
 
-    await createReleaseNotes({org, repo, version});
+    const releaseTitle = await askReleaseTitle({org, repo});
+
+    await createReleaseNotes({org, repo, version, releaseTitle});
     console.log(logSymbols.success, `Created Release Notes!`);
 
-    await createReleasePR({org, repo, version});
+    await createReleasePR({org, repo, version, releaseTitle});
     console.log(logSymbols.success, `Created Pull Request!`);
   }
 })();

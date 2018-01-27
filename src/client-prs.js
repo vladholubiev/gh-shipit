@@ -1,6 +1,6 @@
 const {getClient} = require('./client');
 
-module.exports.createReleasePR = async function({org, repo, version}) {
+module.exports.createReleasePR = async function({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
   const branch = `release/${tagName}`;
@@ -10,7 +10,7 @@ module.exports.createReleasePR = async function({org, repo, version}) {
     repo,
     head: branch,
     base: 'master',
-    title: `Release ${tagName}: ...`
+    title: `Release ${tagName}: ${releaseTitle}`
   });
 
   return data;

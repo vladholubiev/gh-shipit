@@ -7,7 +7,7 @@ module.exports.getLastRelease = async function({org, repo}) {
   return data.tag_name;
 };
 
-module.exports.createReleaseNotes = async function({org, repo, version}) {
+module.exports.createReleaseNotes = async function({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
 
@@ -16,7 +16,7 @@ module.exports.createReleaseNotes = async function({org, repo, version}) {
     repo,
     tag_name: tagName,
     target_commitish: `release/${tagName}`,
-    name: `Release ${tagName}: ...`,
+    name: `Release ${tagName}: ${releaseTitle}`,
     draft: true
   });
 
