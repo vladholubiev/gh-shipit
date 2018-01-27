@@ -3,6 +3,8 @@ jest.mock('./repos');
 const {getBranchDiff} = require('./repos');
 const {getAllReposDiffs, formatDiffs} = require('./diff');
 
+getBranchDiff.mockReturnValue(Promise.resolve({}));
+
 describe('#getAllReposDiffs', () => {
   beforeEach(() => {
     getBranchDiff.mockClear();

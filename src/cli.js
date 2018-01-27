@@ -24,7 +24,7 @@ inquirer
     const repos = await getOrgRepos(org);
     reposSpinner.stop();
 
-    const bar = new ProgressBar('[:bar] :percent :eta s', {total: repos.length});
+    const bar = new ProgressBar('[:bar] :percent :eta s', {total: repos.length, clear: true});
     const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {
       bar.tick(1);
     });
