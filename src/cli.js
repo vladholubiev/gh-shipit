@@ -30,7 +30,7 @@ inquirer
     const output = diffs.map(({status, behind_by, ahead_by, lastCommitDate, repo}) => {
       const formattedDate = distanceInWordsToNow(new Date(lastCommitDate), {addSuffix: true});
 
-      return chalk`{bold ${repo}}: {red -${behind_by}} {green +${ahead_by}} {dim ${formattedDate}}`;
+      return chalk`{dim ${formattedDate}} {red -${behind_by}} {green +${ahead_by}} {bold ${repo}}`;
     });
 
     console.log(output.join('\n'));
