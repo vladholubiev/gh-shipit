@@ -55,5 +55,13 @@ function formatAheadBy(aheadBy) {
 }
 
 function formatDate(date) {
-  return relativeTime(new Date(date));
+  return relativeTime(new Date(date))
+    .replace(' second ', 's ')
+    .replace(' seconds ', 's ')
+    .replace(' minute ', 'm ')
+    .replace(' minutes ', 'm ')
+    .replace(' hour ', 'h ')
+    .replace(' hours ', 'h ')
+    .replace(' day ', 'd ')
+    .replace(' days ', 'd ');
 }
