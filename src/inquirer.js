@@ -7,6 +7,8 @@ const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
 const {formatReposDiffsForChoices} = require('./format');
 const {getAllReposDiffs} = require('./diff');
+const {getLastRelease} = require('./client-releases');
+const {getNextVersionOptions} = require('./semver');
 
 module.exports.askOrg = async function() {
   const {org} = await inquirer.prompt([
@@ -61,6 +63,20 @@ module.exports.askRepoAction = async function() {
   ]);
 
   return action;
+};
+
+module.exports.askVersion = async function({org, repo}) {
+  const lastRelease = await getLastRelease({org, repo});
+  const {version} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'version',
+      message: 'Version?',
+      choices: getNextVersionOptions(lastRelease)
+    }
+  ]);
+
+  return version;
 };
 
 async function loadRepos(org) {
