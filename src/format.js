@@ -5,27 +5,27 @@ const {relativeTime} = require('human-date');
 const longest = require('longest');
 
 module.exports.formatReposDiffsForChoices = function(diffs) {
-  return formatDiffs(diffs).map(
-    ({status, behind_by, ahead_by, lastCommitDateFormatted, repo, lastRelease}) => {
-      const date = chalk`{dim ${lastCommitDateFormatted}}`;
-      const behind = formatBehindBy(behind_by);
-      const ahead = formatAheadBy(ahead_by);
-      const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
-      const repoFmt = chalk`{bold ${repo}}`;
-
-      return {
-        name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${date}`,
-        value: repo
-      };
-    }
-  );
+  return filterAndSortDiffs(diffs).map(diff => formatRepoDiff(diffs, diff));
 };
 
-function formatDiffs(diffs) {
-  return fp.flow(sortDiffs, padByWidest)(diffs);
+function formatRepoDiff(diffs, diff) {
+  const {behind_by, ahead_by, lastCommitDateFormatted, repo, lastRelease} = diff;
+  const widestDateLength = getWidestProperty(diffs, 'lastCommitDateFormatted');
+  const widestRepoLength = getWidestProperty(diffs, 'repo');
+
+  const date = chalk`{dim ${_.padStart(lastCommitDateFormatted, widestDateLength)}}`;
+  const behind = formatBehindBy(behind_by);
+  const ahead = formatAheadBy(ahead_by);
+  const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
+  const repoFmt = chalk`{bold ${_.padEnd(repo, widestRepoLength)}}`;
+
+  return {
+    name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${date}`,
+    value: repo
+  };
 }
 
-function sortDiffs(diffs) {
+function filterAndSortDiffs(diffs) {
   return fp.flow(
     fp.reject({status: 'no-branch'}),
     fp.reject({ahead_by: 0, behind_by: 0}),
@@ -34,16 +34,8 @@ function sortDiffs(diffs) {
   )(diffs);
 }
 
-function padByWidest(diff) {
-  const widestDateLength = fp.flow(fp.map('lastCommitDateFormatted'), longest, fp.size)(diff);
-  const widestRepoLength = fp.flow(fp.map('repo'), longest, fp.size)(diff);
-
-  return _.map(diff, d => {
-    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength));
-    _.set(d, 'repo', _.padEnd(d.repo, widestRepoLength));
-
-    return d;
-  });
+function getWidestProperty(diffs, property) {
+  return fp.flow(fp.map(property), longest, fp.size)(diffs);
 }
 
 function formatBehindBy(behindBy) {

@@ -52,7 +52,7 @@ describe('#formatReposDiffsForChoices', () => {
       },
       {
         name: '  -1 +12  some-repo-1           v1.0.0   8 years ago',
-        value: 'some-repo-1          '
+        value: 'some-repo-1'
       }
     ]);
   });
