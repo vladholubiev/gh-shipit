@@ -28,6 +28,7 @@ function formatDiffs(diffs) {
 function sortDiffs(diffs) {
   return fp.flow(
     fp.reject({status: 'no-branch'}),
+    fp.reject({ahead_by: 0, behind_by: 0}),
     fp.orderBy([d => new Date(d.lastCommitDate)], ['desc']),
     fp.map(d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
   )(diffs);

@@ -27,6 +27,15 @@ describe('#formatReposDiffsForChoices', () => {
       behind_by: 4,
       lastRelease: 'v1.0.0',
       lastCommitDate: '2014-01-01T00:00:00.000Z'
+    },
+    {
+      org: 'some-org',
+      repo: 'some-repo-no-diff-4',
+      status: 'behind',
+      ahead_by: 0,
+      behind_by: 0,
+      lastRelease: 'v1.0.0',
+      lastCommitDate: '2014-01-01T00:00:00.000Z'
     }
   ];
 

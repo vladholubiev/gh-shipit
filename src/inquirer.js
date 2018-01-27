@@ -154,7 +154,7 @@ async function loadRepos(org) {
 }
 
 async function loadDiffsChoices({org, repos}) {
-  const bar = new ProgressBar('Calculating Difference [:bar] :percent', {
+  const bar = new ProgressBar('Calculating Difference [:bar] :percent   ', {
     total: repos.length,
     clear: true,
     width: getCliWidth()
