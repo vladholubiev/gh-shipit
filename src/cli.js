@@ -20,20 +20,39 @@ inquirer
     }
   ])
   .then(async ({org}) => {
-    const reposSpinner = ora('Loading repos').start();
+    const reposSpinner = ora('Loading Repos').start();
     const repos = await getOrgRepos(org);
     reposSpinner.stop();
 
-    const bar = new ProgressBar('[:bar] :percent :eta s', {total: repos.length, clear: true});
+    const bar = new ProgressBar('Calculating Difference [:bar] :percent :eta s', {
+      total: repos.length,
+      clear: true,
+      width: 50
+    });
     const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {
       bar.tick(1);
     });
 
-    const output = formatDiffs(diffs).map(
+    const choices = formatDiffs(diffs).map(
       ({status, behind_by, ahead_by, lastCommitDateFormatted, repo}) => {
-        return chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {bold ${repo}}`;
+        return {
+          name: chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {bold ${repo}}`,
+          value: repo
+        };
       }
     );
 
-    console.log(output.join('\n'));
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'repo',
+          message: 'Repository',
+          pageSize: 20,
+          choices
+        }
+      ])
+      .then(async ({repo}) => {
+        console.log(repo);
+      });
   });
