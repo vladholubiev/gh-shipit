@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const inquirer = require('inquirer');
-const {getUserOrgs} = require('./repos');
+const {getUserOrgs, getBranchDiff} = require('./repos');
 
 inquirer
   .prompt([
@@ -14,6 +14,4 @@ inquirer
       }
     }
   ])
-  .then(answers => {
-    console.log(answers);
-  });
+  .then(async ({org}) => {});
