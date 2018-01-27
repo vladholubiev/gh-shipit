@@ -1,4 +1,7 @@
+const MockDate = require('mockdate');
 const {formatReposDiffsForChoices} = require('./format');
+
+MockDate.set('1/1/2018', 0);
 
 describe('#formatReposDiffsForChoices', () => {
   const diffs = [
@@ -8,7 +11,7 @@ describe('#formatReposDiffsForChoices', () => {
       status: 'ahead',
       ahead_by: 12,
       behind_by: 1,
-      lastCommitDate: '2010-01-31T22:00:00.000Z',
+      lastCommitDate: '2010-01-01T00:00:00.000Z',
       lastRelease: 'v1.0.0'
     },
     {
@@ -18,12 +21,12 @@ describe('#formatReposDiffsForChoices', () => {
     },
     {
       org: 'some-org',
-      repo: 'some-repo-3',
+      repo: 'some-repo-long-name-3',
       status: 'behind',
       ahead_by: 0,
       behind_by: 4,
       lastRelease: 'v1.0.0',
-      lastCommitDate: '2014-01-31T22:00:00.000Z'
+      lastCommitDate: '2014-01-01T00:00:00.000Z'
     }
   ];
 
@@ -35,12 +38,12 @@ describe('#formatReposDiffsForChoices', () => {
     const result = formatReposDiffsForChoices(diffs);
     expect(result).toEqual([
       {
-        name: expect.stringContaining('years ago   -4 +0   v1.0.0   some-repo-3'),
-        value: 'some-repo-3'
+        name: '  -4 +0   some-repo-long-name-3 v1.0.0   4 years ago',
+        value: 'some-repo-long-name-3'
       },
       {
-        name: expect.stringContaining('years ago   -1 +12  v1.0.0   some-repo-1'),
-        value: 'some-repo-1'
+        name: '  -1 +12  some-repo-1           v1.0.0   8 years ago',
+        value: 'some-repo-1          '
       }
     ]);
   });

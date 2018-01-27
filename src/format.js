@@ -14,7 +14,7 @@ module.exports.formatReposDiffsForChoices = function(diffs) {
       const repoFmt = chalk`{bold ${repo}}`;
 
       return {
-        name: chalk`${date} ${behind} ${ahead} ${release} ${repoFmt}`,
+        name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${date}`,
         value: repo
       };
     }
@@ -22,7 +22,7 @@ module.exports.formatReposDiffsForChoices = function(diffs) {
 };
 
 function formatDiffs(diffs) {
-  return fp.flow(sortDiffs, padByWidestDate)(diffs);
+  return fp.flow(sortDiffs, padByWidest)(diffs);
 }
 
 function sortDiffs(diffs) {
@@ -33,11 +33,13 @@ function sortDiffs(diffs) {
   )(diffs);
 }
 
-function padByWidestDate(diff) {
+function padByWidest(diff) {
   const widestDateLength = fp.flow(fp.map('lastCommitDateFormatted'), longest, fp.size)(diff);
+  const widestRepoLength = fp.flow(fp.map('repo'), longest, fp.size)(diff);
 
   return _.map(diff, d => {
-    _.set(d, 'lastCommitDateFormatted', _.padEnd(d.lastCommitDateFormatted, widestDateLength));
+    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength));
+    _.set(d, 'repo', _.padEnd(d.repo, widestRepoLength));
 
     return d;
   });
