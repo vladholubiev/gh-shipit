@@ -4,6 +4,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
 const ProgressBar = require('progress');
+const getCliWidth = require('cli-width');
 const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
 const {getAllReposDiffs, formatDiffs} = require('./diff');
@@ -27,7 +28,7 @@ inquirer
     const bar = new ProgressBar('Calculating Difference [:bar] :percent :eta s', {
       total: repos.length,
       clear: true,
-      width: 50
+      width: getCliWidth()
     });
     const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {
       bar.tick(1);

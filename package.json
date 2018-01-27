@@ -23,6 +23,7 @@
   "dependencies": {
     "@octokit/rest": "^14.0.5",
     "chalk": "^2.3.0",
+    "cli-width": "^2.2.0",
     "date-fns": "^1.29.0",
     "human-date": "^1.4.0",
     "inquirer": "^5.0.1",
