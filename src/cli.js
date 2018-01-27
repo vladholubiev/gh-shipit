@@ -21,32 +21,41 @@ inquirer
     }
   ])
   .then(async ({org}) => {
-    const reposSpinner = ora('Loading Repos').start();
-    const repos = await getOrgRepos(org);
-    reposSpinner.stop();
+    const repos = await loadRepos(org);
+    const choices = await loadDiffsChoices({org, repos});
 
-    const bar = new ProgressBar('Calculating Difference [:bar] :percent :eta s', {
-      total: repos.length,
-      clear: true,
-      width: getCliWidth()
-    });
-    const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {
-      bar.tick(1);
-    });
+    const {repo} = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'repo',
+        message: 'Repository?',
+        pageSize: choices.length,
+        choices
+      }
+    ]);
 
-    const choices = formatReposDiffsForChoices(diffs);
-
-    inquirer
-      .prompt([
-        {
-          type: 'list',
-          name: 'repo',
-          message: 'Repository?',
-          pageSize: choices.length,
-          choices
-        }
-      ])
-      .then(async ({repo}) => {
-        console.log(repo);
-      });
+    console.log(repo);
   });
+
+async function loadRepos(org) {
+  const reposSpinner = ora('Loading Repos').start();
+
+  const repos = await getOrgRepos(org);
+  reposSpinner.stop();
+
+  return repos;
+}
+
+async function loadDiffsChoices({org, repos}) {
+  const bar = new ProgressBar('Calculating Difference [:bar] :percent :eta s', {
+    total: repos.length,
+    clear: true,
+    width: getCliWidth()
+  });
+
+  const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {
+    bar.tick(1);
+  });
+
+  return formatReposDiffsForChoices(diffs);
+}
