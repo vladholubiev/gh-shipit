@@ -42,7 +42,8 @@ describe('#createReleaseNotes', () => {
       name: 'Release v1.0.0: ...',
       owner: 'my-org',
       repo: 'my-repo',
-      tag_name: 'v1.0.0'
+      tag_name: 'v1.0.0',
+      target_commitish: 'release/v1.0.0'
     });
   });
 });

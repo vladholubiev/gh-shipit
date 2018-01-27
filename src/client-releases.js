@@ -15,6 +15,7 @@ module.exports.createReleaseNotes = async function({org, repo, version}) {
     owner: org,
     repo,
     tag_name: tagName,
+    target_commitish: `release/${tagName}`,
     name: `Release ${tagName}: ...`,
     draft: true
   });
