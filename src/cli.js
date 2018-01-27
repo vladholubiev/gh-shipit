@@ -9,8 +9,15 @@ const {getOrgRepos} = require('./client-repos');
 const {formatReposDiffsForChoices} = require('./format');
 const {getAllReposDiffs} = require('./diff');
 
-inquirer
-  .prompt([
+(async () => {
+  const org = await askOrg();
+  const repo = await askRepo(org);
+
+  console.log(repo);
+})();
+
+async function askOrg() {
+  const {org} = await inquirer.prompt([
     {
       type: 'list',
       name: 'org',
@@ -19,23 +26,27 @@ inquirer
         return getUserOrgs();
       }
     }
-  ])
-  .then(async ({org}) => {
-    const repos = await loadRepos(org);
-    const choices = await loadDiffsChoices({org, repos});
+  ]);
 
-    const {repo} = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'repo',
-        message: 'Repository?',
-        pageSize: choices.length,
-        choices
-      }
-    ]);
+  return org;
+}
 
-    console.log(repo);
-  });
+async function askRepo(org) {
+  const repos = await loadRepos(org);
+  const choices = await loadDiffsChoices({org, repos});
+
+  const {repo} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'repo',
+      message: 'Repository?',
+      pageSize: choices.length,
+      choices
+    }
+  ]);
+
+  return repo;
+}
 
 async function loadRepos(org) {
   const reposSpinner = ora('Loading Repos').start();
