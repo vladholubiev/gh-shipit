@@ -1,5 +1,6 @@
 const _ = require('lodash');
-const {compareBranches, getRepoBranches} = require('./client-repos');
+const {compareBranches} = require('./client-repos');
+const {hasMasterAndDevelop} = require('./helpers-repos');
 
 module.exports.getBranchDiff = async function({org, repo}) {
   if (!await hasMasterAndDevelop({org, repo})) {
@@ -14,8 +15,3 @@ module.exports.getBranchDiff = async function({org, repo}) {
 
   return {org, repo, status, ahead_by, behind_by, lastCommitDate};
 };
-
-async function hasMasterAndDevelop({org, repo}) {
-  const branches = await getRepoBranches({org, repo});
-  return branches.includes('develop') && branches.includes('master');
-}
