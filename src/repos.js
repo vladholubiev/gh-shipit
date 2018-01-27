@@ -2,14 +2,6 @@ const _ = require('lodash');
 const {getClient} = require('./client');
 const {compareBranches} = require('./client-repos');
 
-module.exports.getUserOrgs = async function() {
-  const gh = getClient();
-  const orgs = await gh.users.getOrgs();
-  const orgNames = _.map(orgs.data, 'login');
-
-  return orgNames.sort();
-};
-
 module.exports.getBranchDiff = async function({org, repo}) {
   if (!await hasMasterAndDevelop({org, repo})) {
     return {org, repo, status: 'no-branch'};
