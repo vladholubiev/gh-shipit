@@ -27,12 +27,8 @@ inquirer
     diffSpinner.stop();
 
     const output = diffs.map(({status, behind_by, ahead_by, lastCommitDateFormatted, repo}) => {
-      return chalk`{dim ${lastCommitDateFormatted}} {red -${behind_by}} {green +${ahead_by}} {bold ${repo}}`;
+      return chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {bold ${repo}}`;
     });
 
     console.log(output.join('\n'));
   });
-
-process.on('uncaughtException', function(err) {
-  console.log(err);
-});

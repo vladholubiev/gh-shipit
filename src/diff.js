@@ -14,9 +14,13 @@ module.exports.getReposBranchesDiff = async function({org, repos}) {
   const datesFormatted = _.map(diffsFormatted, 'lastCommitDateFormatted');
   const widestDateLength = longest(datesFormatted).length;
 
-  return _.map(diffsFormatted, d =>
-    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength))
-  );
+  return _.map(diffsFormatted, d => {
+    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength));
+    _.set(d, 'ahead_by', _.padEnd(`+${d.ahead_by}`, 4));
+    _.set(d, 'behind_by', _.padStart(`-${d.behind_by}`, 4));
+
+    return d;
+  });
 };
 
 function formatDate(date) {
