@@ -6,3 +6,18 @@ module.exports.getLastRelease = async function({org, repo}) {
 
   return data.tag_name;
 };
+
+module.exports.createReleaseNotes = async function({org, repo, version}) {
+  const gh = getClient();
+  const tagName = `v${version}`;
+
+  const {data} = await gh.repos.createRelease({
+    owner: org,
+    repo,
+    tag_name: tagName,
+    name: `Release ${tagName}: ...`,
+    draft: true
+  });
+
+  return data;
+};
