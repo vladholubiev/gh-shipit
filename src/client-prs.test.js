@@ -21,7 +21,8 @@ describe('#createReleasePR', () => {
       base: 'master',
       head: 'release/v1.0.0',
       owner: 'my-org',
-      repo: 'my-repo'
+      repo: 'my-repo',
+      title: 'Release v1.0.0: ...'
     });
   });
 });

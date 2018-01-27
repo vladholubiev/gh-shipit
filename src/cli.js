@@ -3,6 +3,7 @@
 const {askOrg, askRepo, askRepoAction, askVersion} = require('./inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('./client-repos');
 const {createReleasePR} = require('./client-prs');
+const {createReleaseNotes} = require('./client-releases');
 
 (async () => {
   const org = await askOrg();
@@ -16,11 +17,12 @@ const {createReleasePR} = require('./client-prs');
     console.log({version, commitHash});
 
     await createReleaseBranch({org, repo, version, commitHash});
-
     console.log('created branch');
 
-    await createReleasePR({org, repo, version});
+    await createReleaseNotes({org, repo, version});
+    console.log('created release notes');
 
+    await createReleasePR({org, repo, version});
     console.log('created PR');
   }
 })();

@@ -2,12 +2,15 @@ const {getClient} = require('./client');
 
 module.exports.createReleasePR = async function({org, repo, version}) {
   const gh = getClient();
-  const branch = `release/v${version}`;
+  const tagName = `v${version}`;
+  const branch = `release/${tagName}`;
+
   const {data} = await gh.pullRequests.create({
     owner: org,
     repo,
     head: branch,
-    base: 'master'
+    base: 'master',
+    title: `Release ${tagName}: ...`
   });
 
   return data;
