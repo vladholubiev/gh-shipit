@@ -5,19 +5,22 @@ const {
   getRepoBranches,
   compareBranches,
   getOrgRepos,
-  createReleaseBranch
+  createReleaseBranch,
+  getLastDevelopCommitSHA
 } = require('./client-repos');
 
 const getBranchesMock = jest.fn().mockReturnValue({data: [{name: 'develop'}, {name: 'master'}]});
 const compareCommitsMock = jest.fn().mockReturnValue({data: []});
 const getForOrgMock = jest.fn().mockReturnValue({data: []});
 const createReferenceMock = jest.fn().mockReturnValue({data: []});
+const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
 getClient.mockReturnValue({
   repos: {
     getBranches: getBranchesMock,
     compareCommits: compareCommitsMock,
-    getForOrg: getForOrgMock
+    getForOrg: getForOrgMock,
+    getBranch: getBranchMock
   },
   gitdata: {
     createReference: createReferenceMock
@@ -108,5 +111,26 @@ describe('#createReleaseBranch', () => {
       repo: 'my-repo',
       sha: 'b4c59e'
     });
+  });
+});
+
+describe('#getLastDevelopCommitSHA', () => {
+  it('should export getLastDevelopCommitSHA function', () => {
+    expect(getLastDevelopCommitSHA).toBeInstanceOf(Function);
+  });
+
+  it('should call getBranch w/ develop branch in params', async () => {
+    await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
+    expect(getBranchMock).toBeCalledWith({
+      branch: 'develop',
+      owner: 'my-org',
+      per_page: 1,
+      repo: 'my-repo'
+    });
+  });
+
+  it('should return sha of last commit in develop', async () => {
+    const sha = await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
+    expect(sha).toEqual('a1b2c3');
   });
 });

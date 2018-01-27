@@ -48,3 +48,15 @@ module.exports.createReleaseBranch = async function({org, repo, version, commitH
 
   return data;
 };
+
+module.exports.getLastDevelopCommitSHA = async function({org, repo}) {
+  const gh = getClient();
+  const {data} = await gh.repos.getBranch({
+    owner: org,
+    repo,
+    branch: 'develop',
+    per_page: 1
+  });
+
+  return _.get(data, 'commit.sha', '');
+};
