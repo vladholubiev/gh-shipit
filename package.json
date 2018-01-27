@@ -31,7 +31,9 @@
     "longest": "^2.0.1",
     "ora": "^1.3.0",
     "p-progress": "^0.1.1",
-    "progress": "^2.0.0"
+    "pretty-version-diff": "^1.0.0",
+    "progress": "^2.0.0",
+    "semver": "^5.5.0"
   },
   "devDependencies": {
     "eslint": "^4.15.0",
