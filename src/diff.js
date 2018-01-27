@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const {relativeTime} = require('human-date');
 const longest = require('longest');
-const {compareBranches, hasMasterAndDevelop} = require('./repos');
+const {getBranchDiff} = require('./repos');
 
 module.exports.getReposBranchesDiff = async function({org, repos}) {
   const diffs = await Promise.all(repos.map(repo => getBranchDiff({org, repo})));
@@ -25,18 +25,4 @@ module.exports.getReposBranchesDiff = async function({org, repos}) {
 
 function formatDate(date) {
   return relativeTime(new Date(date));
-}
-
-async function getBranchDiff({org, repo}) {
-  if (!await hasMasterAndDevelop({org, repo})) {
-    return {org, repo, status: 'no-branch'};
-  }
-
-  const {status, ahead_by, behind_by, commits, base_commit} = await compareBranches({org, repo});
-
-  const lastHeadCommitDate = _.get(commits.reverse(), '[0].commit.author.date', '');
-  const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
-  const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
-
-  return {org, repo, status, ahead_by, behind_by, lastCommitDate};
 }
