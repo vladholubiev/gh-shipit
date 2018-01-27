@@ -15,7 +15,7 @@ const {createReleaseNotes} = require('./client-releases');
 
 (async () => {
   const org = await askOrg();
-  const repo = await askRepo(org); // todo show latest release
+  const repo = await askRepo(org);
   const action = await askRepoAction();
 
   if (action === 'prepare-release') {

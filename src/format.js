@@ -5,12 +5,17 @@ const {relativeTime} = require('human-date');
 const longest = require('longest');
 
 module.exports.formatReposDiffsForChoices = function(diffs) {
-  return formatDiffs(diffs).map(({status, behind_by, ahead_by, lastCommitDateFormatted, repo}) => {
-    return {
-      name: chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {bold ${repo}}`,
-      value: repo
-    };
-  });
+  return formatDiffs(diffs).map(
+    ({status, behind_by, ahead_by, lastCommitDateFormatted, repo, lastRelease}) => {
+      return {
+        name: chalk`{dim ${lastCommitDateFormatted}} {red ${behind_by}} {green ${ahead_by}} {dim ${_.padEnd(
+          lastRelease,
+          8
+        )}} {bold ${repo}}`,
+        value: repo
+      };
+    }
+  );
 };
 
 function formatDiffs(diffs) {

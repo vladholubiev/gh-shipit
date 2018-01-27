@@ -1,10 +1,16 @@
+const _ = require('lodash');
 const {getClient} = require('./client');
 
 module.exports.getLastRelease = async function({org, repo}) {
   const gh = getClient();
-  const {data} = await gh.repos.getLatestRelease({owner: org, repo});
 
-  return data.tag_name;
+  try {
+    const {data} = await gh.repos.getLatestRelease({owner: org, repo});
+
+    return data.tag_name;
+  } catch (error) {
+    return 'v0.0.0';
+  }
 };
 
 module.exports.createReleaseNotes = async function({org, repo, version, releaseTitle}) {

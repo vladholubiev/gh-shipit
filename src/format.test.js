@@ -8,7 +8,8 @@ describe('#formatReposDiffsForChoices', () => {
       status: 'ahead',
       ahead_by: 12,
       behind_by: 1,
-      lastCommitDate: '2010-01-31T22:00:00.000Z'
+      lastCommitDate: '2010-01-31T22:00:00.000Z',
+      lastRelease: 'v1.0.0'
     },
     {
       org: 'some-org',
@@ -21,6 +22,7 @@ describe('#formatReposDiffsForChoices', () => {
       status: 'behind',
       ahead_by: 0,
       behind_by: 4,
+      lastRelease: 'v1.0.0',
       lastCommitDate: '2014-01-31T22:00:00.000Z'
     }
   ];
@@ -33,11 +35,11 @@ describe('#formatReposDiffsForChoices', () => {
     const result = formatReposDiffsForChoices(diffs);
     expect(result).toEqual([
       {
-        name: expect.stringContaining('years ago   -4 +0   some-repo-3'),
+        name: expect.stringContaining('years ago   -4 +0   v1.0.0   some-repo-3'),
         value: 'some-repo-3'
       },
       {
-        name: expect.stringContaining('years ago   -1 +12  some-repo-1'),
+        name: expect.stringContaining('years ago   -1 +12  v1.0.0   some-repo-1'),
         value: 'some-repo-1'
       }
     ]);
