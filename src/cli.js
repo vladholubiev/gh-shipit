@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
 const logSymbols = require('log-symbols');
-const {askOrg, askRepo, askRepoAction, askVersion, askReleaseTitle} = require('./inquirer');
+const {
+  askOrg,
+  askRepo,
+  askRepoAction,
+  askVersion,
+  askReleaseTitle,
+  askToOpenPR
+} = require('./inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('./client-repos');
 const {createReleasePR} = require('./client-prs');
 const {createReleaseNotes} = require('./client-releases');
@@ -27,7 +34,7 @@ const {createReleaseNotes} = require('./client-releases');
       const {id} = await createReleasePR({org, repo, version, releaseTitle});
       console.log(logSymbols.success, `Created Pull Request #${id}!`);
 
-      // todo open in browser
+      await askToOpenPR({org, repo, pr: id});
     } catch (error) {
       console.log(logSymbols.error, JSON.parse(error.message).message);
     }

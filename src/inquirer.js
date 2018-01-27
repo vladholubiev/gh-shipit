@@ -129,6 +129,22 @@ module.exports.askReleaseTitle = async function({org, repo}) {
   return releaseTitle;
 };
 
+module.exports.askToOpenPR = async function({org, repo, pr}) {
+  const {shouldOpenPR} = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'shouldOpenPR',
+      message: 'Open PR in Browser?',
+      default: true
+    }
+  ]);
+
+  if (shouldOpenPR) {
+    const prURL = `https://github.com/${org}/${repo}/pull/${pr}`;
+    opn(prURL);
+  }
+};
+
 async function loadRepos(org) {
   const reposSpinner = ora('Loading Repos').start();
 
