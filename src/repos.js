@@ -11,9 +11,10 @@ async function getUserOrgs() {
 
 async function getOrgRepos(org) {
   const gh = getClient();
-  const repos = await gh.repos.getForOrg({org, type: 'sources', per_page: 100});
+  const {data: repos} = await gh.repos.getForOrg({org, type: 'sources', per_page: 100});
+  const reposNonArchived = _.reject(repos, {archived: true});
 
-  return _.map(repos.data, 'name');
+  return _.map(reposNonArchived, 'name');
 }
 
 async function hasMasterAndDevelop({org, repo}) {
