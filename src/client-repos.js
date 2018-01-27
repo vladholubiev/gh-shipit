@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const fp = require('lodash/fp');
 const {getClient} = require('./client');
 
 module.exports.getRepoBranches = async function({org, repo}) {
@@ -28,9 +29,9 @@ module.exports.compareBranches = async function({org, repo}) {
 
 module.exports.getOrgRepos = async function(org) {
   const gh = getClient();
-
   const {data: repos} = await gh.repos.getForOrg({org, type: 'sources', per_page: 100});
-  const reposNonArchived = _.reject(repos, {archived: true});
+  const withoutArchived = fp.reject({archived: true});
+  const getName = fp.map('name');
 
-  return _.map(reposNonArchived, 'name');
+  return fp.flow(withoutArchived, getName)(repos);
 };
