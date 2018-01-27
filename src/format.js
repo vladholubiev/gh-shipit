@@ -37,7 +37,7 @@ function padByWidestDate(diff) {
   const widestDateLength = fp.flow(fp.map('lastCommitDateFormatted'), longest, fp.size)(diff);
 
   return _.map(diff, d => {
-    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength));
+    _.set(d, 'lastCommitDateFormatted', _.padEnd(d.lastCommitDateFormatted, widestDateLength));
 
     return d;
   });
