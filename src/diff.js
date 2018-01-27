@@ -1,21 +1,26 @@
 const _ = require('lodash');
-const {distanceInWordsToNow} = require('date-fns');
+const {relativeTime} = require('human-date');
+const longest = require('longest');
 const {compareBranches, hasMasterAndDevelop} = require('./repos');
 
 module.exports.getReposBranchesDiff = async function({org, repos}) {
   const diffs = await Promise.all(repos.map(repo => getBranchDiff({org, repo})));
-  const diffsWithBranches = _.reject(diffs, {status: 'no-branch'});
-  const diffsSorted = _.orderBy(diffsWithBranches, [d => new Date(d.lastCommitDate)], ['desc']);
-  const diffsWithFormattedDate = _.map(diffsSorted, d => ({
-    ...d,
-    lastCommitDateFormatted: formatDate(d.lastCommitDate)
-  }));
+  const diffsFormatted = _.flow(
+    diffs => _.reject(diffs, {status: 'no-branch'}),
+    diffs => _.orderBy(diffs, [d => new Date(d.lastCommitDate)], ['desc']),
+    diffs => _.map(diffs, d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
+  )(diffs);
 
-  return diffsWithFormattedDate;
+  const datesFormatted = _.map(diffsFormatted, 'lastCommitDateFormatted');
+  const widestDateLength = longest(datesFormatted).length;
+
+  return _.map(diffsFormatted, d =>
+    _.set(d, 'lastCommitDateFormatted', _.padStart(d.lastCommitDateFormatted, widestDateLength))
+  );
 };
 
 function formatDate(date) {
-  return distanceInWordsToNow(new Date(date), {addSuffix: true});
+  return relativeTime(new Date(date));
 }
 
 async function getBranchDiff({org, repo}) {
