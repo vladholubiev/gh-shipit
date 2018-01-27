@@ -10,7 +10,7 @@
     "url": "vladholubiev.com"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "scripts": {
     "coverage": "jest --coverage",
