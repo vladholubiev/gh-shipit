@@ -30,6 +30,8 @@
     "lodash": "^4.17.4",
     "log-symbols": "^2.2.0",
     "longest": "^2.0.1",
+    "normalize-space-x": "^3.0.0",
+    "opn": "^5.2.0",
     "ora": "^1.3.0",
     "p-progress": "^0.1.1",
     "pretty-version-diff": "^1.0.0",

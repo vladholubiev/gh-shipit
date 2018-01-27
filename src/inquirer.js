@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
+const opn = require('opn');
+const normalizeSpace = require('normalize-space-x');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
 const {getUserOrgs} = require('./client-users');
@@ -77,6 +79,54 @@ module.exports.askVersion = async function({org, repo}) {
   ]);
 
   return version;
+};
+
+module.exports.askReleaseTitle = async function({org, repo}) {
+  const {inputType} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'inputType',
+      message: 'Release Title?',
+      choices: [
+        {
+          name: 'Enter now',
+          value: 'enter-now'
+        },
+        {
+          name: chalk`Enter after comparing branches {dim (opens github in browser)}`,
+          value: 'enter-after'
+        }
+      ]
+    }
+  ]);
+
+  if (inputType === 'enter-after') {
+    const compareURL = `https://github.com/${org}/${repo}/compare/master...develop#commits_bucket`;
+    opn(compareURL);
+  }
+
+  const {releaseTitle} = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'releaseTitle',
+      message: 'Release Title?',
+      default: '...',
+      filter(input) {
+        return normalizeSpace(input);
+      },
+      validate(input = '') {
+        input = normalizeSpace(input);
+
+        if (input.length < 6) {
+          return 'Please enter at least 6 letters';
+        }
+
+        return true;
+      }
+    }
+  ]);
+
+  return releaseTitle;
 };
 
 async function loadRepos(org) {
