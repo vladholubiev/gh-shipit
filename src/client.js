@@ -3,6 +3,7 @@ const {ApolloClient} = require('apollo-client');
 const {HttpLink} = require('apollo-link-http');
 const {InMemoryCache} = require('apollo-cache-inmemory');
 const {setContext} = require('apollo-link-context');
+const fetch = require('node-fetch');
 
 let client;
 let clientGQL;
@@ -27,6 +28,7 @@ module.exports.getClientGraphQL = function() {
     return clientGQL;
   }
 
+  const httpLink = new HttpLink({uri: 'https://api.github.com/graphql', fetch});
   const authLink = setContext((_, {headers}) => {
     const token = process.env.GITHUB_TOKEN;
     return {
@@ -38,7 +40,7 @@ module.exports.getClientGraphQL = function() {
   });
 
   clientGQL = new ApolloClient({
-    link: authLink.concat(new HttpLink({uri: 'https://api.github.com/graphql'})),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache()
   });
 
