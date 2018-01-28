@@ -30,6 +30,14 @@ $ yarn global add gh-shipit
   * Releases this quarter
 * Create PR from `master` to `develop` to sync stale commits
 
+### Screenshots
+
+![](media/demo-diff.png)
+
+![](media/demo-releases.png)
+
+![](media/demo-histogram.png)
+
 ## Usage
 
 Follow interactive instructions
