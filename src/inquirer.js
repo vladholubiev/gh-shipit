@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
 const opn = require('opn');
+const _ = require('lodash');
 const {normalizeSpace} = require('normalize-space-x');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
@@ -45,6 +46,11 @@ module.exports.askRepo = async function(org) {
 };
 
 module.exports.askRepoAction = async function() {
+  const prepareReleaseActionDescription = chalk`{dim ${_.padStart(
+    '(creates a release branch, PR, release notes draft)',
+    getCliWidth() - 12
+  )}}`;
+
   const {action} = await inquirer.prompt([
     {
       type: 'list',
@@ -52,7 +58,7 @@ module.exports.askRepoAction = async function() {
       message: 'Action?',
       choices: [
         {
-          name: chalk`Release {dim (create release branch, PR, notes draft)}`,
+          name: `Release ${prepareReleaseActionDescription}`,
           value: 'prepare-release'
         },
         {
