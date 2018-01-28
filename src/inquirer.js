@@ -6,6 +6,7 @@ const _ = require('lodash');
 const {normalizeSpace} = require('normalize-space-x');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
+const {getBranchDiff} = require('./repos');
 const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
 const {formatReposDiffsForChoices} = require('./format');
@@ -45,27 +46,35 @@ module.exports.askRepo = async function(org) {
   return repo;
 };
 
-module.exports.askRepoAction = async function() {
-  const prepareReleaseActionDescription = chalk`{dim ${_.padStart(
-    '(creates a release branch, PR, release notes draft)',
-    getCliWidth() - 12
-  )}}`;
+module.exports.askRepoAction = async function({org, repo}) {
+  const choices = [];
+  const {ahead_by, behind_by} = await getBranchDiff({org, repo});
+
+  if (ahead_by > 0) {
+    const prepareReleaseActionDescription = chalk`{dim ${_.padStart(
+      '(creates a release branch, PR, release notes draft)',
+      getCliWidth() - 12
+    )}}`;
+
+    choices.push({
+      name: `Release ${prepareReleaseActionDescription}`,
+      value: 'prepare-release'
+    });
+  }
+
+  if (behind_by > 0) {
+    choices.push({
+      name: 'PR master -> develop',
+      value: 'pr-master-develop'
+    });
+  }
 
   const {action} = await inquirer.prompt([
     {
       type: 'list',
       name: 'action',
       message: 'Action?',
-      choices: [
-        {
-          name: `Release ${prepareReleaseActionDescription}`,
-          value: 'prepare-release'
-        },
-        {
-          name: 'PR master -> develop',
-          value: 'pr-master-develop'
-        }
-      ]
+      choices
     }
   ]);
 
