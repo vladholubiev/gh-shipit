@@ -1,5 +1,6 @@
 const _ = require('lodash');
-const {getClient} = require('./client');
+const gql = require('graphql-tag');
+const {getClient, getClientGraphQL} = require('./client');
 
 module.exports.getLastRelease = async function({org, repo}) {
   const gh = getClient();
@@ -27,4 +28,39 @@ module.exports.createReleaseNotes = async function({org, repo, version, releaseT
   });
 
   return data;
+};
+
+module.exports.getOrgReleases = async function(org) {
+  const gh = getClientGraphQL();
+  const resp = await gh.query(
+    {
+      query: gql`
+        {
+          organization(login: $org) {
+            repositories(first: 1) {
+              edges {
+                node {
+                  name
+                  releases(last: 1) {
+                    edges {
+                      node {
+                        publishedAt
+                        name
+                        tag {
+                          name
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `
+    },
+    {options: {variables: {org}}}
+  );
+
+  console.log(JSON.stringify(resp, null, 2));
 };
