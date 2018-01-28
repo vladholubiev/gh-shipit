@@ -10,7 +10,18 @@ const {
 } = require('date-fns');
 
 // TODO Refactor with more lodash
-module.exports.getLatestReleases = function(releases) {
+module.exports.getLatestReleases = function(edges) {
+  const releases = _.map(edges, edge => {
+    return {
+      repo: _.get(edge, 'node.name', ''),
+      releases: _.map(_.get(edge, 'node.releases.edges', []), e => ({
+        publishedAt: new Date(_.get(e, 'node.publishedAt', new Date(1970, 1, 1))),
+        name: _.get(e, 'node.name', ''),
+        version: _.get(e, 'node.tag.name', ' ').slice(1)
+      }))
+    };
+  });
+
   const allReleases = [];
 
   for (let repoRelease of releases) {

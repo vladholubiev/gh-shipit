@@ -1,5 +1,6 @@
 const boxen = require('boxen');
-const debug = require('debug')(require('../package').name);
+const path = require('path');
+const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 
 module.exports.verifyToken = function() {
   const {GITHUB_TOKEN} = process.env;

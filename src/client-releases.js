@@ -1,5 +1,6 @@
-const _ = require('lodash');
 const gql = require('graphql-tag');
+const path = require('path');
+const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 const {getClient, getClientGraphQL} = require('./client');
 
 module.exports.getLastRelease = async function({org, repo}) {
@@ -32,6 +33,8 @@ module.exports.createReleaseNotes = async function({org, repo, version, releaseT
 
 module.exports.getOrgReleases = async function(org) {
   const gh = getClientGraphQL();
+  debug('Loading releases for org %s', org);
+
   const {data: {organization: {repositories: {edges}}}} = await gh.query({
     query: gql`
       {
@@ -59,14 +62,5 @@ module.exports.getOrgReleases = async function(org) {
     `
   });
 
-  return _.map(edges, edge => {
-    return {
-      repo: _.get(edge, 'node.name', ''),
-      releases: _.map(_.get(edge, 'node.releases.edges', []), e => ({
-        publishedAt: new Date(e.node.publishedAt),
-        name: _.get(e, 'node.name', ''),
-        version: _.get(e, 'node.tag.name', ' ').slice(1)
-      }))
-    };
-  });
+  return edges;
 };
