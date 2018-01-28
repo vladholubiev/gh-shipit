@@ -1,7 +1,7 @@
 jest.mock('./client');
 
 const {getClient} = require('./client');
-const {getRepoLabels} = require('./client-labels');
+const {getRepoLabels, createReleaseLabel} = require('./client-labels');
 
 const labelsMock = [
   {
@@ -13,9 +13,11 @@ const labelsMock = [
   }
 ];
 const getLabelsMock = jest.fn().mockReturnValue({data: labelsMock});
+const createLabelMock = jest.fn().mockReturnValue({data: {}});
 getClient.mockReturnValue({
   issues: {
-    getLabels: getLabelsMock
+    getLabels: getLabelsMock,
+    createLabel: createLabelMock
   }
 });
 
@@ -32,5 +34,21 @@ describe('#getRepoLabels', () => {
   it('should return array of label names', async () => {
     const labels = await getRepoLabels({org: 'my-org', repo: 'my-repo'});
     expect(labels).toEqual(['bug']);
+  });
+});
+
+describe('#createReleaseLabel', () => {
+  it('should export createReleaseLabel function', () => {
+    expect(createReleaseLabel).toBeInstanceOf(Function);
+  });
+
+  it('should call createLabel w/ label name and color', async () => {
+    await createReleaseLabel({org: 'my-org', repo: 'my-repo'});
+    expect(createLabelMock).toBeCalledWith({
+      color: 'ff0000',
+      name: 'release',
+      owner: 'my-org',
+      repo: 'my-repo'
+    });
   });
 });
