@@ -81,6 +81,28 @@ module.exports.askRepoAction = async function({org, repo}) {
   return action;
 };
 
+module.exports.askOrgAction = async function() {
+  const {action} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'action',
+      message: 'Action?',
+      choices: [
+        {
+          name: 'Create Releases & PRs',
+          value: 'releases'
+        },
+        {
+          name: 'View Latest Releases',
+          value: 'view-releases'
+        }
+      ]
+    }
+  ]);
+
+  return action;
+};
+
 module.exports.askVersion = async function({org, repo}) {
   const lastRelease = await getLastRelease({org, repo});
   const {version} = await inquirer.prompt([
