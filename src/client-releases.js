@@ -36,11 +36,11 @@ module.exports.getOrgReleases = async function(org) {
     query: gql`
       {
         organization(login: "${org}") {
-          repositories(first: 2) {
+          repositories(first: 100) {
             edges {
               node {
                 name
-                releases(last: 2) {
+                releases(last: 100) {
                   edges {
                     node {
                       publishedAt
@@ -61,11 +61,11 @@ module.exports.getOrgReleases = async function(org) {
 
   return _.map(edges, edge => {
     return {
-      repo: edge.node.name,
-      releases: _.map(edge.node.releases.edges, e => ({
+      repo: _.get(edge, 'node.name', ''),
+      releases: _.map(_.get(edge, 'node.releases.edges', []), e => ({
         publishedAt: new Date(e.node.publishedAt),
-        name: e.node.name,
-        version: e.node.tag.name.slice(1)
+        name: _.get(e, 'node.name', ''),
+        version: _.get(e, 'node.tag.name', ' ').slice(1)
       }))
     };
   });

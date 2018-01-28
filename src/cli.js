@@ -3,6 +3,7 @@
 const {askOrg, askRepo, askRepoAction, askOrgAction} = require('./inquirer');
 const {prepareRelease, prMasterDevelop} = require('./flows/prepare-release');
 const {getOrgReleases} = require('./client-releases');
+const {getLatestReleases} = require('./helpers-releases');
 
 (async () => {
   const org = await askOrg();
@@ -23,7 +24,9 @@ const {getOrgReleases} = require('./client-releases');
 
   if (orgAction === 'view-releases') {
     const releases = await getOrgReleases(org);
-    console.log(JSON.stringify(releases, null, 2));
+    const latestReleases = getLatestReleases(releases);
+
+    console.log(JSON.stringify(latestReleases, null, 2));
   }
 
   process.exit(0);
