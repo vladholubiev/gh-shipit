@@ -1,17 +1,9 @@
 #!/usr/bin/env node
 
 const logSymbols = require('log-symbols');
-const {
-  askOrg,
-  askRepo,
-  askRepoAction,
-  askVersion,
-  askReleaseTitle,
-  askToOpenPR
-} = require('./inquirer');
-const {createReleaseBranch, getLastDevelopCommitSHA} = require('./client-repos');
-const {createReleasePR, createMasterDevelopPR} = require('./client-prs');
-const {createReleaseNotes} = require('./client-releases');
+const {askOrg, askRepo, askRepoAction, askToOpenPR} = require('./inquirer');
+const {createMasterDevelopPR} = require('./client-prs');
+const {prepareRelease} = require('./flows/prepare-release');
 
 (async () => {
   const org = await askOrg();
@@ -19,25 +11,7 @@ const {createReleaseNotes} = require('./client-releases');
   const action = await askRepoAction({org, repo});
 
   if (action === 'prepare-release') {
-    try {
-      const version = await askVersion({org, repo});
-      const commitHash = await getLastDevelopCommitSHA({org, repo});
-
-      await createReleaseBranch({org, repo, version, commitHash});
-      console.log(logSymbols.success, `Created branch release/v${version}!`);
-
-      const releaseTitle = await askReleaseTitle({org, repo});
-
-      await createReleaseNotes({org, repo, version, releaseTitle});
-      console.log(logSymbols.success, `Created Release Notes!`);
-
-      const {number} = await createReleasePR({org, repo, version, releaseTitle});
-      console.log(logSymbols.success, `Created Pull Request #${number}!`);
-
-      await askToOpenPR({org, repo, pr: number});
-    } catch (error) {
-      console.log(logSymbols.error, JSON.parse(error.message).message);
-    }
+    await prepareRelease({org, repo});
   }
 
   if (action === 'pr-master-develop') {
