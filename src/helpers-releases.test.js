@@ -1,7 +1,7 @@
 const MockDate = require('mockdate');
 const {getLatestReleases} = require('./helpers-releases');
 
-MockDate.set('1/1/2018', 0);
+MockDate.set('5/1/2017', 0);
 
 describe('#getLatestReleases', () => {
   const releases = [
@@ -14,7 +14,7 @@ describe('#getLatestReleases', () => {
           version: '0.5.1'
         },
         {
-          publishedAt: new Date('2017-05-18T15:05:44.000Z'),
+          publishedAt: new Date('2017-04-18T15:05:44.000Z'),
           name: 'Release v0.6.0: Some title 2',
           version: '0.6.0'
         }
@@ -24,12 +24,12 @@ describe('#getLatestReleases', () => {
       repo: 'my-repo-2',
       releases: [
         {
-          publishedAt: new Date('2017-12-05T09:04:58.000Z'),
+          publishedAt: new Date('2017-05-03T09:04:58.000Z'),
           name: 'Release v0.6.3: Fixes fixes',
           version: '0.6.3'
         },
         {
-          publishedAt: new Date('2017-12-19T09:51:10.000Z'),
+          publishedAt: new Date('2017-05-19T09:51:10.000Z'),
           name: 'Release v0.6.4: Even more fixes',
           version: '0.6.4'
         }
@@ -41,34 +41,58 @@ describe('#getLatestReleases', () => {
     expect(getLatestReleases).toBeInstanceOf(Function);
   });
 
-  it('should return array of latest releases', () => {
+  it('should return array of latest releases grouped by period', () => {
     const latestReleases = getLatestReleases(releases);
 
-    expect(latestReleases).toEqual([
-      {
-        repo: 'my-repo-2',
-        date: expect.any(Date),
-        name: 'Release v0.6.4: Even more fixes',
-        version: '0.6.4'
-      },
-      {
-        repo: 'my-repo-2',
-        date: expect.any(Date),
-        name: 'Release v0.6.3: Fixes fixes',
-        version: '0.6.3'
-      },
-      {
-        repo: 'my-repo-1',
-        date: expect.any(Date),
-        name: 'Release v0.6.0: Some title 2',
-        version: '0.6.0'
-      },
-      {
-        repo: 'my-repo-1',
-        date: expect.any(Date),
-        name: 'Release v0.5.1: Some title 1',
-        version: '0.5.1'
-      }
-    ]);
+    expect(latestReleases).toEqual({
+      thisWeek: [
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.3: Fixes fixes',
+          repo: 'my-repo-2',
+          version: '0.6.3'
+        }
+      ],
+      thisMonth: [
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.4: Even more fixes',
+          repo: 'my-repo-2',
+          version: '0.6.4'
+        },
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.3: Fixes fixes',
+          repo: 'my-repo-2',
+          version: '0.6.3'
+        }
+      ],
+      thisQuarter: [
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.4: Even more fixes',
+          repo: 'my-repo-2',
+          version: '0.6.4'
+        },
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.3: Fixes fixes',
+          repo: 'my-repo-2',
+          version: '0.6.3'
+        },
+        {
+          date: expect.any(Date),
+          name: 'Release v0.6.0: Some title 2',
+          repo: 'my-repo-1',
+          version: '0.6.0'
+        },
+        {
+          date: expect.any(Date),
+          name: 'Release v0.5.1: Some title 1',
+          repo: 'my-repo-1',
+          version: '0.5.1'
+        }
+      ]
+    });
   });
 });

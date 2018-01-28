@@ -1,5 +1,7 @@
 const _ = require('lodash');
+const {isSameWeek, isSameMonth, isSameQuarter} = require('date-fns');
 
+// TODO Refactor with more lodash
 module.exports.getLatestReleases = function(releases) {
   const allReleases = [];
 
@@ -14,5 +16,26 @@ module.exports.getLatestReleases = function(releases) {
     }
   }
 
-  return _.orderBy(allReleases, ['date'], ['desc']);
+  const sortedReleases = _.orderBy(allReleases, ['date'], ['desc']);
+  const buckets = {
+    thisWeek: [],
+    thisMonth: [],
+    thisQuarter: []
+  };
+
+  for (let release of sortedReleases) {
+    if (isSameWeek(release.date, new Date())) {
+      buckets.thisWeek.push(release);
+    }
+
+    if (isSameMonth(release.date, new Date())) {
+      buckets.thisMonth.push(release);
+    }
+
+    if (isSameQuarter(release.date, new Date())) {
+      buckets.thisQuarter.push(release);
+    }
+  }
+
+  return buckets;
 };
