@@ -1,0 +1,11 @@
+{
+  "schema": {
+    "file": "./node_modules/@gr2m/github-graphql-schema/schema.json"
+  },
+  "endpoints": [
+    {
+      "name": "GitHub",
+      "url": "https://api.github.com/graphql"
+    }
+  ]
+}
