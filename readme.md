@@ -1,6 +1,6 @@
 # gh-shipit [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/gh-shipit.svg)](https://circleci.com/gh/vladgolubev/gh-shipit) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
-> Ship Releases
+![](media/demo-diff.png)
 
 ## Install
 
@@ -31,8 +31,6 @@ $ yarn global add gh-shipit
 * Create PR from `master` to `develop` to sync stale commits
 
 ### Screenshots
-
-![](media/demo-diff.png)
 
 ![](media/demo-releases.png)
 
