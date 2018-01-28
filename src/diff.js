@@ -13,7 +13,7 @@ module.exports.getAllReposDiffs = function({org, repos}) {
           progress(i++ / repos.length);
           return resp;
         }),
-      {concurrency: 24}
+      {concurrency: 32}
     );
   })(repos);
 };
