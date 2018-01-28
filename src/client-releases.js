@@ -32,23 +32,21 @@ module.exports.createReleaseNotes = async function({org, repo, version, releaseT
 
 module.exports.getOrgReleases = async function(org) {
   const gh = getClientGraphQL();
-  const resp = await gh.query(
-    {
-      query: gql`
-        {
-          organization(login: $org) {
-            repositories(first: 1) {
-              edges {
-                node {
-                  name
-                  releases(last: 1) {
-                    edges {
-                      node {
-                        publishedAt
+  const {data: {organization: {repositories: {edges}}}} = await gh.query({
+    query: gql`
+      {
+        organization(login: "${org}") {
+          repositories(first: 2) {
+            edges {
+              node {
+                name
+                releases(last: 2) {
+                  edges {
+                    node {
+                      publishedAt
+                      name
+                      tag {
                         name
-                        tag {
-                          name
-                        }
                       }
                     }
                   }
@@ -57,10 +55,18 @@ module.exports.getOrgReleases = async function(org) {
             }
           }
         }
-      `
-    },
-    {options: {variables: {org}}}
-  );
+      }
+    `
+  });
 
-  console.log(JSON.stringify(resp, null, 2));
+  return _.map(edges, edge => {
+    return {
+      repo: edge.node.name,
+      releases: _.map(edge.node.releases.edges, e => ({
+        publishedAt: new Date(e.node.publishedAt),
+        name: e.node.name,
+        version: e.node.tag.name.slice(1)
+      }))
+    };
+  });
 };

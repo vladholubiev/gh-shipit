@@ -22,7 +22,8 @@ const {getOrgReleases} = require('./client-releases');
   }
 
   if (orgAction === 'view-releases') {
-    await getOrgReleases(org);
+    const releases = await getOrgReleases(org);
+    console.log(JSON.stringify(releases, null, 2));
   }
 
   process.exit(0);
