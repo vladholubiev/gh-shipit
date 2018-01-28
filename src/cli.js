@@ -33,8 +33,17 @@ const {verifyToken} = require('./verify-token');
       await viewReleases(org);
     }
   } catch (error) {
-    console.log(logSymbols.error, error.message);
     debug(error);
+
+    console.log(logSymbols.error, error.message);
+    console.log(
+      logSymbols.info,
+      `
+    For debug logs run again with DEBUG env var:
+    
+    DEBUG=gh-shipit:* gh-shipit
+    `.trim()
+    );
   }
 
   process.exit(0);
