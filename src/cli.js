@@ -31,10 +31,10 @@ const {createReleaseNotes} = require('./client-releases');
       await createReleaseNotes({org, repo, version, releaseTitle});
       console.log(logSymbols.success, `Created Release Notes!`);
 
-      const {id} = await createReleasePR({org, repo, version, releaseTitle});
-      console.log(logSymbols.success, `Created Pull Request #${id}!`);
+      const {number} = await createReleasePR({org, repo, version, releaseTitle});
+      console.log(logSymbols.success, `Created Pull Request #${number}!`);
 
-      await askToOpenPR({org, repo, pr: id});
+      await askToOpenPR({org, repo, pr: number});
     } catch (error) {
       console.log(logSymbols.error, JSON.parse(error.message).message);
     }
