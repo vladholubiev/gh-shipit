@@ -13,7 +13,7 @@ function formatRepoDiff(diffs, diff) {
   const widestDateLength = getWidestProperty(diffs, 'lastCommitDateFormatted');
   const widestRepoLength = getWidestProperty(diffs, 'repo');
 
-  const date = chalk`{dim ${_.padStart(lastCommitDateFormatted, widestDateLength)}}`;
+  const date = chalk`{dim ${_.padEnd(lastCommitDateFormatted, widestDateLength)}}`;
   const behind = formatBehindBy(behind_by);
   const ahead = formatAheadBy(ahead_by);
   const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
@@ -55,13 +55,5 @@ function formatAheadBy(aheadBy) {
 }
 
 function formatDate(date) {
-  return relativeTime(new Date(date))
-    .replace(' second ', 's ')
-    .replace(' seconds ', 's ')
-    .replace(' minute ', 'm ')
-    .replace(' minutes ', 'm ')
-    .replace(' hour ', 'h ')
-    .replace(' hours ', 'h ')
-    .replace(' day ', 'd ')
-    .replace(' days ', 'd ');
+  return relativeTime(new Date(date));
 }
