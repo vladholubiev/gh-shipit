@@ -15,6 +15,8 @@ module.exports.getBranchDiff = async function({org, repo}) {
     const lastHeadCommitAuthor = _.get(commits.reverse(), '[0].commit.committer.name', '');
 
     const isRecentlyMergedMasterDevelopSync = lastHeadCommitAuthor === 'GitHub' && ahead_by === 1;
+    debug('%o', {repo, isRecentlyMergedMasterDevelopSync});
+
     if (isRecentlyMergedMasterDevelopSync) {
       return {org, repo, status: 'no-branch'};
     }
@@ -37,6 +39,10 @@ module.exports.getBranchDiff = async function({org, repo}) {
 
     return repoDiff;
   } catch (error) {
+    if (error.code === 404) {
+      debug('repo %s, no master or develop branch', repo);
+    }
+
     return {org, repo, status: 'no-branch'};
   }
 };
