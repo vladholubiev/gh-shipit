@@ -50,7 +50,9 @@ describe('#getLatestReleases', () => {
           date: expect.any(Date),
           name: 'Fixes fixes',
           repo: 'my-repo-2',
-          version: '0.6.3'
+          version: '0.6.3',
+          week: 18,
+          quarter: 2
         }
       ],
       lastWeek: [],
@@ -59,7 +61,9 @@ describe('#getLatestReleases', () => {
           date: expect.any(Date),
           name: 'Even more fixes',
           repo: 'my-repo-2',
-          version: '0.6.4'
+          version: '0.6.4',
+          week: 20,
+          quarter: 2
         }
       ],
       thisQuarter: [
@@ -67,13 +71,17 @@ describe('#getLatestReleases', () => {
           date: expect.any(Date),
           name: 'Some title 2',
           repo: 'my-repo-1',
-          version: '0.6.0'
+          version: '0.6.0',
+          week: 16,
+          quarter: 2
         },
         {
           date: expect.any(Date),
           name: 'Some title 1',
           repo: 'my-repo-1',
-          version: '0.5.1'
+          version: '0.5.1',
+          week: 15,
+          quarter: 2
         }
       ]
     });
