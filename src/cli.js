@@ -4,8 +4,11 @@ const {askOrg, askRepo, askRepoAction, askOrgAction} = require('./inquirer');
 const {prepareRelease} = require('./flows/prepare-release');
 const {prMasterDevelop} = require('./flows/pr-master-develop');
 const {viewReleases} = require('./flows/view-releases');
+const {verifyToken} = require('./verify-token');
 
 (async () => {
+  verifyToken();
+
   const org = await askOrg();
   const orgAction = await askOrgAction();
 
