@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const {askOrg, askRepo, askRepoAction, askOrgAction} = require('./inquirer');
-const {prepareRelease, prMasterDevelop} = require('./flows/prepare-release');
-const {getOrgReleases} = require('./client-releases');
-const {getLatestReleases} = require('./helpers-releases');
+const {prepareRelease} = require('./flows/prepare-release');
+const {prMasterDevelop} = require('./flows/pr-master-develop');
+const {viewReleases} = require('./flows/view-releases');
 
 (async () => {
   const org = await askOrg();
@@ -23,10 +23,7 @@ const {getLatestReleases} = require('./helpers-releases');
   }
 
   if (orgAction === 'view-releases') {
-    const releases = await getOrgReleases(org);
-    const latestReleases = getLatestReleases(releases);
-
-    console.log(JSON.stringify(latestReleases, null, 2));
+    await viewReleases(org);
   }
 
   process.exit(0);

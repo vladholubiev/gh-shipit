@@ -48,7 +48,7 @@ describe('#getLatestReleases', () => {
       thisWeek: [
         {
           date: expect.any(Date),
-          name: 'Release v0.6.3: Fixes fixes',
+          name: 'Fixes fixes',
           repo: 'my-repo-2',
           version: '0.6.3'
         }
@@ -57,7 +57,7 @@ describe('#getLatestReleases', () => {
       thisMonth: [
         {
           date: expect.any(Date),
-          name: 'Release v0.6.4: Even more fixes',
+          name: 'Even more fixes',
           repo: 'my-repo-2',
           version: '0.6.4'
         }
@@ -65,13 +65,13 @@ describe('#getLatestReleases', () => {
       thisQuarter: [
         {
           date: expect.any(Date),
-          name: 'Release v0.6.0: Some title 2',
+          name: 'Some title 2',
           repo: 'my-repo-1',
           version: '0.6.0'
         },
         {
           date: expect.any(Date),
-          name: 'Release v0.5.1: Some title 1',
+          name: 'Some title 1',
           repo: 'my-repo-1',
           version: '0.5.1'
         }

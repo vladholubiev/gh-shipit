@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const semver = require('semver');
 const {isSameWeek, isSameMonth, isSameQuarter, subWeeks} = require('date-fns');
 
 // TODO Refactor with more lodash
@@ -10,8 +11,8 @@ module.exports.getLatestReleases = function(releases) {
       allReleases.push({
         repo: repoRelease.repo,
         date: release.publishedAt,
-        name: release.name,
-        version: release.version
+        name: release.name.replace(/Release.+:\s/, ''),
+        version: semver.clean(release.version)
       });
     }
   }
