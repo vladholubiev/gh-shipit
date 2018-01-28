@@ -3,6 +3,8 @@ const {askVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('../client-repos');
 const {createReleasePR} = require('../client-prs');
 const {createReleaseNotes} = require('../client-releases');
+const {createReleaseLabel, assignReleaseLabel} = require('../client-labels');
+const {hasReleaseLabel} = require('../helpers-labels');
 
 module.exports.prepareRelease = async function({org, repo}) {
   try {
@@ -19,6 +21,16 @@ module.exports.prepareRelease = async function({org, repo}) {
 
     const {number} = await createReleasePR({org, repo, version, releaseTitle});
     console.log(logSymbols.success, `Created Pull Request #${number}!`);
+
+    if (!await hasReleaseLabel({org, repo})) {
+      console.log(logSymbols.warning, `No Release Label Found`);
+
+      await createReleaseLabel({org, repo});
+      console.log(logSymbols.success, `Created Release Label!`);
+    }
+
+    await assignReleaseLabel({org, repo, pr: number});
+    console.log(logSymbols.success, `Assigned Release Label to PR #${number}!`);
 
     await askToOpenPR({org, repo, pr: number});
   } catch (error) {
