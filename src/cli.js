@@ -40,5 +40,12 @@ const {createReleaseNotes} = require('./client-releases');
     }
   }
 
+  if (action === 'pr-master-develop') {
+    try {
+    } catch (error) {
+      console.log(logSymbols.error, JSON.parse(error.message).message);
+    }
+  }
+
   process.exit(0);
 })();
