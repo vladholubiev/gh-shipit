@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 const opn = require('opn');
 const _ = require('lodash');
+const logSymbols = require('log-symbols');
 const {normalizeSpace} = require('normalize-space-x');
 const ProgressBar = require('progress');
 const getCliWidth = require('cli-width');
@@ -32,6 +33,11 @@ module.exports.askOrg = async function() {
 module.exports.askRepo = async function(org) {
   const repos = await loadRepos(org);
   const choices = await loadDiffsChoices({org, repos});
+
+  if (_.isEmpty(choices)) {
+    console.log(logSymbols.success, `Nothing to Release!`);
+    return process.exit(0);
+  }
 
   const {repo} = await inquirer.prompt([
     {
