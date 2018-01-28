@@ -10,7 +10,7 @@ const {
   askToOpenPR
 } = require('./inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('./client-repos');
-const {createReleasePR} = require('./client-prs');
+const {createReleasePR, createMasterDevelopPR} = require('./client-prs');
 const {createReleaseNotes} = require('./client-releases');
 
 (async () => {
@@ -42,6 +42,10 @@ const {createReleaseNotes} = require('./client-releases');
 
   if (action === 'pr-master-develop') {
     try {
+      const {number} = await createMasterDevelopPR({org, repo});
+      console.log(logSymbols.success, `Created Pull Request #${number}!`);
+
+      await askToOpenPR({org, repo, pr: number});
     } catch (error) {
       console.log(logSymbols.error, JSON.parse(error.message).message);
     }
