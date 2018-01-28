@@ -15,7 +15,7 @@
   "scripts": {
     "coverage": "jest --coverage",
     "lint": "eslint . --fix",
-    "test": "jest"
+    "test": "FORCE_COLOR=0 jest"
   },
   "files": ["src/"],
   "bin": "./src/cli.js",
