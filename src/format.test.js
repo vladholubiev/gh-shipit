@@ -47,12 +47,12 @@ describe('#formatReposDiffsForChoices', () => {
     const result = formatReposDiffsForChoices(diffs);
     expect(result).toEqual([
       {
-        name: '  -4 0    some-repo-long-name-3 v1.0.0   4 years ago',
-        value: 'some-repo-long-name-3'
+        name: '  -1 +12   some-repo-1           v1.0.0   8 years ago',
+        value: 'some-repo-1'
       },
       {
-        name: '  -1 +12  some-repo-1           v1.0.0   8 years ago',
-        value: 'some-repo-1'
+        name: '  -4 0     some-repo-long-name-3 v1.0.0   4 years ago',
+        value: 'some-repo-long-name-3'
       }
     ]);
   });

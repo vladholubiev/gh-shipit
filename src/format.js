@@ -13,11 +13,11 @@ function formatRepoDiff(diffs, diff) {
   const widestDateLength = getWidestProperty(diffs, 'lastCommitDateFormatted');
   const widestRepoLength = getWidestProperty(diffs, 'repo');
 
-  const date = chalk`{dim ${_.padEnd(lastCommitDateFormatted, widestDateLength)}}`;
   const behind = formatBehindBy(behind_by);
   const ahead = formatAheadBy(ahead_by);
-  const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
   const repoFmt = chalk`{bold ${_.padEnd(repo, widestRepoLength)}}`;
+  const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
+  const date = chalk`{dim ${_.padEnd(lastCommitDateFormatted, widestDateLength)}}`;
 
   return {
     name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${date}`,
@@ -29,7 +29,7 @@ function filterAndSortDiffs(diffs) {
   return fp.flow(
     fp.reject({status: 'no-branch'}),
     fp.reject({ahead_by: 0, behind_by: 0}),
-    fp.orderBy([d => new Date(d.lastCommitDate)], ['desc']),
+    fp.orderBy([d => new Date(d.lastCommitDate)], ['asc']),
     fp.map(d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
   )(diffs);
 }
@@ -48,10 +48,10 @@ function formatBehindBy(behindBy) {
 
 function formatAheadBy(aheadBy) {
   if (aheadBy === 0) {
-    return chalk`{green.dim ${_.padEnd(`${aheadBy}`, 4)}}`;
+    return chalk`{green.dim ${_.padEnd(`${aheadBy}`, 5)}}`;
   }
 
-  return chalk`{green ${_.padEnd(`+${aheadBy}`, 4)}}`;
+  return chalk`{green ${_.padEnd(`+${aheadBy}`, 5)}}`;
 }
 
 function formatDate(date) {
