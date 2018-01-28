@@ -1,25 +1,21 @@
 const _ = require('lodash');
-const chalk = require('chalk');
-const Table = require('cli-table2');
-const logSymbols = require('log-symbols');
-const smartwrap = require('smartwrap');
 const babar = require('babar');
 const {getQuarter} = require('date-fns');
 const getCliWidth = require('cli-width');
-const stringWidth = require('string-width');
 const boxen = require('boxen');
 const {getOrgReleases} = require('../client-releases');
 const {getLatestReleases} = require('../helpers-releases');
+const {printReleasesTableInRange} = require('../releases-table');
 
 module.exports.viewReleases = async function(org) {
   const releases = await getOrgReleases(org);
   const latestReleases = getLatestReleases(releases);
 
   printHistogram(latestReleases);
-  printRange(latestReleases, 'thisWeek');
-  printRange(latestReleases, 'lastWeek');
-  printRange(latestReleases, 'thisMonth');
-  printRange(latestReleases, 'thisQuarter');
+  printReleasesTableInRange(latestReleases, 'thisWeek');
+  printReleasesTableInRange(latestReleases, 'lastWeek');
+  printReleasesTableInRange(latestReleases, 'thisMonth');
+  printReleasesTableInRange(latestReleases, 'thisQuarter');
 };
 
 function printHistogram(latestReleases) {
@@ -55,33 +51,4 @@ function printSectionHeading(title, width = getCliWidth() - 16) {
       align: 'center'
     })
   );
-}
-
-function printRange(latestReleases, rangeKey) {
-  const rows = latestReleases[rangeKey];
-
-  if (_.isEmpty(rows)) {
-    return;
-  }
-
-  const table = new Table({
-    head: ['repo', 'date', 'version', 'name']
-  });
-
-  rows.forEach(row => {
-    table.push([
-      smartwrap(row.repo, {width: Math.floor(getCliWidth() / 4)}),
-      row.date.toLocaleDateString(),
-      row.version,
-      smartwrap(row.name, {width: Math.floor(getCliWidth() / 2)})
-    ]);
-  });
-
-  const tableString = table.toString();
-  const tableWidth = stringWidth(tableString.split('\n')[0]) - 8;
-
-  printSectionHeading(_.startCase(rangeKey), tableWidth);
-
-  console.log(tableString);
-  console.log();
 }

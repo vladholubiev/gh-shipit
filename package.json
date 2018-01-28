@@ -22,7 +22,7 @@
   "keywords": ["github", "release", "organization"],
   "dependencies": {
     "@gr2m/github-graphql-schema": "^1.8.0",
-    "@octokit/rest": "^14.0.5",
+    "@octokit/rest": "^14.0.6",
     "apollo-cache-inmemory": "^1.1.5",
     "apollo-client": "^2.2.0",
     "apollo-link-context": "^1.0.3",
