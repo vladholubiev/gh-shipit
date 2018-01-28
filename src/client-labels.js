@@ -14,3 +14,10 @@ module.exports.createReleaseLabel = async function({org, repo}) {
 
   return data;
 };
+
+module.exports.assignReleaseLabel = async function({org, repo, pr}) {
+  const gh = getClient();
+  const {data} = await gh.issues.addLabels({owner: org, repo, labels: ['release'], number: pr});
+
+  return data;
+};

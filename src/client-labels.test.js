@@ -1,7 +1,7 @@
 jest.mock('./client');
 
 const {getClient} = require('./client');
-const {getRepoLabels, createReleaseLabel} = require('./client-labels');
+const {getRepoLabels, createReleaseLabel, assignReleaseLabel} = require('./client-labels');
 
 const labelsMock = [
   {
@@ -14,10 +14,12 @@ const labelsMock = [
 ];
 const getLabelsMock = jest.fn().mockReturnValue({data: labelsMock});
 const createLabelMock = jest.fn().mockReturnValue({data: {}});
+const addLabelsMock = jest.fn().mockReturnValue({data: {}});
 getClient.mockReturnValue({
   issues: {
     getLabels: getLabelsMock,
-    createLabel: createLabelMock
+    createLabel: createLabelMock,
+    addLabels: addLabelsMock
   }
 });
 
@@ -47,6 +49,24 @@ describe('#createReleaseLabel', () => {
     expect(createLabelMock).toBeCalledWith({
       color: 'ff0000',
       name: 'release',
+      owner: 'my-org',
+      repo: 'my-repo'
+    });
+  });
+});
+
+describe('#assignReleaseLabel', () => {
+  const params = {org: 'my-org', repo: 'my-repo', pr: 123};
+
+  it('should export assignReleaseLabel function', () => {
+    expect(assignReleaseLabel).toBeInstanceOf(Function);
+  });
+
+  it('should call addLabels w/ 1 label and pr number', async () => {
+    await assignReleaseLabel(params);
+    expect(addLabelsMock).toBeCalledWith({
+      labels: ['release'],
+      number: 123,
       owner: 'my-org',
       repo: 'my-repo'
     });
