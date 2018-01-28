@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const fp = require('lodash/fp');
+const path = require('path');
+const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 const {getClient} = require('./client');
 
 module.exports.getRepoBranches = async function({org, repo}) {
@@ -11,7 +13,10 @@ module.exports.getRepoBranches = async function({org, repo}) {
     per_page: 100
   });
 
-  return _.map(branchesResponse.data, 'name');
+  const branches = _.map(branchesResponse.data, 'name');
+  debug('Loaded branches. Repo: %s, Branches: %o', repo, branches);
+
+  return branches;
 };
 
 module.exports.compareBranches = async function({org, repo}) {
@@ -33,7 +38,10 @@ module.exports.getOrgRepos = async function(org) {
   const withoutArchived = fp.reject({archived: true});
   const getName = fp.map('name');
 
-  return fp.flow(withoutArchived, getName)(repos);
+  const orgRepos = fp.flow(withoutArchived, getName)(repos);
+  debug('Loaded repos %o', orgRepos);
+
+  return orgRepos;
 };
 
 module.exports.createReleaseBranch = async function({org, repo, version, commitHash}) {
