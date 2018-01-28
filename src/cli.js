@@ -39,4 +39,6 @@ const {createReleaseNotes} = require('./client-releases');
       console.log(logSymbols.error, JSON.parse(error.message).message);
     }
   }
+
+  process.exit(0);
 })();
