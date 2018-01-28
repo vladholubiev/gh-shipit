@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const semver = require('semver');
+const path = require('path');
+const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 const {getLastRelease} = require('./client-releases');
 const {compareBranches} = require('./client-repos');
 
@@ -21,7 +23,7 @@ module.exports.getBranchDiff = async function({org, repo}) {
     const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
     const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
 
-    return {
+    const repoDiff = {
       org,
       repo,
       status,
@@ -30,6 +32,10 @@ module.exports.getBranchDiff = async function({org, repo}) {
       lastCommitDate,
       lastRelease: semver.clean(lastRelease)
     };
+
+    debug('%o', repoDiff);
+
+    return repoDiff;
   } catch (error) {
     return {org, repo, status: 'no-branch'};
   }
