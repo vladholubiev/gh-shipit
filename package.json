@@ -18,7 +18,9 @@
     "test": "FORCE_COLOR=0 jest"
   },
   "files": ["src/"],
-  "bin": "./src/cli.js",
+  "bin": {
+    "shipit": "./src/cli.js"
+  },
   "keywords": ["github", "release", "organization"],
   "dependencies": {
     "@gr2m/github-graphql-schema": "^1.8.0",

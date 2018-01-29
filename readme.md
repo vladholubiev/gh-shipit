@@ -41,7 +41,7 @@ $ yarn global add gh-shipit
 Follow interactive instructions
 
 ```bash
-$ gh-shipit
+$ shipit
 ```
 
 ## License
