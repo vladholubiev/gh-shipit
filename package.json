@@ -53,7 +53,8 @@
     "progress": "^2.0.0",
     "semver": "^5.5.0",
     "smartwrap": "^1.0.9",
-    "string-width": "^2.1.1"
+    "string-width": "^2.1.1",
+    "update-notifier": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^4.15.0",

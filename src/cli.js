@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const updateNotifier = require('update-notifier');
 const logSymbols = require('log-symbols');
 const path = require('path');
 const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
@@ -8,6 +9,9 @@ const {prepareRelease} = require('./flows/prepare-release');
 const {prMasterDevelop} = require('./flows/pr-master-develop');
 const {viewReleases} = require('./flows/view-releases');
 const {verifyToken} = require('./verify-token');
+const pkg = require('../package.json');
+
+updateNotifier({pkg}).notify();
 
 (async () => {
   try {
