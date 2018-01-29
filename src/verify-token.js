@@ -20,7 +20,7 @@ module.exports.verifyToken = function() {
     
     - Go to https://github.com/settings/tokens/new?scopes=admin:org,repo&description=gh-shipit-cli
     - Click "Generate Token"
-    - echo "export GITHUB_TOKEN=XXXXX >> ~/.bashrc"
+    - echo "export GITHUB_TOKEN=XXXXX" >> ~/.bashrc
   `.trim(),
       {
         align: 'left',
