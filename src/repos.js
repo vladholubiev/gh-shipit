@@ -12,19 +12,6 @@ module.exports.getBranchDiff = async function({org, repo}) {
       getLastRelease({org, repo})
     ]);
 
-    const lastHeadCommitAuthor = _.get(commits.reverse(), '[0].commit.committer.name', '');
-    const lastBaseCommitAuthor = _.get(base_commit, 'commit.committer.name', '');
-    const isLastCommitByGithubMerge =
-      lastHeadCommitAuthor === 'GitHub' || lastBaseCommitAuthor === 'GitHub';
-    const isOnly1CommitDiff = ahead_by === 1 || behind_by === 1;
-
-    const isRecentlyMergedByGitHub = isLastCommitByGithubMerge && isOnly1CommitDiff;
-    debug('%o', {repo, isRecentlyMergedMasterDevelopSync: isRecentlyMergedByGitHub});
-
-    if (isRecentlyMergedByGitHub) {
-      return {org, repo, status: 'no-branch'};
-    }
-
     const lastHeadCommitDate = _.get(commits.reverse(), '[0].commit.author.date', '');
     const lastBaseCommitDate = _.get(base_commit, 'commit.author.date', '');
     const lastCommitDate = lastHeadCommitDate || lastBaseCommitDate;
