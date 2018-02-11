@@ -5,8 +5,10 @@
 ## Install
 
 ```
-$ yarn global add gh-shipit
+$ npx gh-shipit
 ```
+
+`node` >=8 required. [still don't know about npx?](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)
 
 ## Features
 
