@@ -17,14 +17,20 @@
     "lint": "eslint . --fix",
     "test": "FORCE_COLOR=0 jest"
   },
-  "files": ["src/"],
+  "files": [
+    "src/"
+  ],
   "bin": {
     "shipit": "./src/cli.js"
   },
-  "keywords": ["github", "release", "organization"],
+  "keywords": [
+    "github",
+    "release",
+    "organization"
+  ],
   "dependencies": {
     "@octokit/graphql-schema": "^3.1.0",
-    "@octokit/rest": "^14.0.8",
+    "@octokit/rest": "^15.9.0",
     "apollo-cache-inmemory": "^1.1.7",
     "apollo-client": "^2.2.2",
     "apollo-link-context": "^1.0.3",
@@ -75,6 +81,9 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
