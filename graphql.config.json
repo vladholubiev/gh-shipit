@@ -1,6 +1,6 @@
 {
   "schema": {
-    "file": "./node_modules/@gr2m/github-graphql-schema/schema.json"
+    "file": "./node_modules/@octokit/graphql-schema/schema.json"
   },
   "endpoints": [
     {
