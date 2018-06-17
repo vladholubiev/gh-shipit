@@ -35,7 +35,13 @@ module.exports.getOrgReleases = async function(org) {
   const gh = getClientGraphQL();
   debug('Loading releases for org %s', org);
 
-  const {data: {organization: {repositories: {edges}}}} = await gh.query({
+  const {
+    data: {
+      organization: {
+        repositories: {edges}
+      }
+    }
+  } = await gh.query({
     query: gql`
       {
         organization(login: "${org}") {

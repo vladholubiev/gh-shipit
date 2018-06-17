@@ -38,7 +38,10 @@ module.exports.getOrgRepos = async function(org) {
   const withoutArchived = fp.reject({archived: true});
   const getName = fp.map('name');
 
-  const orgRepos = fp.flow(withoutArchived, getName)(repos);
+  const orgRepos = fp.flow(
+    withoutArchived,
+    getName
+  )(repos);
   debug('Loaded repos %o', orgRepos);
 
   return orgRepos;

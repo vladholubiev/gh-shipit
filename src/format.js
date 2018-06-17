@@ -35,7 +35,12 @@ function filterAndSortDiffs(diffs) {
 }
 
 function getWidestProperty(diffs, property) {
-  return fp.flow(fp.map(property), fp.compact, longest, fp.size)(diffs);
+  return fp.flow(
+    fp.map(property),
+    fp.compact,
+    longest,
+    fp.size
+  )(diffs);
 }
 
 function formatBehindBy(behindBy) {
