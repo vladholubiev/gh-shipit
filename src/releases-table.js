@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const Table = require('cli-table2');
+const Table = require('cli-table3');
 const smartwrap = require('smartwrap');
 const getCliWidth = require('cli-width');
 const stringWidth = require('string-width');
