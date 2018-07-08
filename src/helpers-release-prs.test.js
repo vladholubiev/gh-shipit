@@ -50,6 +50,7 @@ describe('#getFirstOpenReleasePR', () => {
       reason: `Release PR is not targeted to master branch`
     });
   });
+
   it('should skip if PR is not originated from release branch', () => {
     const pr = getFirstOpenReleasePR(invalid.notFromReleaseBranch);
 
@@ -59,7 +60,25 @@ describe('#getFirstOpenReleasePR', () => {
     });
   });
 
-  it.skip('should return 1 valid PR w/ title', () => {
+  it('should skip if PR is not mergeable', () => {
+    const pr = getFirstOpenReleasePR(invalid.notMergeable);
+
+    expect(pr).toEqual({
+      isReadyToMerge: false,
+      reason: `Release PR has merge conflicts`
+    });
+  });
+
+  it('should skip if user has no permissions to merge', () => {
+    const pr = getFirstOpenReleasePR(invalid.noAccessToMerge);
+
+    expect(pr).toEqual({
+      isReadyToMerge: false,
+      reason: `You don't have permissions to merge this PR. Ask someone why`
+    });
+  });
+
+  it('should return 1 valid PR w/ title', () => {
     const pr = getFirstOpenReleasePR(valid);
 
     expect(pr).toEqual({

@@ -47,6 +47,20 @@ module.exports.getFirstOpenReleasePR = function(prs) {
     };
   }
 
+  if (!isMergeable(pr)) {
+    return {
+      isReadyToMerge: false,
+      reason: `Release PR has merge conflicts`
+    };
+  }
+
+  if (!canUserMerge(pr)) {
+    return {
+      isReadyToMerge: false,
+      reason: `You don't have permissions to merge this PR. Ask someone why`
+    };
+  }
+
   return {
     isReadyToMerge: true,
     title: pr.title
@@ -75,4 +89,12 @@ function isTargetBranchMaster(pr) {
 
 function isFromReleaseBranch(pr) {
   return _.startsWith(pr.headRefName, 'release/v') || _.startsWith(pr.headRefName, 'hotfix/v');
+}
+
+function isMergeable(pr) {
+  return pr.mergeable === 'MERGEABLE';
+}
+
+function canUserMerge(pr) {
+  return pr.viewerCanUpdate;
 }
