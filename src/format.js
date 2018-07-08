@@ -9,7 +9,14 @@ module.exports.formatReposDiffsForChoices = function(diffs) {
 };
 
 function formatRepoDiff(diffs, diff) {
-  const {behind_by, ahead_by, lastCommitDateFormatted, repo, lastRelease} = diff;
+  const {
+    behind_by,
+    ahead_by,
+    lastCommitDateFormatted,
+    repo,
+    lastRelease,
+    lastDraftReleaseTag
+  } = diff;
   const widestDateLength = getWidestProperty(diffs, 'lastCommitDateFormatted');
   const widestRepoLength = getWidestProperty(diffs, 'repo');
 
@@ -17,10 +24,11 @@ function formatRepoDiff(diffs, diff) {
   const ahead = formatAheadBy(ahead_by);
   const repoFmt = chalk`{bold ${_.padEnd(repo, widestRepoLength)}}`;
   const release = chalk`{dim ${_.padEnd(lastRelease, 8)}}`;
+  const releaseDraft = chalk`{dim ${_.padEnd(lastDraftReleaseTag, 8)}}`;
   const date = chalk`{dim ${_.padEnd(lastCommitDateFormatted, widestDateLength)}}`;
 
   return {
-    name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${date}`,
+    name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${releaseDraft} ${date}`,
     value: repo
   };
 }
