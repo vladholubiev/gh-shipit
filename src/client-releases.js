@@ -37,6 +37,8 @@ module.exports.getOpenReleasePRs = async function({org, repo}) {
                 title
                 baseRefName
                 headRefName
+                mergeable
+                viewerCanUpdate
                 labels(first: 10) {
                   nodes {
                     name
