@@ -17,19 +17,24 @@ module.exports.getLastRelease = async function({org, repo}) {
 };
 
 module.exports.getLastDraftReleaseTag = async function({org, repo}) {
+  try {
+    const draftReleaseTags = await module.exports.getDraftReleaseTags({org, repo});
+    return _.first(draftReleaseTags);
+  } catch (error) {
+    return '';
+  }
+};
+
+module.exports.getDraftReleaseTags = async function({org, repo}) {
   const gh = getClient();
 
   try {
     const {data} = await gh.repos.getReleases({owner: org, repo});
-    const lastDraftRelease = _.first(_.filter(data, {draft: true}));
+    const draftReleases = _.filter(data, {draft: true});
 
-    if (_.isEmpty(lastDraftRelease)) {
-      return '';
-    }
-
-    return lastDraftRelease.tag_name;
+    return _.compact(_.map(draftReleases, 'tag_name'));
   } catch (error) {
-    return '';
+    return [];
   }
 };
 
