@@ -45,7 +45,7 @@ module.exports.getDraftReleaseTags = async function({org, repo}) {
   }
 };
 
-module.exports.publishRelease = async function({org, repo, releaseId}) {
+module.exports.publishDraftRelease = async function({org, repo, releaseId}) {
   const gh = getClient();
 
   const {data} = await gh.repos.editRelease({

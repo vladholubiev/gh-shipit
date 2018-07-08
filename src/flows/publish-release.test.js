@@ -1,6 +1,8 @@
 jest.mock('../inquirer');
+jest.mock('../client-releases');
 
 const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('../inquirer');
+const {publishDraftRelease} = require('../client-releases');
 const {publishRelease} = require('./publish-release');
 
 const params = {org: 'my-org', repo: 'my-repo'};
@@ -20,4 +22,9 @@ it('should call askDraftReleaseVersion w/ org & repo', async () => {
 it('should call askDraftReleasePRNumber w/ org & repo & version', async () => {
   await publishRelease(params);
   expect(askDraftReleasePRNumber).toBeCalledWith({...params, version: 'v1.0.1'});
+});
+
+it('should call publishDraftRelease w/ org & repo & release id', async () => {
+  await publishRelease(params);
+  expect(publishDraftRelease).toBeCalledWith({...params, releaseId: '1'});
 });

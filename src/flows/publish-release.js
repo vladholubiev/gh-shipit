@@ -1,4 +1,5 @@
 const logSymbols = require('log-symbols');
+const {publishDraftRelease} = require('../client-releases');
 const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('../inquirer');
 
 module.exports.publishRelease = async function({org, repo}) {
@@ -14,6 +15,9 @@ module.exports.publishRelease = async function({org, repo}) {
       logSymbols.info,
       `You are about to publish release ${version} and merge PR to master`
     );
+
+    await publishDraftRelease({org, repo, releaseId});
+    console.log(logSymbols.success, `Release ${version} published`);
   } catch (error) {
     console.log(logSymbols.error, JSON.parse(error.message).message);
   }

@@ -5,7 +5,7 @@ const {
   getLastRelease,
   createReleaseNotes,
   getOpenReleasePRs,
-  publishRelease,
+  publishDraftRelease,
   getLastDraftReleaseTag,
   getDraftReleaseTags
 } = require('./client-releases');
@@ -104,9 +104,9 @@ describe('#createReleaseNotes', () => {
   });
 });
 
-describe('#publishRelease', () => {
-  it('should export publishRelease function', () => {
-    expect(publishRelease).toBeInstanceOf(Function);
+describe('#publishDraftRelease', () => {
+  it('should export publishDraftRelease function', () => {
+    expect(publishDraftRelease).toBeInstanceOf(Function);
   });
 
   it('should call editRelease w/ proper params', async () => {
@@ -115,7 +115,7 @@ describe('#publishRelease', () => {
       repo: 'my-repo',
       releaseId: 'q1w2e3rr4'
     };
-    await publishRelease(params);
+    await publishDraftRelease(params);
 
     expect(editReleaseMock).toBeCalledWith({
       draft: false,
