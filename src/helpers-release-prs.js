@@ -4,11 +4,19 @@ module.exports.getOpenReleasePRForVersion = function(prs, version) {
   if (_.isEmpty(prs)) {
     return {
       isReadyToMerge: false,
-      reason: 'No open PRs present'
+      reason: 'No open PRs present in this repo'
     };
   }
 
-  const prsWithReleaseLabel = _.filter(prs, pr => hasLabel(pr, 'release'));
+  const prsForVersion = _.filter(prs, pr => _.includes(pr.title, version));
+  if (_.isEmpty(prsForVersion)) {
+    return {
+      isReadyToMerge: false,
+      reason: `No PRs found for version ${version}. Make sure PR title is correct`
+    };
+  }
+
+  const prsWithReleaseLabel = _.filter(prsForVersion, pr => hasLabel(pr, 'release'));
 
   if (_.isEmpty(prsWithReleaseLabel)) {
     return {

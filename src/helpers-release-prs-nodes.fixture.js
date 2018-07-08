@@ -25,6 +25,30 @@ module.exports = {
   ],
   invalid: {
     noOpenPRs: [],
+    noPRForThisVersion: [
+      {
+        title: 'Release v0.5.0: Some PR title',
+        baseRefName: 'master',
+        headRefName: 'release/v0.5.0',
+        mergeable: 'MERGEABLE',
+        viewerCanUpdate: true,
+        labels: {
+          nodes: [{name: 'release', __typename: 'Label'}],
+          __typename: 'LabelConnection'
+        },
+        reviews: {
+          nodes: [
+            {
+              state: 'APPROVED',
+              author: {login: 'some-reviewer-username', __typename: 'User'},
+              __typename: 'PullRequestReview'
+            }
+          ],
+          __typename: 'PullRequestReviewConnection'
+        },
+        __typename: 'PullRequest'
+      }
+    ],
     noReleaseLabel: [
       {
         title: 'Release v0.4.0: Some PR title',
