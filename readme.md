@@ -18,6 +18,7 @@ $ npx gh-shipit
     - View how many commits in `master` are behind of `develop`
     - View latest commit date in `develop`
     - View latest version released
+    - View latest release draft version
   - Create a release branch in git-flow style (`release/vX.x.x`)
   - Open branch comparison on github in browser to decide on release name
   - Create a PR from release branch to `master`
