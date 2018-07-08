@@ -42,6 +42,15 @@ describe('#getFirstOpenReleasePR', () => {
     });
   });
 
+  it('should skip if PR is not targeted at master branch', () => {
+    const pr = getFirstOpenReleasePR(invalid.notToMaster);
+
+    expect(pr).toEqual({
+      isReadyToMerge: false,
+      reason: `Release PR is not targeted to master branch`
+    });
+  });
+
   it.skip('should return 1 valid PR w/ title', () => {
     const pr = getFirstOpenReleasePR(valid);
 

@@ -8,9 +8,7 @@ module.exports.getFirstOpenReleasePR = function(prs) {
     };
   }
 
-  const prsWithReleaseLabel = _.filter(prs, pr => {
-    return hasLabel(pr, 'release');
-  });
+  const prsWithReleaseLabel = _.filter(prs, pr => hasLabel(pr, 'release'));
 
   if (_.isEmpty(prsWithReleaseLabel)) {
     return {
@@ -19,22 +17,33 @@ module.exports.getFirstOpenReleasePR = function(prs) {
     };
   }
 
-  const prCandidate = _.first(prsWithReleaseLabel);
-  const approves = _.get(prCandidate, 'reviews.nodes', []);
+  const pr = _.first(prsWithReleaseLabel);
 
-  if (_.isEmpty(approves)) {
+  if (!hasApproves(pr)) {
     return {
       isReadyToMerge: false,
       reason: `Release PR has no approves`
     };
   }
 
-  if (hasLabel(prCandidate, `don't-merge`)) {
+  if (hasLabel(pr, `don't-merge`)) {
     return {
       isReadyToMerge: false,
       reason: `Release PR has a "don't merge" label`
     };
   }
+
+  if (!isTargetBranchMaster(pr)) {
+    return {
+      isReadyToMerge: false,
+      reason: `Release PR is not targeted to master branch`
+    };
+  }
+
+  return {
+    isReadyToMerge: true,
+    title: pr.title
+  };
 };
 
 function hasLabel(pr, label) {
@@ -45,4 +54,14 @@ function hasLabel(pr, label) {
 
 function getPRLabels(pr) {
   return _.map(_.get(pr, 'labels.nodes'), 'name', []);
+}
+
+function hasApproves(pr) {
+  const approves = _.get(pr, 'reviews.nodes', []);
+
+  return !_.isEmpty(approves);
+}
+
+function isTargetBranchMaster(pr) {
+  return pr.baseRefName === 'master';
 }
