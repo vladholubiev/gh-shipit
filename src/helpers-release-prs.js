@@ -71,7 +71,8 @@ module.exports.getOpenReleasePRForVersion = function(prs, version) {
 
   return {
     isReadyToMerge: true,
-    title: pr.title
+    prTitle: pr.title,
+    prNumber: pr.number
   };
 };
 

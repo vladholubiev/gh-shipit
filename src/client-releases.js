@@ -68,12 +68,13 @@ module.exports.getOpenReleasePRs = async function({org, repo}) {
       {
         organization(login: "${org}") {
           repository(name: "${repo}") {
-            pullRequests(states: [OPEN], first: 100) {
+            pullRequests(states: [OPEN], first: 10) {
               nodes {
                 title
                 baseRefName
                 headRefName
                 mergeable
+                number
                 viewerCanUpdate
                 labels(first: 10) {
                   nodes {

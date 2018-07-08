@@ -87,12 +87,13 @@ describe('#getFirstOpenReleasePR', () => {
     });
   });
 
-  it('should return 1 valid PR w/ title', () => {
+  it('should return 1 valid PR w/ title & number', () => {
     const pr = getOpenReleasePRForVersion(valid, 'v0.4.0');
 
     expect(pr).toEqual({
       isReadyToMerge: true,
-      title: 'Release v0.4.0: Some PR title'
+      prTitle: 'Release v0.4.0: Some PR title',
+      prNumber: 1
     });
   });
 });

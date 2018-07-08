@@ -6,6 +6,7 @@ module.exports = {
       headRefName: 'release/v0.4.0',
       mergeable: 'MERGEABLE',
       viewerCanUpdate: true,
+      number: 1,
       labels: {
         nodes: [{name: 'release', __typename: 'Label'}],
         __typename: 'LabelConnection'
@@ -32,6 +33,7 @@ module.exports = {
         headRefName: 'release/v0.5.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
@@ -56,6 +58,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [],
           __typename: 'LabelConnection'
@@ -80,6 +83,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
@@ -98,6 +102,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [
             {name: 'release', __typename: 'Label'},
@@ -125,6 +130,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
@@ -149,6 +155,7 @@ module.exports = {
         headRefName: 'something/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
@@ -173,6 +180,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'CONFLICTING',
         viewerCanUpdate: true,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
@@ -197,6 +205,7 @@ module.exports = {
         headRefName: 'release/v0.4.0',
         mergeable: 'MERGEABLE',
         viewerCanUpdate: false,
+        number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
           __typename: 'LabelConnection'
