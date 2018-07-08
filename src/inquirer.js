@@ -136,16 +136,24 @@ module.exports.askDraftReleaseVersion = async function({org, repo}) {
   const draftReleaseTags = await getDraftReleaseTags({org, repo});
   tagsSpinner.stop();
 
-  const {version} = await inquirer.prompt([
+  const {release} = await inquirer.prompt([
     {
       type: 'list',
-      name: 'version',
+      name: 'release',
       message: 'Version?',
-      choices: draftReleaseTags
+      choices: draftReleaseTags.map(release => {
+        return {
+          name: release.tag,
+          value: release
+        };
+      })
     }
   ]);
 
-  return version;
+  return {
+    version: release.tag,
+    releaseId: release.id
+  };
 };
 
 module.exports.askDraftReleasePRNumber = async function({org, repo, version}) {

@@ -5,7 +5,7 @@ const {publishRelease} = require('./publish-release');
 
 const params = {org: 'my-org', repo: 'my-repo'};
 
-askDraftReleaseVersion.mockReturnValue('v1.0.1');
+askDraftReleaseVersion.mockReturnValue({version: 'v1.0.1', releaseId: '1'});
 askDraftReleasePRNumber.mockReturnValue('1');
 
 it('should export publishRelease function', () => {

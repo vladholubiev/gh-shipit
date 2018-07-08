@@ -12,7 +12,7 @@ const {
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const getReleasesMock = jest.fn().mockReturnValue({
-  data: [{tag_name: 'v1.0.0', draft: false}, {tag_name: 'v1.0.1', draft: true}]
+  data: [{id: 1, tag_name: 'v1.0.0', draft: false}, {id: 2, tag_name: 'v1.0.1', draft: true}]
 });
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
 const editReleaseMock = jest.fn().mockReturnValue({data: {}});
@@ -69,7 +69,7 @@ describe('#getDraftReleaseTags', () => {
 
   it('should return tag names of last draft releases', async () => {
     const lastDraftReleases = await getDraftReleaseTags({org: 'my-org', repo: 'my-repo'});
-    expect(lastDraftReleases).toEqual(['v1.0.1']);
+    expect(lastDraftReleases).toEqual([{id: 2, tag: 'v1.0.1'}]);
   });
 });
 
