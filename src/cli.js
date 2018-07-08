@@ -6,6 +6,7 @@ const path = require('path');
 const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 const {askOrg, askRepo, askRepoAction, askOrgAction} = require('./inquirer');
 const {prepareRelease} = require('./flows/prepare-release');
+const {publishRelease} = require('./flows/publish-release');
 const {prMasterDevelop} = require('./flows/pr-master-develop');
 const {viewReleases} = require('./flows/view-releases');
 const {verifyToken} = require('./verify-token');
@@ -26,6 +27,10 @@ updateNotifier({pkg}).notify();
 
       if (action === 'prepare-release') {
         await prepareRelease({org, repo});
+      }
+
+      if (action === 'publish-release') {
+        await publishRelease({org, repo});
       }
 
       if (action === 'pr-master-develop') {
