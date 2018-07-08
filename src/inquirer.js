@@ -54,17 +54,24 @@ module.exports.askRepo = async function(org) {
 
 module.exports.askRepoAction = async function({org, repo}) {
   const choices = [];
-  const {ahead_by, behind_by} = await getBranchDiff({org, repo});
+  const {ahead_by, behind_by, lastDraftReleaseTag} = await getBranchDiff({org, repo});
 
   if (ahead_by > 0) {
     const prepareReleaseActionDescription = chalk`{dim ${_.padStart(
       '(creates a release branch, PR, release notes draft)',
-      getCliWidth() - 12
+      getCliWidth() - 24
     )}}`;
 
     choices.push({
-      name: `Release ${prepareReleaseActionDescription}`,
+      name: `Prepare release ${prepareReleaseActionDescription}`,
       value: 'prepare-release'
+    });
+  }
+
+  if (lastDraftReleaseTag !== '-') {
+    choices.push({
+      name: `Publish release ${lastDraftReleaseTag}`,
+      value: 'publish-release'
     });
   }
 
