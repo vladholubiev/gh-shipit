@@ -1,14 +1,21 @@
 jest.mock('./client');
 
 const {getClient} = require('./client');
-const {getLastRelease, createReleaseNotes, getOpenReleasePRs} = require('./client-releases');
+const {
+  getLastRelease,
+  createReleaseNotes,
+  getOpenReleasePRs,
+  publishRelease
+} = require('./client-releases');
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
+const editReleaseMock = jest.fn().mockReturnValue({data: {}});
 getClient.mockReturnValue({
   repos: {
     getLatestRelease: getLatestReleaseMock,
-    createRelease: createReleaseMock
+    createRelease: createReleaseMock,
+    editRelease: editReleaseMock
   }
 });
 
@@ -55,6 +62,28 @@ describe('#createReleaseNotes', () => {
       repo: 'my-repo',
       tag_name: 'v1.0.0',
       target_commitish: 'release/v1.0.0'
+    });
+  });
+});
+
+describe('#publishRelease', () => {
+  it('should export publishRelease function', () => {
+    expect(publishRelease).toBeInstanceOf(Function);
+  });
+
+  it('should call editRelease w/ proper params', async () => {
+    const params = {
+      org: 'my-org',
+      repo: 'my-repo',
+      releaseId: 'q1w2e3rr4'
+    };
+    await publishRelease(params);
+
+    expect(editReleaseMock).toBeCalledWith({
+      draft: false,
+      owner: 'my-org',
+      release_id: 'q1w2e3rr4',
+      repo: 'my-repo'
     });
   });
 });
