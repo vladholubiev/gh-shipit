@@ -131,7 +131,10 @@ module.exports.askNewReleaseVersion = async function({org, repo}) {
 };
 
 module.exports.askDraftReleaseVersion = async function({org, repo}) {
+  const tagsSpinner = ora('Fetching draft releases');
   const draftReleaseTags = await getDraftReleaseTags({org, repo});
+  tagsSpinner.stop();
+
   const {version} = await inquirer.prompt([
     {
       type: 'list',
