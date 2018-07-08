@@ -12,7 +12,8 @@ const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
 const {formatReposDiffsForChoices} = require('./format');
 const {getAllReposDiffs} = require('./diff');
-const {getLastRelease, getDraftReleaseTags} = require('./client-releases');
+const {getLastRelease, getDraftReleaseTags, getOpenReleasePRs} = require('./client-releases');
+const {getOpenReleasePRForVersion} = require('./helpers-release-prs');
 const {getNextVersionOptions} = require('./semver');
 
 module.exports.askOrg = async function() {
@@ -145,6 +146,34 @@ module.exports.askDraftReleaseVersion = async function({org, repo}) {
   ]);
 
   return version;
+};
+
+module.exports.askDraftReleasePRNumber = async function({org, repo, version}) {
+  const prsSpinner = ora('Fetching open PRs');
+  const prs = await getOpenReleasePRs({org, repo});
+  prsSpinner.stop();
+
+  const {isReadyToMerge, prTitle, prNumber, reason} = getOpenReleasePRForVersion(prs, version);
+
+  if (!isReadyToMerge) {
+    console.log(logSymbols.error, reason);
+    return process.exit(0);
+  }
+
+  const {confirm} = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: prTitle
+    }
+  ]);
+
+  if (!confirm) {
+    console.log(logSymbols.info, 'Release aborted. No changes have been made');
+    return process.exit(0);
+  }
+
+  return prNumber;
 };
 
 module.exports.askReleaseTitle = async function({org, repo}) {
