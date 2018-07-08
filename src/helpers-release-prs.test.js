@@ -33,6 +33,15 @@ describe('#getFirstOpenReleasePR', () => {
     });
   });
 
+  it('should skip if PR has do not merge label', () => {
+    const pr = getFirstOpenReleasePR(invalid.hasDontMergeLabel);
+
+    expect(pr).toEqual({
+      isReadyToMerge: false,
+      reason: `Release PR has a "don't merge" label`
+    });
+  });
+
   it.skip('should return 1 valid PR w/ title', () => {
     const pr = getFirstOpenReleasePR(valid);
 

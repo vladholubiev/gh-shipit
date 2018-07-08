@@ -9,9 +9,7 @@ module.exports.getFirstOpenReleasePR = function(prs) {
   }
 
   const prsWithReleaseLabel = _.filter(prs, pr => {
-    const labels = _.map(_.get(pr, 'labels.nodes'), 'name', []);
-
-    return _.includes(labels, 'release');
+    return hasLabel(pr, 'release');
   });
 
   if (_.isEmpty(prsWithReleaseLabel)) {
@@ -30,4 +28,21 @@ module.exports.getFirstOpenReleasePR = function(prs) {
       reason: `Release PR has no approves`
     };
   }
+
+  if (hasLabel(prCandidate, `don't-merge`)) {
+    return {
+      isReadyToMerge: false,
+      reason: `Release PR has a "don't merge" label`
+    };
+  }
 };
+
+function hasLabel(pr, label) {
+  const labels = getPRLabels(pr);
+
+  return _.includes(labels, label);
+}
+
+function getPRLabels(pr) {
+  return _.map(_.get(pr, 'labels.nodes'), 'name', []);
+}
