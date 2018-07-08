@@ -15,6 +15,52 @@ module.exports.getLastRelease = async function({org, repo}) {
   }
 };
 
+module.exports.getOpenReleasePRs = async function({org, repo}) {
+  const gh = getClientGraphQL();
+  debug('Loading release PRs for repo  %s', repo);
+
+  const {
+    data: {
+      organization: {
+        repository: {
+          pullRequests: {nodes}
+        }
+      }
+    }
+  } = await gh.query({
+    query: gql`
+      {
+        organization(login: "${org}") {
+          repository(name: "${repo}") {
+            pullRequests(states: [OPEN], first: 100) {
+              nodes {
+                title
+                baseRefName
+                headRefName
+                labels(first: 10) {
+                  nodes {
+                    name
+                  }
+                }
+                reviews(first: 10) {
+                  nodes {
+                    state
+                    author {
+                      login
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `
+  });
+
+  return nodes;
+};
+
 module.exports.createReleaseNotes = async function({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
@@ -38,7 +84,9 @@ module.exports.getOrgReleases = async function(org) {
   const {
     data: {
       organization: {
-        repositories: {edges}
+        repository: {
+          repositories: {edges}
+        }
       }
     }
   } = await gh.query({

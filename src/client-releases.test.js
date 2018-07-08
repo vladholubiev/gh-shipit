@@ -1,7 +1,7 @@
 jest.mock('./client');
 
 const {getClient} = require('./client');
-const {getLastRelease, createReleaseNotes} = require('./client-releases');
+const {getLastRelease, createReleaseNotes, getOpenReleasePRs} = require('./client-releases');
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
@@ -25,6 +25,12 @@ describe('#getLastRelease', () => {
   it('should return tag name of last release', async () => {
     const lastRelease = await getLastRelease({org: 'my-org', repo: 'my-repo'});
     expect(lastRelease).toEqual('v1.0.1');
+  });
+});
+
+describe('#getOpenReleasePRs', () => {
+  it('should export getOpenReleasePRs function', () => {
+    expect(getOpenReleasePRs).toBeInstanceOf(Function);
   });
 });
 
