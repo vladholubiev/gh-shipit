@@ -40,6 +40,13 @@ module.exports.getFirstOpenReleasePR = function(prs) {
     };
   }
 
+  if (!isFromReleaseBranch(pr)) {
+    return {
+      isReadyToMerge: false,
+      reason: `Release PR is not originated from release/hotfix branch`
+    };
+  }
+
   return {
     isReadyToMerge: true,
     title: pr.title
@@ -64,4 +71,8 @@ function hasApproves(pr) {
 
 function isTargetBranchMaster(pr) {
   return pr.baseRefName === 'master';
+}
+
+function isFromReleaseBranch(pr) {
+  return _.startsWith(pr.headRefName, 'release/v') || _.startsWith(pr.headRefName, 'hotfix/v');
 }
