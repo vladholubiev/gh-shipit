@@ -12,7 +12,7 @@ const {getUserOrgs} = require('./client-users');
 const {getOrgRepos} = require('./client-repos');
 const {formatReposDiffsForChoices} = require('./format');
 const {getAllReposDiffs} = require('./diff');
-const {getLastRelease} = require('./client-releases');
+const {getLastRelease, getDraftReleaseTags} = require('./client-releases');
 const {getNextVersionOptions} = require('./semver');
 
 module.exports.askOrg = async function() {
@@ -124,6 +124,20 @@ module.exports.askNewReleaseVersion = async function({org, repo}) {
       name: 'version',
       message: 'Version?',
       choices: getNextVersionOptions(lastRelease)
+    }
+  ]);
+
+  return version;
+};
+
+module.exports.askDraftReleaseVersion = async function({org, repo}) {
+  const draftReleaseTags = await getDraftReleaseTags({org, repo});
+  const {version} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'version',
+      message: 'Version?',
+      choices: draftReleaseTags
     }
   ]);
 
