@@ -1,13 +1,13 @@
-const {getFirstOpenReleasePR} = require('./helpers-release-prs');
+const {getOpenReleasePRForVersion} = require('./helpers-release-prs');
 const {valid, invalid} = require('./helpers-release-prs-nodes.fixture');
 
 describe('#getFirstOpenReleasePR', () => {
-  it('should export getFirstOpenReleasePR function', () => {
-    expect(getFirstOpenReleasePR).toBeInstanceOf(Function);
+  it('should export getOpenReleasePRForVersion function', () => {
+    expect(getOpenReleasePRForVersion).toBeInstanceOf(Function);
   });
 
   it('should skip if no open PRs found', () => {
-    const pr = getFirstOpenReleasePR(invalid.noOpenPRs);
+    const pr = getOpenReleasePRForVersion(invalid.noOpenPRs);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -16,7 +16,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR has no release label', () => {
-    const pr = getFirstOpenReleasePR(invalid.noReleaseLabel);
+    const pr = getOpenReleasePRForVersion(invalid.noReleaseLabel);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -25,7 +25,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR has no approves', () => {
-    const pr = getFirstOpenReleasePR(invalid.noApproves);
+    const pr = getOpenReleasePRForVersion(invalid.noApproves);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -34,7 +34,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR has do not merge label', () => {
-    const pr = getFirstOpenReleasePR(invalid.hasDontMergeLabel);
+    const pr = getOpenReleasePRForVersion(invalid.hasDontMergeLabel);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -43,7 +43,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR is not targeted at master branch', () => {
-    const pr = getFirstOpenReleasePR(invalid.notToMaster);
+    const pr = getOpenReleasePRForVersion(invalid.notToMaster);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -52,7 +52,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR is not originated from release branch', () => {
-    const pr = getFirstOpenReleasePR(invalid.notFromReleaseBranch);
+    const pr = getOpenReleasePRForVersion(invalid.notFromReleaseBranch);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -61,7 +61,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if PR is not mergeable', () => {
-    const pr = getFirstOpenReleasePR(invalid.notMergeable);
+    const pr = getOpenReleasePRForVersion(invalid.notMergeable);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -70,7 +70,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should skip if user has no permissions to merge', () => {
-    const pr = getFirstOpenReleasePR(invalid.noAccessToMerge);
+    const pr = getOpenReleasePRForVersion(invalid.noAccessToMerge);
 
     expect(pr).toEqual({
       isReadyToMerge: false,
@@ -79,7 +79,7 @@ describe('#getFirstOpenReleasePR', () => {
   });
 
   it('should return 1 valid PR w/ title', () => {
-    const pr = getFirstOpenReleasePR(valid);
+    const pr = getOpenReleasePRForVersion(valid);
 
     expect(pr).toEqual({
       isReadyToMerge: true,

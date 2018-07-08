@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports.getFirstOpenReleasePR = function(prs) {
+module.exports.getOpenReleasePRForVersion = function(prs, version) {
   if (_.isEmpty(prs)) {
     return {
       isReadyToMerge: false,
