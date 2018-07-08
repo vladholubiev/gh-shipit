@@ -1,5 +1,5 @@
 const logSymbols = require('log-symbols');
-const {askVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
+const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('../client-repos');
 const {createReleasePR} = require('../client-prs');
 const {createReleaseNotes} = require('../client-releases');
@@ -8,7 +8,7 @@ const {hasReleaseLabel} = require('../helpers-labels');
 
 module.exports.prepareRelease = async function({org, repo}) {
   try {
-    const version = await askVersion({org, repo});
+    const version = await askNewReleaseVersion({org, repo});
     const commitHash = await getLastDevelopCommitSHA({org, repo});
 
     await createReleaseBranch({org, repo, version, commitHash});

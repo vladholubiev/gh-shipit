@@ -116,7 +116,7 @@ module.exports.askOrgAction = async function() {
   return action;
 };
 
-module.exports.askVersion = async function({org, repo}) {
+module.exports.askNewReleaseVersion = async function({org, repo}) {
   const lastRelease = await getLastRelease({org, repo});
   const {version} = await inquirer.prompt([
     {

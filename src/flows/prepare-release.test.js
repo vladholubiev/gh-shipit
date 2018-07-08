@@ -5,7 +5,7 @@ jest.mock('../client-releases');
 jest.mock('../client-labels');
 jest.mock('../helpers-labels');
 
-const {askVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
+const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
 const {createReleaseBranch, getLastDevelopCommitSHA} = require('../client-repos');
 const {createReleasePR} = require('../client-prs');
 const {createReleaseNotes} = require('../client-releases');
@@ -14,7 +14,7 @@ const {hasReleaseLabel} = require('../helpers-labels');
 const {prepareRelease} = require('./prepare-release');
 
 describe('#prepareRelease', () => {
-  askVersion.mockReturnValue('1.0.1');
+  askNewReleaseVersion.mockReturnValue('1.0.1');
   askReleaseTitle.mockReturnValue('My new release');
   createReleasePR.mockReturnValue({number: 123});
 
@@ -28,9 +28,9 @@ describe('#prepareRelease', () => {
     expect(prepareRelease).toBeInstanceOf(Function);
   });
 
-  it('should call askVersion w/ org and repo', async () => {
+  it('should call askNewReleaseVersion w/ org and repo', async () => {
     await prepareRelease(params);
-    expect(askVersion).toBeCalledWith(params);
+    expect(askNewReleaseVersion).toBeCalledWith(params);
   });
 
   it('should call getLastDevelopCommitSHA w/ org and repo', async () => {
