@@ -5,3 +5,5 @@ temp
 yarn.lock
 *.log
 .DS_Store
+draft.js
+*.draft.js
