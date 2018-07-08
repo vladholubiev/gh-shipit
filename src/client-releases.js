@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const gql = require('graphql-tag');
 const path = require('path');
 const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
@@ -12,6 +13,23 @@ module.exports.getLastRelease = async function({org, repo}) {
     return data.tag_name;
   } catch (error) {
     return 'v0.0.0';
+  }
+};
+
+module.exports.getLastDraftReleaseTag = async function({org, repo}) {
+  const gh = getClient();
+
+  try {
+    const {data} = await gh.repos.getReleases({owner: org, repo});
+    const lastDraftRelease = _.first(_.filter(data, {draft: true}));
+
+    if (_.isEmpty(lastDraftRelease)) {
+      return '';
+    }
+
+    return lastDraftRelease.tag_name;
+  } catch (error) {
+    return '';
   }
 };
 
