@@ -103,7 +103,7 @@ module.exports.askOrgAction = async function() {
       message: 'Action?',
       choices: [
         {
-          name: 'Create Releases & PRs',
+          name: 'Create/Publish Releases & PRs',
           value: 'releases'
         },
         {
