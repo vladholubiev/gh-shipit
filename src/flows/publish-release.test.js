@@ -31,7 +31,7 @@ it('should call publishDraftRelease w/ org & repo & release id', async () => {
   expect(publishDraftRelease).toBeCalledWith({...params, releaseId: '1'});
 });
 
-it('should call mergePR w/ org & repo & PR number', async () => {
+it('should call mergePR w/ org & repo & release PR number', async () => {
   await publishRelease(params);
   expect(mergePR).toBeCalledWith({...params, number: '123'});
 });
