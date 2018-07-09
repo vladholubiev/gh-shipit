@@ -130,9 +130,7 @@ module.exports.getOrgReleases = async function(org) {
   const {
     data: {
       organization: {
-        repository: {
-          repositories: {edges}
-        }
+        repositories: {edges}
       }
     }
   } = await gh.query({
