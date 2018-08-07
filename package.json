@@ -45,7 +45,7 @@
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
     "human-date": "1.4.0",
-    "inquirer": "6.0.0",
+    "inquirer": "6.1.0",
     "lodash": "4.17.10",
     "log-symbols": "2.2.0",
     "longest": "2.0.1",
