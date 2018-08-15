@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@octokit/graphql-schema": "4.4.0",
-    "@octokit/rest": "15.9.5",
+    "@octokit/rest": "15.9.6",
     "apollo-cache-inmemory": "1.2.7",
     "apollo-client": "2.3.8",
     "apollo-link-context": "1.0.8",
