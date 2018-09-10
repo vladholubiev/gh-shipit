@@ -29,7 +29,7 @@
     "organization"
   ],
   "dependencies": {
-    "@octokit/graphql-schema": "4.7.0",
+    "@octokit/graphql-schema": "4.8.0",
     "@octokit/rest": "15.11.1",
     "apollo-cache-inmemory": "1.2.9",
     "apollo-client": "2.4.1",
