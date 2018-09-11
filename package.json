@@ -41,7 +41,7 @@
     "cli-table3": "0.5.1",
     "cli-width": "2.2.0",
     "date-fns": "1.29.0",
-    "debug": "3.1.0",
+    "debug": "3.2.1",
     "graphql": "14.0.2",
     "graphql-tag": "2.9.2",
     "human-date": "1.4.0",
