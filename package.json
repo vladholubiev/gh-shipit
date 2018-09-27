@@ -15,6 +15,7 @@
   "scripts": {
     "coverage": "jest --coverage",
     "lint": "eslint . --fix",
+    "start": "node ./src/cli.js",
     "test": "FORCE_COLOR=0 jest"
   },
   "files": [
