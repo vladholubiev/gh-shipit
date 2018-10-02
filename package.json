@@ -44,7 +44,7 @@
     "date-fns": "1.29.0",
     "debug": "4.0.1",
     "graphql": "14.0.2",
-    "graphql-tag": "2.9.2",
+    "graphql-tag": "2.10.0",
     "human-date": "1.4.0",
     "inquirer": "6.2.0",
     "lodash": "4.17.11",
