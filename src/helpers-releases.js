@@ -1,13 +1,6 @@
 const _ = require('lodash');
 const semver = require('semver');
-const {
-  isSameWeek,
-  isSameMonth,
-  isSameQuarter,
-  subWeeks,
-  getISOWeek,
-  getQuarter
-} = require('date-fns');
+const {getISOWeek, getQuarter} = require('date-fns');
 
 // TODO Refactor with more lodash
 module.exports.getLatestReleases = function(edges) {
@@ -37,37 +30,5 @@ module.exports.getLatestReleases = function(edges) {
     }
   }
 
-  const sortedReleases = _.orderBy(allReleases, ['date'], ['desc']);
-  const buckets = {
-    thisWeek: [],
-    lastWeek: [],
-    thisMonth: [],
-    thisQuarter: []
-  };
-
-  for (let release of sortedReleases) {
-    if (isSameWeek(release.date, new Date(), {weekStartsOn: 1})) {
-      buckets.thisWeek.push(release);
-      continue;
-    }
-
-    const lastWeekDate = subWeeks(new Date(), 1);
-
-    if (isSameWeek(release.date, lastWeekDate, {weekStartsOn: 1})) {
-      buckets.lastWeek.push(release);
-      continue;
-    }
-
-    if (isSameMonth(release.date, new Date(), {weekStartsOn: 1})) {
-      buckets.thisMonth.push(release);
-      continue;
-    }
-
-    if (isSameQuarter(release.date, new Date(), {weekStartsOn: 1})) {
-      buckets.thisQuarter.push(release);
-      continue;
-    }
-  }
-
-  return buckets;
+  return _.orderBy(allReleases, ['date'], ['desc']);
 };

@@ -5,8 +5,8 @@ const getCliWidth = require('cli-width');
 const stringWidth = require('string-width');
 const boxen = require('boxen');
 
-module.exports.printReleasesTableInRange = function(latestReleases, rangeKey) {
-  const rows = latestReleases[rangeKey];
+module.exports.printReleasesTable = function(latestReleases) {
+  const rows = latestReleases;
 
   if (_.isEmpty(rows)) {
     return;
@@ -28,7 +28,7 @@ module.exports.printReleasesTableInRange = function(latestReleases, rangeKey) {
   const tableString = table.toString();
   const tableWidth = stringWidth(tableString.split('\n')[0]) - 8;
 
-  printSectionHeading(_.startCase(rangeKey), tableWidth);
+  printSectionHeading('Last 100 releases', tableWidth);
 
   console.log(tableString);
   console.log();

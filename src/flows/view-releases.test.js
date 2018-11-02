@@ -4,7 +4,7 @@ jest.mock('../releases-table');
 
 const {getOrgReleases} = require('../client-releases');
 const {getLatestReleases} = require('../helpers-releases');
-const {printReleasesTableInRange} = require('../releases-table');
+const {printReleasesTable} = require('../releases-table');
 const {viewReleases} = require('./view-releases');
 
 const latestReleasesMock = [{a: 1}];
@@ -25,7 +25,7 @@ it('should call getLatestReleases w/ releases response', async () => {
   expect(getLatestReleases).toBeCalledWith(latestReleasesMock);
 });
 
-it('should call printReleasesTableInRange w/ releases response for this week', async () => {
+it('should call printReleasesTable w/ releases response for this week', async () => {
   await viewReleases('my-org');
-  expect(printReleasesTableInRange).toBeCalledWith(latestReleasesMock, 'thisWeek');
+  expect(printReleasesTable).toBeCalledWith(latestReleasesMock);
 });
