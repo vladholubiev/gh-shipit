@@ -4,7 +4,7 @@ const updateNotifier = require('update-notifier');
 const logSymbols = require('log-symbols');
 const path = require('path');
 const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
-const {askOrg, askRepo, askRepoAction, askOrgAction} = require('./inquirer');
+const {askOrg, askRepo, askRepoAction, askOrgAction, askFormatOutput} = require('./inquirer');
 const {prepareRelease} = require('./flows/prepare-release');
 const {publishRelease} = require('./flows/publish-release');
 const {prMasterDevelop} = require('./flows/pr-master-develop');
@@ -20,6 +20,7 @@ updateNotifier({pkg}).notify();
 
     const org = await askOrg();
     const orgAction = await askOrgAction();
+    const format = await askFormatOutput();
 
     if (orgAction === 'releases') {
       const repo = await askRepo(org);
@@ -39,7 +40,7 @@ updateNotifier({pkg}).notify();
     }
 
     if (orgAction === 'view-releases') {
-      await viewReleases(org);
+      await viewReleases({org, format});
     }
   } catch (error) {
     debug(error);

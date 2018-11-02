@@ -117,6 +117,28 @@ module.exports.askOrgAction = async function() {
   return action;
 };
 
+module.exports.askFormatOutput = async function() {
+  const {format} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'format',
+      message: 'Format?',
+      choices: [
+        {
+          name: 'Table',
+          value: 'table'
+        },
+        {
+          name: 'CSV',
+          value: 'csv'
+        }
+      ]
+    }
+  ]);
+
+  return format;
+};
+
 module.exports.askNewReleaseVersion = async function({org, repo}) {
   const lastRelease = await getLastRelease({org, repo});
   const {version} = await inquirer.prompt([
