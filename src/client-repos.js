@@ -46,28 +46,3 @@ module.exports.getOrgRepos = async function(org) {
 
   return orgRepos;
 };
-
-module.exports.createReleaseBranch = async function({org, repo, version, commitHash}) {
-  const gh = getClient();
-  const branchName = `refs/heads/release/v${version}`;
-  const {data} = await gh.gitdata.createReference({
-    owner: org,
-    repo,
-    ref: branchName,
-    sha: commitHash
-  });
-
-  return data;
-};
-
-module.exports.getLastDevelopCommitSHA = async function({org, repo}) {
-  const gh = getClient();
-  const {data} = await gh.repos.getBranch({
-    owner: org,
-    repo,
-    branch: 'develop',
-    per_page: 1
-  });
-
-  return _.get(data, 'commit.sha', '');
-};

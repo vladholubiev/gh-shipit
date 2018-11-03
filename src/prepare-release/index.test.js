@@ -1,17 +1,20 @@
 jest.mock('../inquirer');
-jest.mock('../client-repos');
-jest.mock('../client-prs');
-jest.mock('../client-releases');
 jest.mock('../client-labels');
 jest.mock('../helpers-labels');
+jest.mock('./inquirer');
+jest.mock('./github');
 
-const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
-const {createReleaseBranch, getLastDevelopCommitSHA} = require('../client-repos');
-const {createReleasePR} = require('../client-prs');
-const {createReleaseNotes} = require('../client-releases');
+const {askToOpenPR} = require('../inquirer');
 const {createReleaseLabel, assignReleaseLabel} = require('../client-labels');
 const {hasReleaseLabel} = require('../helpers-labels');
-const {prepareRelease} = require('./prepare-release');
+const {
+  getLastDevelopCommitSHA,
+  createReleasePR,
+  createReleaseBranch,
+  createReleaseNotes
+} = require('./github');
+const {askNewReleaseVersion, askReleaseTitle} = require('./inquirer');
+const {prepareRelease} = require('./');
 
 describe('#prepareRelease', () => {
   askNewReleaseVersion.mockReturnValue('1.0.1');

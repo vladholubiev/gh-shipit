@@ -1,10 +1,14 @@
 const logSymbols = require('log-symbols');
-const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('../inquirer');
-const {createReleaseBranch, getLastDevelopCommitSHA} = require('../client-repos');
-const {createReleasePR} = require('../client-prs');
-const {createReleaseNotes} = require('../client-releases');
+const {askToOpenPR} = require('../inquirer');
 const {createReleaseLabel, assignReleaseLabel} = require('../client-labels');
 const {hasReleaseLabel} = require('../helpers-labels');
+const {
+  getLastDevelopCommitSHA,
+  createReleaseBranch,
+  createReleaseNotes,
+  createReleasePR
+} = require('./github');
+const {askNewReleaseVersion, askReleaseTitle} = require('./inquirer');
 
 module.exports.prepareRelease = async function({org, repo}) {
   try {

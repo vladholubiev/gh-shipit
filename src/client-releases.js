@@ -93,19 +93,3 @@ module.exports.getOpenReleasePRs = async function({org, repo}) {
 
   return nodes;
 };
-
-module.exports.createReleaseNotes = async function({org, repo, version, releaseTitle}) {
-  const gh = getClient();
-  const tagName = `v${version}`;
-
-  const {data} = await gh.repos.createRelease({
-    owner: org,
-    repo,
-    tag_name: tagName,
-    target_commitish: `release/${tagName}`,
-    name: `Release ${tagName}: ${releaseTitle}`,
-    draft: true
-  });
-
-  return data;
-};

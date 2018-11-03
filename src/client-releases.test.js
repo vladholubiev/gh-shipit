@@ -3,7 +3,6 @@ jest.mock('./client');
 const {getClient} = require('./client');
 const {
   getLastRelease,
-  createReleaseNotes,
   getOpenReleasePRs,
   getLastDraftReleaseTag,
   getDraftReleaseTags
@@ -13,12 +12,11 @@ const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1
 const getReleasesMock = jest.fn().mockReturnValue({
   data: [{id: 1, tag_name: 'v1.0.0', draft: false}, {id: 2, tag_name: 'v1.0.1', draft: true}]
 });
-const createReleaseMock = jest.fn().mockReturnValue({data: {}});
+
 getClient.mockReturnValue({
   repos: {
     getLatestRelease: getLatestReleaseMock,
-    getReleases: getReleasesMock,
-    createRelease: createReleaseMock
+    getReleases: getReleasesMock
   }
 });
 
@@ -73,30 +71,5 @@ describe('#getDraftReleaseTags', () => {
 describe('#getOpenReleasePRs', () => {
   it('should export getOpenReleasePRs function', () => {
     expect(getOpenReleasePRs).toBeInstanceOf(Function);
-  });
-});
-
-describe('#createReleaseNotes', () => {
-  it('should export createReleaseNotes function', () => {
-    expect(createReleaseNotes).toBeInstanceOf(Function);
-  });
-
-  it('should call createRelease w/ proper params', async () => {
-    const params = {
-      org: 'my-org',
-      repo: 'my-repo',
-      version: '1.0.0',
-      releaseTitle: 'New Login Page'
-    };
-    await createReleaseNotes(params);
-
-    expect(createReleaseMock).toBeCalledWith({
-      draft: true,
-      name: 'Release v1.0.0: New Login Page',
-      owner: 'my-org',
-      repo: 'my-repo',
-      tag_name: 'v1.0.0',
-      target_commitish: 'release/v1.0.0'
-    });
   });
 });
