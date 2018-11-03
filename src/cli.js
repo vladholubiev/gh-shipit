@@ -19,7 +19,6 @@ updateNotifier({pkg}).notify();
 
     const org = await askOrg();
     const orgAction = await askOrgAction();
-    const format = await askFormatOutput();
 
     if (orgAction === 'releases') {
       const repo = await askRepo(org);
@@ -35,6 +34,7 @@ updateNotifier({pkg}).notify();
     }
 
     if (orgAction === 'view-releases') {
+      const format = await askFormatOutput();
       await viewReleases({org, format});
     }
   } catch (error) {
