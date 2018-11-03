@@ -45,19 +45,6 @@ module.exports.getDraftReleaseTags = async function({org, repo}) {
   }
 };
 
-module.exports.publishDraftRelease = async function({org, repo, releaseId}) {
-  const gh = getClient();
-
-  const {data} = await gh.repos.editRelease({
-    owner: org,
-    repo,
-    release_id: releaseId,
-    draft: false
-  });
-
-  return data;
-};
-
 module.exports.getOpenReleasePRs = async function({org, repo}) {
   const gh = getClientGraphQL();
   debug('Loading release PRs for repo  %s', repo);

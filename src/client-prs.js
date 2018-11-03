@@ -19,17 +19,3 @@ module.exports.createReleasePR = async function({org, repo, version, releaseTitl
 
   return data;
 };
-
-module.exports.mergePR = async function({org, repo, number}) {
-  const gh = getClient();
-
-  debug('Merging PR', {org, repo, number});
-
-  const {data} = await gh.pullRequests.merge({
-    owner: org,
-    repo,
-    number
-  });
-
-  return data;
-};

@@ -1,7 +1,6 @@
 const logSymbols = require('log-symbols');
-const {publishDraftRelease} = require('../client-releases');
-const {mergePR} = require('../client-prs');
-const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('../inquirer');
+const {publishDraftRelease, mergePR} = require('./github');
+const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
 
 module.exports.publishRelease = async function({org, repo}) {
   try {

@@ -1,11 +1,9 @@
-jest.mock('../inquirer');
-jest.mock('../client-releases');
-jest.mock('../client-prs');
+jest.mock('./github');
+jest.mock('./inquirer');
 
-const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('../inquirer');
-const {publishDraftRelease} = require('../client-releases');
-const {mergePR} = require('../client-prs');
-const {publishRelease} = require('./publish-release');
+const {publishDraftRelease, mergePR} = require('./github');
+const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
+const {publishRelease} = require('./');
 
 const params = {org: 'my-org', repo: 'my-repo'};
 
