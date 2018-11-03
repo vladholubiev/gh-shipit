@@ -1,10 +1,11 @@
 jest.mock('./client');
 
 const {getClient} = require('./client');
-const {createReleasePR, mergePR} = require('./client-prs');
+const {createReleasePR} = require('./client-prs');
 
 const createMock = jest.fn().mockReturnValue({data: {}});
 const mergeMock = jest.fn().mockReturnValue({data: {}});
+
 getClient.mockReturnValue({
   pullRequests: {
     create: createMock,
@@ -35,26 +36,6 @@ describe('#createReleasePR', () => {
       owner: 'my-org',
       repo: 'my-repo',
       title: 'Release v1.0.0: New Login Page'
-    });
-  });
-});
-
-describe('#mergePR', () => {
-  it('should export mergePR function', () => {
-    expect(mergePR).toBeInstanceOf(Function);
-  });
-
-  it('should call pullRequests.merge w/ proper params', async () => {
-    await mergePR({
-      org: 'my-org',
-      repo: 'my-repo',
-      number: 1
-    });
-
-    expect(mergeMock).toBeCalledWith({
-      number: 1,
-      owner: 'my-org',
-      repo: 'my-repo'
     });
   });
 });
