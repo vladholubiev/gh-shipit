@@ -1,19 +1,17 @@
-jest.mock('../inquirer');
-jest.mock('../client-labels');
-jest.mock('../helpers-labels');
+jest.mock('./github-labels');
+jest.mock('./helpers-labels');
 jest.mock('./inquirer');
 jest.mock('./github');
 
-const {askToOpenPR} = require('../inquirer');
-const {createReleaseLabel, assignReleaseLabel} = require('../client-labels');
-const {hasReleaseLabel} = require('../helpers-labels');
+const {createReleaseLabel, assignReleaseLabel} = require('./github-labels');
+const {hasReleaseLabel} = require('./helpers-labels');
 const {
   getLastDevelopCommitSHA,
   createReleasePR,
   createReleaseBranch,
   createReleaseNotes
 } = require('./github');
-const {askNewReleaseVersion, askReleaseTitle} = require('./inquirer');
+const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('./inquirer');
 const {prepareRelease} = require('./');
 
 describe('#prepareRelease', () => {

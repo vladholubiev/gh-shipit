@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const {getClient} = require('./client');
+const {getClient} = require('../client');
 
 module.exports.getRepoLabels = async function({org, repo}) {
   const gh = getClient();

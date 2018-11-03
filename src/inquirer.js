@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
-const opn = require('opn');
 const _ = require('lodash');
 const logSymbols = require('log-symbols');
 const ProgressBar = require('progress');
@@ -126,22 +125,6 @@ module.exports.askFormatOutput = async function() {
   ]);
 
   return format;
-};
-
-module.exports.askToOpenPR = async function({org, repo, pr}) {
-  const {shouldOpenPR} = await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'shouldOpenPR',
-      message: 'Open PR in Browser?',
-      default: true
-    }
-  ]);
-
-  if (shouldOpenPR) {
-    const prURL = `https://github.com/${org}/${repo}/pull/${pr}`;
-    opn(prURL);
-  }
 };
 
 async function loadRepos(org) {

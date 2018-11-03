@@ -1,6 +1,6 @@
-jest.mock('./client-labels');
+jest.mock('./github-labels');
 
-const {getRepoLabels} = require('./client-labels');
+const {getRepoLabels} = require('./github-labels');
 const {hasReleaseLabel} = require('./helpers-labels');
 
 describe('#hasReleaseLabel', () => {

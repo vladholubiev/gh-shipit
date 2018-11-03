@@ -1,5 +1,5 @@
-const {getOpenReleasePRForVersion} = require('./helpers-release-prs');
-const {valid, invalid} = require('./helpers-release-prs-nodes.fixture');
+const {valid, invalid} = require('./release-prs.fixture');
+const {getOpenReleasePRForVersion} = require('./helpers');
 
 describe('#getFirstOpenReleasePR', () => {
   it('should export getOpenReleasePRForVersion function', () => {

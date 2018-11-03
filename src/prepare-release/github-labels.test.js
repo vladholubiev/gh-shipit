@@ -1,7 +1,7 @@
-jest.mock('./client');
+jest.mock('../client');
 
-const {getClient} = require('./client');
-const {getRepoLabels, createReleaseLabel, assignReleaseLabel} = require('./client-labels');
+const {getClient} = require('../client');
+const {getRepoLabels, createReleaseLabel, assignReleaseLabel} = require('./github-labels');
 
 const labelsMock = [
   {
