@@ -7,7 +7,7 @@ const debug = require('debug')(`${require('../package').name}:${path.basename(__
 const {askOrg, askRepo, askRepoAction, askOrgAction, askFormatOutput} = require('./inquirer');
 const {prepareRelease} = require('./flows/prepare-release');
 const {publishRelease} = require('./flows/publish-release');
-const {viewReleases} = require('./flows/view-releases');
+const {viewReleases} = require('./view-releases/view-releases');
 const {verifyToken} = require('./verify-token');
 const pkg = require('../package.json');
 

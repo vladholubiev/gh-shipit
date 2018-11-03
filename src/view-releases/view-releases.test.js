@@ -1,10 +1,10 @@
-jest.mock('../client-releases');
-jest.mock('../helpers-releases');
-jest.mock('../releases-table');
+jest.mock('./helpers-releases');
+jest.mock('./releases-table');
+jest.mock('./github');
 
-const {getOrgReleases} = require('../client-releases');
-const {getLatestReleases} = require('../helpers-releases');
-const {printReleasesTable} = require('../releases-table');
+const {getLatestReleases} = require('./helpers-releases');
+const {printReleasesTable} = require('./releases-table');
+const {getOrgReleases} = require('./github');
 const {viewReleases} = require('./view-releases');
 
 const latestReleasesMock = [{a: 1}];
