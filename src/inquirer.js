@@ -55,7 +55,7 @@ module.exports.askRepo = async function(org) {
 
 module.exports.askRepoAction = async function({org, repo}) {
   const choices = [];
-  const {ahead_by, behind_by, lastDraftReleaseTag} = await getBranchDiff({org, repo});
+  const {ahead_by, lastDraftReleaseTag} = await getBranchDiff({org, repo});
 
   if (ahead_by > 0) {
     const prepareReleaseActionDescription = chalk`{dim ${_.padStart(
@@ -73,13 +73,6 @@ module.exports.askRepoAction = async function({org, repo}) {
     choices.push({
       name: `Publish release ${lastDraftReleaseTag}`,
       value: 'publish-release'
-    });
-  }
-
-  if (behind_by > 0) {
-    choices.push({
-      name: 'PR master -> develop',
-      value: 'pr-master-develop'
     });
   }
 

@@ -7,7 +7,6 @@ const debug = require('debug')(`${require('../package').name}:${path.basename(__
 const {askOrg, askRepo, askRepoAction, askOrgAction, askFormatOutput} = require('./inquirer');
 const {prepareRelease} = require('./flows/prepare-release');
 const {publishRelease} = require('./flows/publish-release');
-const {prMasterDevelop} = require('./flows/pr-master-develop');
 const {viewReleases} = require('./flows/view-releases');
 const {verifyToken} = require('./verify-token');
 const pkg = require('../package.json');
@@ -32,10 +31,6 @@ updateNotifier({pkg}).notify();
 
       if (action === 'publish-release') {
         await publishRelease({org, repo});
-      }
-
-      if (action === 'pr-master-develop') {
-        await prMasterDevelop({org, repo});
       }
     }
 

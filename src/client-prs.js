@@ -20,20 +20,6 @@ module.exports.createReleasePR = async function({org, repo, version, releaseTitl
   return data;
 };
 
-module.exports.createMasterDevelopPR = async function({org, repo}) {
-  const gh = getClient();
-
-  const {data} = await gh.pullRequests.create({
-    owner: org,
-    repo,
-    head: 'master',
-    base: 'develop',
-    title: `Merge 'master' back to 'develop'`
-  });
-
-  return data;
-};
-
 module.exports.mergePR = async function({org, repo, number}) {
   const gh = getClient();
 

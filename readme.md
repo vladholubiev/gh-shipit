@@ -31,7 +31,6 @@ $ npx gh-shipit
   - Releases last week
   - Releases this month
   - Releases this quarter
-- Create PR from `master` to `develop` to sync stale commits
 
 ### Screenshots
 
