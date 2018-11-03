@@ -1,6 +1,6 @@
 const MockDate = require('mockdate');
-const {getLatestReleases} = require('./helpers-releases');
-const edges = require('./helpers-releases-edges.fixture');
+const edges = require('./releases.fixture');
+const {getLatestReleases} = require('./format');
 
 MockDate.set('5/1/2017', 0);
 

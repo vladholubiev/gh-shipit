@@ -1,11 +1,11 @@
-jest.mock('./helpers-releases');
-jest.mock('./releases-table');
+jest.mock('./format');
+jest.mock('./print');
 jest.mock('./github');
 
-const {getLatestReleases} = require('./helpers-releases');
-const {printReleasesTable} = require('./releases-table');
+const {getLatestReleases} = require('./format');
+const {printReleasesTable} = require('./print');
 const {getOrgReleases} = require('./github');
-const {viewReleases} = require('./view-releases');
+const {viewReleases} = require('./');
 
 const latestReleasesMock = [{a: 1}];
 getOrgReleases.mockReturnValue(latestReleasesMock);

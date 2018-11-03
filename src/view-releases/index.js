@@ -1,7 +1,7 @@
 const CSVSerializer = require('json2csv').Parser;
 const {getOrgReleases} = require('./github');
-const {getLatestReleases} = require('./helpers-releases');
-const {printReleasesTable} = require('./releases-table');
+const {getLatestReleases} = require('./format');
+const {printReleasesTable} = require('./print');
 
 const fields = [
   'repo',
