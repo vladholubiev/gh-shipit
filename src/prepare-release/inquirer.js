@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 const {normalizeSpace} = require('normalize-space-x');
 const opn = require('opn');
 const {getLastRelease} = require('../client-releases');
