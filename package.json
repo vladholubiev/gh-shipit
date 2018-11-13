@@ -50,7 +50,7 @@
     "lodash": "4.17.11",
     "log-symbols": "2.2.0",
     "longest": "2.0.1",
-    "node-fetch": "2.2.1",
+    "node-fetch": "2.3.0",
     "normalize-space-x": "3.0.0",
     "opn": "5.4.0",
     "ora": "3.0.0",
