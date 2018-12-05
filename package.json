@@ -57,7 +57,7 @@
     "p-map": "2.0.0",
     "p-progress": "0.2.0",
     "pretty-version-diff": "1.0.0",
-    "progress": "2.0.2",
+    "progress": "2.0.3",
     "semver": "5.6.0",
     "smartwrap": "1.0.9",
     "string-width": "2.1.1",
