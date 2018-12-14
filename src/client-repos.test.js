@@ -5,14 +5,14 @@ const {getRepoBranches, compareBranches, getOrgRepos} = require('./client-repos'
 
 const getBranchesMock = jest.fn().mockReturnValue({data: [{name: 'develop'}, {name: 'master'}]});
 const compareCommitsMock = jest.fn().mockReturnValue({data: []});
-const getForOrgMock = jest.fn().mockReturnValue({data: []});
+const listForOrgMock = jest.fn().mockReturnValue({data: []});
 const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
 getClient.mockReturnValue({
   repos: {
     getBranches: getBranchesMock,
     compareCommits: compareCommitsMock,
-    getForOrg: getForOrgMock,
+    listForOrg: listForOrgMock,
     getBranch: getBranchMock
   }
 });
@@ -69,11 +69,11 @@ describe('#getOrgRepos', () => {
 
   it('should call getForOrg w/ type:sources and size:100', async () => {
     await getOrgRepos('my-org');
-    expect(getForOrgMock).toBeCalledWith({org: 'my-org', per_page: 100, type: 'sources'});
+    expect(listForOrgMock).toBeCalledWith({org: 'my-org', per_page: 100, type: 'sources'});
   });
 
   it('should return array of non-archived repos', async () => {
-    getForOrgMock.mockReturnValueOnce({
+    listForOrgMock.mockReturnValueOnce({
       data: [
         {name: 'repo-1', archived: false},
         {name: 'repo-2', archived: true},

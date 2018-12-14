@@ -29,7 +29,7 @@ module.exports.getDraftReleaseTags = async function({org, repo}) {
   const gh = getClient();
 
   try {
-    const {data} = await gh.repos.getReleases({owner: org, repo});
+    const {data} = await gh.repos.listReleases({owner: org, repo});
     const draftReleases = _.filter(data, {draft: true});
 
     return _.compact(

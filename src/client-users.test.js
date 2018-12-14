@@ -5,8 +5,8 @@ const {getUserOrgs} = require('./client-users');
 
 const getOrgsMock = jest.fn().mockReturnValue({data: [{login: 'org-1'}, {login: 'org-2'}]});
 getClient.mockReturnValue({
-  users: {
-    getOrgs: getOrgsMock
+  orgs: {
+    listForAuthenticatedUser: getOrgsMock
   }
 });
 

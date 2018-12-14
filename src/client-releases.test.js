@@ -9,14 +9,14 @@ const {
 } = require('./client-releases');
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
-const getReleasesMock = jest.fn().mockReturnValue({
+const listReleasesMock = jest.fn().mockReturnValue({
   data: [{id: 1, tag_name: 'v1.0.0', draft: false}, {id: 2, tag_name: 'v1.0.1', draft: true}]
 });
 
 getClient.mockReturnValue({
   repos: {
     getLatestRelease: getLatestReleaseMock,
-    getReleases: getReleasesMock
+    listReleases: listReleasesMock
   }
 });
 
@@ -43,7 +43,7 @@ describe('#getLastDraftReleaseTag', () => {
 
   it('should call getReleases w/ repo name', async () => {
     await getLastDraftReleaseTag({org: 'my-org', repo: 'my-repo'});
-    expect(getReleasesMock).toBeCalledWith({owner: 'my-org', repo: 'my-repo'});
+    expect(listReleasesMock).toBeCalledWith({owner: 'my-org', repo: 'my-repo'});
   });
 
   it('should return tag name of last draft release', async () => {
@@ -59,7 +59,7 @@ describe('#getDraftReleaseTags', () => {
 
   it('should call getReleases w/ repo name', async () => {
     await getDraftReleaseTags({org: 'my-org', repo: 'my-repo'});
-    expect(getReleasesMock).toBeCalledWith({owner: 'my-org', repo: 'my-repo'});
+    expect(listReleasesMock).toBeCalledWith({owner: 'my-org', repo: 'my-repo'});
   });
 
   it('should return tag names of last draft releases', async () => {
