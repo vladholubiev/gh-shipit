@@ -1,7 +1,7 @@
 jest.mock('./github');
 jest.mock('./inquirer');
 
-const {publishDraftRelease, mergePR} = require('./github');
+const {publishDraftRelease, mergePR, deleteBranch} = require('./github');
 const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
 const {publishRelease} = require('./');
 
@@ -32,4 +32,9 @@ it('should call publishDraftRelease w/ org & repo & release id', async () => {
 it('should call mergePR w/ org & repo & release PR number', async () => {
   await publishRelease(params);
   expect(mergePR).toBeCalledWith({...params, number: '123'});
+});
+
+it('should call deleteBranch w/ org & repo & branch name', async () => {
+  await publishRelease(params);
+  expect(deleteBranch).toBeCalledWith({name: 'release/v1.0.1', org: 'my-org', repo: 'my-repo'});
 });

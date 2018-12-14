@@ -28,3 +28,13 @@ module.exports.mergePR = async function({org, repo, number}) {
 
   return data;
 };
+
+module.exports.deleteBranch = async function({org, repo, name}) {
+  const gh = getClient();
+
+  debug(`Deleting release branch`);
+
+  const {data} = await gh.git.deleteRef({owner: org, repo, ref: name});
+
+  return data;
+};
