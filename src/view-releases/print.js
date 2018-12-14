@@ -5,6 +5,23 @@ const getCliWidth = require('cli-width');
 const stringWidth = require('string-width');
 const boxen = require('boxen');
 
+module.exports.print1Release = function({repo, date, version, name}) {
+  const table = new Table({
+    head: ['repo', 'date', 'version', 'name']
+  });
+
+  table.push([
+    smartwrap(repo, {width: Math.floor(getCliWidth() / 4)}),
+    date.toLocaleDateString(),
+    version,
+    smartwrap(name, {width: Math.floor(getCliWidth() / 2)})
+  ]);
+
+  console.log(table.toString());
+
+  return table.toString();
+};
+
 module.exports.printReleasesTable = function(latestReleases) {
   const rows = latestReleases;
 
