@@ -1,4 +1,5 @@
 const logSymbols = require('log-symbols');
+const {print1Release} = require('../view-releases/print');
 const {publishDraftRelease, mergePR, deleteBranch} = require('./github');
 const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
 
@@ -12,7 +13,7 @@ module.exports.publishRelease = async function({org, repo}) {
       `You are about to publish release ${version} and merge PR to master`
     );
 
-    await publishDraftRelease({org, repo, releaseId});
+    const {name, published_at} = await publishDraftRelease({org, repo, releaseId});
     console.log(logSymbols.success, `Release ${version} published`);
 
     await mergePR({org, repo, number: prNumber});
@@ -20,6 +21,8 @@ module.exports.publishRelease = async function({org, repo}) {
 
     await deleteBranch({org, repo, name: `release/${version}`});
     console.log(logSymbols.success, `Deleted release branch`);
+
+    print1Release({name, repo, date: new Date(published_at), version});
   } catch (error) {
     console.log(logSymbols.error, JSON.parse(error.message).message);
   }

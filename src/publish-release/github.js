@@ -5,7 +5,7 @@ const {getClient} = require('../client');
 module.exports.publishDraftRelease = async function({org, repo, releaseId}) {
   const gh = getClient();
 
-  const {data} = await gh.repos.editRelease({
+  const {data} = await gh.repos.updateRelease({
     owner: org,
     repo,
     release_id: releaseId,

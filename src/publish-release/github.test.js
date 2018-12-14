@@ -4,14 +4,14 @@ const {getClient} = require('../client');
 const {mergePR, publishDraftRelease} = require('./github');
 
 const mergeMock = jest.fn().mockReturnValue({data: {}});
-const editReleaseMock = jest.fn().mockReturnValue({data: {}});
+const updateReleaseMock = jest.fn().mockReturnValue({data: {}});
 
 getClient.mockReturnValue({
   pullRequests: {
     merge: mergeMock
   },
   repos: {
-    editRelease: editReleaseMock
+    updateRelease: updateReleaseMock
   }
 });
 
@@ -48,7 +48,7 @@ describe('#publishDraftRelease', () => {
     };
     await publishDraftRelease(params);
 
-    expect(editReleaseMock).toBeCalledWith({
+    expect(updateReleaseMock).toBeCalledWith({
       draft: false,
       owner: 'my-org',
       release_id: 'q1w2e3rr4',
