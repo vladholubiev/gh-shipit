@@ -34,7 +34,7 @@ module.exports.deleteBranch = async function({org, repo, name}) {
 
   debug(`Deleting release branch`);
 
-  const {data} = await gh.git.deleteRef({owner: org, repo, ref: name});
+  const {data} = await gh.gitdata.deleteRef({owner: org, repo, ref: `heads/${name}`});
 
   return data;
 };
