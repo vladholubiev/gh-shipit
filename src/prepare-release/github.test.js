@@ -10,7 +10,7 @@ const {
 
 const createMock = jest.fn().mockReturnValue({data: {}});
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
-const createReferenceMock = jest.fn().mockReturnValue({data: []});
+const createRefMock = jest.fn().mockReturnValue({data: []});
 const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
 getClient.mockReturnValue({
@@ -19,7 +19,7 @@ getClient.mockReturnValue({
     createRelease: createReleaseMock
   },
   gitdata: {
-    createReference: createReferenceMock
+    createRef: createRefMock
   },
   pullRequests: {
     create: createMock
@@ -52,11 +52,11 @@ describe('#createReleaseBranch', () => {
     expect(createReleaseBranch).toBeInstanceOf(Function);
   });
 
-  it('should call createReference w/ all branch name and commit hash', async () => {
+  it('should call createRef w/ all branch name and commit hash', async () => {
     const params = {org: 'my-org', repo: 'my-repo', version: '1.0.0', commitHash: 'b4c59e'};
     await createReleaseBranch(params);
 
-    expect(createReferenceMock).toBeCalledWith({
+    expect(createRefMock).toBeCalledWith({
       owner: 'my-org',
       ref: 'refs/heads/release/v1.0.0',
       repo: 'my-repo',

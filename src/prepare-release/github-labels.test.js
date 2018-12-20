@@ -12,12 +12,12 @@ const labelsMock = [
     default: true
   }
 ];
-const getLabelsMock = jest.fn().mockReturnValue({data: labelsMock});
+const listLabelsForRepoMock = jest.fn().mockReturnValue({data: labelsMock});
 const createLabelMock = jest.fn().mockReturnValue({data: {}});
 const addLabelsMock = jest.fn().mockReturnValue({data: {}});
 getClient.mockReturnValue({
   issues: {
-    getLabels: getLabelsMock,
+    listLabelsForRepo: listLabelsForRepoMock,
     createLabel: createLabelMock,
     addLabels: addLabelsMock
   }
@@ -28,9 +28,9 @@ describe('#getRepoLabels', () => {
     expect(getRepoLabels).toBeInstanceOf(Function);
   });
 
-  it('should call getLabels w/ org and repo', async () => {
+  it('should call listLabelsForRepo w/ org and repo', async () => {
     await getRepoLabels({org: 'my-org', repo: 'my-repo'});
-    expect(getLabelsMock).toBeCalledWith({owner: 'my-org', per_page: 100, repo: 'my-repo'});
+    expect(listLabelsForRepoMock).toBeCalledWith({owner: 'my-org', per_page: 100, repo: 'my-repo'});
   });
 
   it('should return array of label names', async () => {

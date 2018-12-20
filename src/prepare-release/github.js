@@ -20,7 +20,7 @@ module.exports.createReleaseBranch = async function({org, repo, version, commitH
   const gh = getClient();
   const branchName = `refs/heads/release/v${version}`;
 
-  const {data} = await gh.gitdata.createReference({
+  const {data} = await gh.gitdata.createRef({
     owner: org,
     repo,
     ref: branchName,
