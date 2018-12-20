@@ -1,13 +1,11 @@
+jest.mock('cli-width');
+
+const getCliWidth = require('cli-width');
+const stripColor = require('strip-color');
 const {print1Release} = require('./print');
 
 describe('print1Release', () => {
-  beforeAll(() => {
-    process.env.CLI_WIDTH = '500';
-  });
-
-  afterAll(() => {
-    delete process.env.CLI_WIDTH;
-  });
+  getCliWidth.mockReturnValue('500');
 
   it('should export print1Release function', () => {
     expect(print1Release).toBeInstanceOf(Function);
@@ -23,7 +21,8 @@ describe('print1Release', () => {
 
     const releaseTable = print1Release(release);
 
-    expect(releaseTable).toEqual(`┌───────────────────┬──────────┬─────────┬─────────────────┐
+    expect(stripColor(releaseTable))
+      .toEqual(`┌───────────────────┬──────────┬─────────┬─────────────────┐
 │ repo              │ date     │ version │ name            │
 ├───────────────────┼──────────┼─────────┼─────────────────┤
 │ some-example-repo │ 2010-1-1 │ 0.1.1   │ Initial Release │
