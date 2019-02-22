@@ -46,7 +46,7 @@
     "graphql-tag": "2.10.0",
     "human-date": "1.4.0",
     "inquirer": "6.2.1",
-    "json2csv": "4.3.4",
+    "json2csv": "4.3.5",
     "lodash": "4.17.11",
     "log-symbols": "2.2.0",
     "longest": "2.0.1",
