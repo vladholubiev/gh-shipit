@@ -69,7 +69,14 @@ describe('#getOrgRepos', () => {
 
   it('should call getForOrg w/ type:sources and size:100', async () => {
     await getOrgRepos('my-org');
-    expect(listForOrgMock).toBeCalledWith({org: 'my-org', per_page: 100, type: 'sources'});
+
+    expect(listForOrgMock).toBeCalledWith({
+      org: 'my-org',
+      per_page: 100,
+      type: 'sources',
+      sort: 'pushed',
+      direction: 'desc'
+    });
   });
 
   it('should return array of non-archived repos', async () => {

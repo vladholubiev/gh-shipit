@@ -34,7 +34,13 @@ module.exports.compareBranches = async function({org, repo}) {
 
 module.exports.getOrgRepos = async function(org) {
   const gh = getClient();
-  const {data: repos} = await gh.repos.listForOrg({org, type: 'sources', per_page: 100});
+  const {data: repos} = await gh.repos.listForOrg({
+    org,
+    type: 'sources',
+    per_page: 100,
+    sort: 'pushed',
+    direction: 'desc'
+  });
   const withoutArchived = fp.reject({archived: true});
   const getName = fp.map('name');
 
