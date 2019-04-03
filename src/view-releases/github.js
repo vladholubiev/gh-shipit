@@ -17,7 +17,7 @@ module.exports.getOrgReleases = async function(org) {
     query: gql`
       {
         organization(login: "${org}") {
-          repositories(first: 100) {
+          repositories(last: 100) {
             edges {
               node {
                 name
@@ -39,6 +39,8 @@ module.exports.getOrgReleases = async function(org) {
       }
     `
   });
+
+  debug('Loaded org releases %o', edges);
 
   return edges;
 };
