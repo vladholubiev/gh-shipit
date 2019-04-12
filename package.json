@@ -71,7 +71,7 @@
     "jest": "24.7.1",
     "lint-staged": "8.1.5",
     "mockdate": "2.0.2",
-    "prettier": "1.16.4",
+    "prettier": "1.17.0",
     "strip-color": "0.1.0"
   },
   "jest": {
