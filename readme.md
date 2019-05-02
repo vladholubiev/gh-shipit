@@ -1,4 +1,6 @@
-# gh-shipit [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/gh-shipit.svg)](https://circleci.com/gh/vladgolubev/gh-shipit) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg) ![node](https://img.shields.io/node/v/gh-shipit.svg)
+<p align="left"><img src="logo/horizontal.svg" alt="gh-shipit" height="120px"></p>
+
+# [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/gh-shipit.svg)](https://circleci.com/gh/vladgolubev/gh-shipit) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg) ![node](https://img.shields.io/node/v/gh-shipit.svg)
 
 ![](media/demo-diff.png)
 
