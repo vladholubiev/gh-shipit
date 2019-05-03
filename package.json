@@ -69,7 +69,7 @@
     "eslint-plugin-prettier": "3.0.1",
     "husky": "2.2.0",
     "jest": "24.7.1",
-    "lint-staged": "8.1.5",
+    "lint-staged": "8.1.6",
     "mockdate": "2.0.2",
     "prettier": "1.17.0",
     "strip-color": "0.1.0"
