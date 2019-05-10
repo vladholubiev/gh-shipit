@@ -61,7 +61,7 @@
     "semver": "6.0.0",
     "smartwrap": "1.0.11",
     "string-width": "4.1.0",
-    "update-notifier": "2.5.0"
+    "update-notifier": "2.6.0"
   },
   "devDependencies": {
     "eslint": "5.16.0",
