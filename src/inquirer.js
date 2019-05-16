@@ -12,6 +12,10 @@ const {formatReposDiffsForChoices} = require('./format');
 const {getAllReposDiffs} = require('./diff');
 
 module.exports.askOrg = async function() {
+  if (process.env.GH_SHIPIT_ORG) {
+    return process.env.GH_SHIPIT_ORG;
+  }
+
   const {org} = await inquirer.prompt([
     {
       type: 'list',
