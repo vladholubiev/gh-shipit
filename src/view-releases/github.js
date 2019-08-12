@@ -21,7 +21,7 @@ module.exports.getOrgReleases = async function(org) {
             edges {
               node {
                 name
-                releases(last: 100) {
+                releases(last: 20) {
                   edges {
                     node {
                       publishedAt
