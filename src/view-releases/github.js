@@ -16,8 +16,8 @@ module.exports.getOrgReleases = async function(org) {
   } = await gh.query({
     query: gql`
       {
-        organization(login: "${org}", isLocked: false, privacy: PRIVATE) {
-          repositories(last: 100) {
+        organization(login: "${org}") {
+          repositories(last: 50, isLocked: false, privacy: PRIVATE, orderBy: {field: PUSHED_AT, direction: DESC}) {
             edges {
               node {
                 name
