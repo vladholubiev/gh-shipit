@@ -17,11 +17,11 @@ module.exports.getOrgReleases = async function(org) {
     query: gql`
       {
         organization(login: "${org}") {
-          repositories(last: 50, isLocked: false, privacy: PRIVATE, orderBy: {field: PUSHED_AT, direction: DESC}) {
+          repositories(last: 50, isLocked: false, privacy: PRIVATE, orderBy: {field: PUSHED_AT, direction: ASC}) {
             edges {
               node {
                 name
-                releases(last: 20) {
+                releases(last: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
                   edges {
                     node {
                       publishedAt
