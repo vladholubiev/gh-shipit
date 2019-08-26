@@ -70,7 +70,7 @@
     "husky": "3.0.4",
     "jest": "24.9.0",
     "lint-staged": "9.2.4",
-    "mockdate": "2.0.3",
+    "mockdate": "2.0.5",
     "prettier": "1.18.2",
     "strip-color": "0.1.0"
   },
