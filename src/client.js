@@ -31,6 +31,7 @@ module.exports.getClientGraphQL = function() {
   const httpLink = new HttpLink({uri: 'https://api.github.com/graphql', fetch});
   const authLink = setContext((_, {headers}) => {
     const token = process.env.GITHUB_TOKEN;
+
     return {
       headers: {
         ...headers,

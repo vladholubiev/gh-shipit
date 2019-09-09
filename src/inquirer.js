@@ -36,6 +36,7 @@ module.exports.askRepo = async function(org) {
 
   if (_.isEmpty(choices)) {
     console.log(logSymbols.success, `Nothing to Release!`);
+
     return process.exit(0);
   }
 

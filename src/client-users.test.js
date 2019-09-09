@@ -17,11 +17,13 @@ describe('#getUserOrgs', () => {
 
   it('should call getOrgs w/o params', async () => {
     await getUserOrgs();
-    expect(getOrgsMock).toBeCalledWith();
+
+    expect(getOrgsMock).toHaveBeenCalledWith();
   });
 
   it('should return array of user orgs', async () => {
     const orgs = await getUserOrgs();
+
     expect(orgs).toEqual(['org-1', 'org-2']);
   });
 });

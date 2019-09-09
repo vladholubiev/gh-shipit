@@ -19,15 +19,18 @@ it('should export viewReleases function', () => {
 
 it('should call getOrgReleases w/ org name', async () => {
   await viewReleases(params);
-  expect(getOrgReleases).toBeCalledWith('my-org');
+
+  expect(getOrgReleases).toHaveBeenCalledWith('my-org');
 });
 
 it('should call getLatestReleases w/ releases response', async () => {
   await viewReleases(params);
-  expect(getLatestReleases).toBeCalledWith(latestReleasesMock);
+
+  expect(getLatestReleases).toHaveBeenCalledWith(latestReleasesMock);
 });
 
 it('should call printReleasesTable w/ releases response for this week', async () => {
   await viewReleases(params);
-  expect(printReleasesTable).toBeCalledWith(latestReleasesMock);
+
+  expect(printReleasesTable).toHaveBeenCalledWith(latestReleasesMock);
 });

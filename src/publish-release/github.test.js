@@ -27,7 +27,7 @@ describe('#mergePR', () => {
       number: 1
     });
 
-    expect(mergeMock).toBeCalledWith({
+    expect(mergeMock).toHaveBeenCalledWith({
       number: 1,
       owner: 'my-org',
       repo: 'my-repo'
@@ -48,7 +48,7 @@ describe('#publishDraftRelease', () => {
     };
     await publishDraftRelease(params);
 
-    expect(updateReleaseMock).toBeCalledWith({
+    expect(updateReleaseMock).toHaveBeenCalledWith({
       draft: false,
       owner: 'my-org',
       release_id: 'q1w2e3rr4',

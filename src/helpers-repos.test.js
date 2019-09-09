@@ -12,7 +12,8 @@ describe('#hasMasterAndDevelop', () => {
 
   it('should call getRepoBranches w/ org and repo', async () => {
     await hasMasterAndDevelop({org: 'my-org', repo: 'my-repo'});
-    expect(getRepoBranches).toBeCalledWith({org: 'my-org', repo: 'my-repo'});
+
+    expect(getRepoBranches).toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
   });
 
   it('should return true when repo has both branches', async () => {

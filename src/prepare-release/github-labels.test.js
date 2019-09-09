@@ -30,11 +30,17 @@ describe('#getRepoLabels', () => {
 
   it('should call listLabelsForRepo w/ org and repo', async () => {
     await getRepoLabels({org: 'my-org', repo: 'my-repo'});
-    expect(listLabelsForRepoMock).toBeCalledWith({owner: 'my-org', per_page: 100, repo: 'my-repo'});
+
+    expect(listLabelsForRepoMock).toHaveBeenCalledWith({
+      owner: 'my-org',
+      per_page: 100,
+      repo: 'my-repo'
+    });
   });
 
   it('should return array of label names', async () => {
     const labels = await getRepoLabels({org: 'my-org', repo: 'my-repo'});
+
     expect(labels).toEqual(['bug']);
   });
 });
@@ -46,7 +52,8 @@ describe('#createReleaseLabel', () => {
 
   it('should call createLabel w/ label name and color', async () => {
     await createReleaseLabel({org: 'my-org', repo: 'my-repo'});
-    expect(createLabelMock).toBeCalledWith({
+
+    expect(createLabelMock).toHaveBeenCalledWith({
       color: 'ff0000',
       name: 'release',
       owner: 'my-org',
@@ -64,7 +71,8 @@ describe('#assignReleaseLabel', () => {
 
   it('should call addLabels w/ 1 label and pr number', async () => {
     await assignReleaseLabel(params);
-    expect(addLabelsMock).toBeCalledWith({
+
+    expect(addLabelsMock).toHaveBeenCalledWith({
       labels: ['release'],
       number: 123,
       owner: 'my-org',

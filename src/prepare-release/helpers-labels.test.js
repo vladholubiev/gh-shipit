@@ -14,11 +14,13 @@ describe('#hasReleaseLabel', () => {
 
   it('should call getRepoLabels for repo to get list of labels', async () => {
     await hasReleaseLabel(params);
-    expect(getRepoLabels).toBeCalledWith({org: 'my-org', repo: 'my-repo'});
+
+    expect(getRepoLabels).toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
   });
 
   it('should return false if repo has no release label', async () => {
     const result = await hasReleaseLabel(params);
+
     expect(result).toEqual(false);
   });
 

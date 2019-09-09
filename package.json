@@ -2,21 +2,17 @@
   "name": "gh-shipit",
   "version": "1.8.2",
   "description": "Ship Releases",
-  "license": "MIT",
+  "keywords": [
+    "github",
+    "organization",
+    "release"
+  ],
   "repository": "vladgolubev/gh-shipit",
+  "license": "MIT",
   "author": {
     "name": "Vlad Holubiev",
     "email": "golubev.vld@gmail.com",
     "url": "vladholubiev.com"
-  },
-  "engines": {
-    "node": ">=8"
-  },
-  "scripts": {
-    "coverage": "jest --coverage",
-    "lint": "eslint . --fix",
-    "start": "node ./src/cli.js",
-    "test": "FORCE_COLOR=0 jest"
   },
   "files": [
     "src/"
@@ -24,11 +20,31 @@
   "bin": {
     "shipit": "./src/cli.js"
   },
-  "keywords": [
-    "github",
-    "release",
-    "organization"
-  ],
+  "scripts": {
+    "coverage": "jest --coverage",
+    "lint": "eslint . --fix --ext .js,.json,.ts --quiet",
+    "start": "node ./src/cli.js",
+    "test": "FORCE_COLOR=0 jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{html,json,md,yml,graphql}": [
+      "prettier --write --ignore-path=./.eslintignore",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "@octokit/graphql-schema": "4.27.0",
     "@octokit/rest": "15.18.2",
@@ -64,9 +80,8 @@
     "update-notifier": "3.0.0"
   },
   "devDependencies": {
+    "@shelf/eslint-config": "0.6.0",
     "eslint": "6.2.2",
-    "eslint-config-prettier": "6.1.0",
-    "eslint-plugin-prettier": "3.1.0",
     "husky": "3.0.4",
     "jest": "24.9.0",
     "lint-staged": "9.2.4",
@@ -74,18 +89,7 @@
     "prettier": "1.18.2",
     "strip-color": "0.1.0"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+  "engines": {
+    "node": ">=8"
   }
 }

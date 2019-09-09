@@ -11,6 +11,7 @@ module.exports.getAllReposDiffs = function({org, repos}) {
       repo =>
         getBranchDiff({org, repo}).then(resp => {
           progress(i++ / repos.length);
+
           return resp;
         }),
       {concurrency: 32}

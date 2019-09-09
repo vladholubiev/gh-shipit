@@ -33,7 +33,8 @@ describe('#getLastDevelopCommitSHA', () => {
 
   it('should call getBranch w/ develop branch in params', async () => {
     await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
-    expect(getBranchMock).toBeCalledWith({
+
+    expect(getBranchMock).toHaveBeenCalledWith({
       branch: 'develop',
       owner: 'my-org',
       per_page: 1,
@@ -43,6 +44,7 @@ describe('#getLastDevelopCommitSHA', () => {
 
   it('should return sha of last commit in develop', async () => {
     const sha = await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
+
     expect(sha).toEqual('a1b2c3');
   });
 });
@@ -56,7 +58,7 @@ describe('#createReleaseBranch', () => {
     const params = {org: 'my-org', repo: 'my-repo', version: '1.0.0', commitHash: 'b4c59e'};
     await createReleaseBranch(params);
 
-    expect(createRefMock).toBeCalledWith({
+    expect(createRefMock).toHaveBeenCalledWith({
       owner: 'my-org',
       ref: 'refs/heads/release/v1.0.0',
       repo: 'my-repo',
@@ -79,7 +81,7 @@ describe('#createReleaseNotes', () => {
     };
     await createReleaseNotes(params);
 
-    expect(createReleaseMock).toBeCalledWith({
+    expect(createReleaseMock).toHaveBeenCalledWith({
       draft: true,
       name: 'Release v1.0.0: New Login Page',
       owner: 'my-org',
@@ -103,7 +105,7 @@ describe('#createReleasePR', () => {
       releaseTitle: 'New Login Page'
     });
 
-    expect(createMock).toBeCalledWith({
+    expect(createMock).toHaveBeenCalledWith({
       base: 'master',
       head: 'release/v1.0.0',
       owner: 'my-org',

@@ -38,6 +38,7 @@ module.exports.askDraftReleasePRNumber = async function({org, repo, version}) {
 
   if (!isReadyToMerge) {
     console.log(logSymbols.error, reason);
+
     return process.exit(0);
   }
 
@@ -51,6 +52,7 @@ module.exports.askDraftReleasePRNumber = async function({org, repo, version}) {
 
   if (!confirm) {
     console.log(logSymbols.info, 'Release aborted. No changes have been made');
+
     return process.exit(0);
   }
 

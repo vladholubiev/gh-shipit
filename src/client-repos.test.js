@@ -28,11 +28,13 @@ describe('#getRepoBranches', () => {
 
   it('should call getBranches w/ 100 page size', async () => {
     await getRepoBranches({org: 'my-org', repo: 'my-repo'});
-    expect(getBranchesMock).toBeCalledWith({owner: 'my-org', per_page: 100, repo: 'my-repo'});
+
+    expect(getBranchesMock).toHaveBeenCalledWith({owner: 'my-org', per_page: 100, repo: 'my-repo'});
   });
 
   it('should return 2 branches', async () => {
     const branches = await getRepoBranches({org: 'my-org', repo: 'my-repo'});
+
     expect(branches).toEqual(['develop', 'master']);
   });
 });
@@ -48,7 +50,8 @@ describe('#compareBranches', () => {
 
   it('should call compareCommits w/ develop and master', async () => {
     await compareBranches({org: 'my-org', repo: 'my-repo'});
-    expect(compareCommitsMock).toBeCalledWith({
+
+    expect(compareCommitsMock).toHaveBeenCalledWith({
       base: 'master',
       head: 'develop',
       owner: 'my-org',
@@ -58,6 +61,7 @@ describe('#compareBranches', () => {
 
   it('should return array of changes', async () => {
     const changes = await compareBranches({org: 'my-org', repo: 'my-repo'});
+
     expect(changes).toEqual([]);
   });
 });
@@ -70,7 +74,7 @@ describe('#getOrgRepos', () => {
   it('should call getForOrg w/ type:sources and size:100', async () => {
     await getOrgRepos('my-org');
 
-    expect(listForOrgMock).toBeCalledWith({
+    expect(listForOrgMock).toHaveBeenCalledWith({
       org: 'my-org',
       per_page: 100,
       type: 'sources',

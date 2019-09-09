@@ -9,6 +9,7 @@ module.exports.getOpenReleasePRForVersion = function(prs, version) {
   }
 
   const prsForVersion = _.filter(prs, pr => _.includes(pr.title, version));
+
   if (_.isEmpty(prsForVersion)) {
     return {
       isReadyToMerge: false,

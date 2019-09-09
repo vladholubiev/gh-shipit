@@ -31,27 +31,32 @@ describe('#prepareRelease', () => {
 
   it('should call askNewReleaseVersion w/ org and repo', async () => {
     await prepareRelease(params);
-    expect(askNewReleaseVersion).toBeCalledWith(params);
+
+    expect(askNewReleaseVersion).toHaveBeenCalledWith(params);
   });
 
   it('should call getLastDevelopCommitSHA w/ org and repo', async () => {
     await prepareRelease(params);
-    expect(getLastDevelopCommitSHA).toBeCalledWith(params);
+
+    expect(getLastDevelopCommitSHA).toHaveBeenCalledWith(params);
   });
 
   it('should call createReleaseBranch w/ org, repo and version', async () => {
     await prepareRelease(params);
-    expect(createReleaseBranch).toBeCalledWith({...params, version: '1.0.1'});
+
+    expect(createReleaseBranch).toHaveBeenCalledWith({...params, version: '1.0.1'});
   });
 
   it('should call askReleaseTitle w/ org and repo', async () => {
     await prepareRelease(params);
-    expect(askReleaseTitle).toBeCalledWith(params);
+
+    expect(askReleaseTitle).toHaveBeenCalledWith(params);
   });
 
   it('should call askReleaseTitle w/ org, repo, version, title', async () => {
     await prepareRelease(params);
-    expect(createReleaseNotes).toBeCalledWith({
+
+    expect(createReleaseNotes).toHaveBeenCalledWith({
       ...params,
       version: '1.0.1',
       releaseTitle: 'My new release'
@@ -60,7 +65,8 @@ describe('#prepareRelease', () => {
 
   it('should call createReleasePR w/ org, repo, version, title', async () => {
     await prepareRelease(params);
-    expect(createReleasePR).toBeCalledWith({
+
+    expect(createReleasePR).toHaveBeenCalledWith({
       ...params,
       version: '1.0.1',
       releaseTitle: 'My new release'
@@ -69,29 +75,33 @@ describe('#prepareRelease', () => {
 
   it('should call hasReleaseLabel w/ org, repo', async () => {
     await prepareRelease(params);
-    expect(hasReleaseLabel).toBeCalledWith({org: 'my-org', repo: 'my-repo'});
+
+    expect(hasReleaseLabel).toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
   });
 
   it('should call createReleaseLabel if one not exists', async () => {
     await prepareRelease(params);
-    expect(createReleaseLabel).toBeCalledWith({org: 'my-org', repo: 'my-repo'});
+
+    expect(createReleaseLabel).toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
   });
 
   it('should not call createReleaseLabel if one exists', async () => {
     hasReleaseLabel.mockReturnValueOnce(true);
     await prepareRelease(params);
 
-    expect(createReleaseLabel).not.toBeCalledWith({org: 'my-org', repo: 'my-repo'});
+    expect(createReleaseLabel).not.toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
   });
 
   it('should call assignReleaseLabel w/ repo and pr number', async () => {
     await prepareRelease(params);
-    expect(assignReleaseLabel).toBeCalledWith({org: 'my-org', pr: 123, repo: 'my-repo'});
+
+    expect(assignReleaseLabel).toHaveBeenCalledWith({org: 'my-org', pr: 123, repo: 'my-repo'});
   });
 
   it('should call askToOpenPR w/ org, repo, pr number', async () => {
     await prepareRelease(params);
-    expect(askToOpenPR).toBeCalledWith({
+
+    expect(askToOpenPR).toHaveBeenCalledWith({
       ...params,
       pr: 123
     });

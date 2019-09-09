@@ -19,6 +19,7 @@ module.exports.getLastRelease = async function({org, repo}) {
 module.exports.getLastDraftReleaseTag = async function({org, repo}) {
   try {
     const draftReleaseTags = await module.exports.getDraftReleaseTags({org, repo});
+
     return _.first(_.map(draftReleaseTags, 'tag'));
   } catch (error) {
     return '';
