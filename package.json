@@ -15,16 +15,20 @@
     "url": "vladholubiev.com"
   },
   "files": [
-    "src/"
+    "lib/"
   ],
   "bin": {
-    "shipit": "./src/cli.js"
+    "shipit": "./lib/cli.js"
   },
   "scripts": {
-    "coverage": "jest --coverage",
+    "build": "rm -rf lib/ && babel src --out-dir lib --ignore '**/*.test.ts' --extensions '.ts'",
+    "coverage": "TZ=UTC jest --coverage",
     "lint": "eslint . --fix --ext .js,.json,.ts --quiet",
-    "start": "node ./src/cli.js",
-    "test": "FORCE_COLOR=0 jest"
+    "prepack": "yarn build",
+    "start": "yarn build && node ./lib/cli.js",
+    "test": "TZ=UTC FORCE_COLOR=0 jest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "husky": {
     "hooks": {
@@ -33,12 +37,12 @@
     }
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "git add"
-    ],
     "*.{html,json,md,yml,graphql}": [
       "prettier --write --ignore-path=./.eslintignore",
+      "git add"
+    ],
+    "*.{ts,json}": [
+      "eslint --fix",
       "git add"
     ]
   },
@@ -80,6 +84,10 @@
     "update-notifier": "3.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "7.6.0",
+    "@babel/core": "7.6.0",
+    "@babel/preset-env": "7.6.0",
+    "@babel/preset-typescript": "7.6.0",
     "@shelf/eslint-config": "0.7.0",
     "eslint": "6.4.0",
     "husky": "3.0.5",
@@ -87,7 +95,8 @@
     "lint-staged": "9.2.5",
     "mockdate": "2.0.5",
     "prettier": "1.18.2",
-    "strip-color": "0.1.0"
+    "strip-color": "0.1.0",
+    "typescript": "3.6.3"
   },
   "engines": {
     "node": ">=8"

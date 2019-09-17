@@ -17,8 +17,8 @@ module.exports.getLatestReleases = function(edges) {
 
   const allReleases = [];
 
-  for (let repoRelease of releases) {
-    for (let release of repoRelease.releases) {
+  for (const repoRelease of releases) {
+    for (const release of repoRelease.releases) {
       allReleases.push({
         repo: repoRelease.repo,
         date: release.publishedAt,

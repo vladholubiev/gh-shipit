@@ -7,3 +7,4 @@ yarn.lock
 .DS_Store
 draft.js
 *.draft.js
+lib/

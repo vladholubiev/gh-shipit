@@ -1,3 +1,6 @@
 {
-  "extends": ["@shelf/eslint-config/backend"]
+  "root": true,
+  "extends": [
+    "@shelf/eslint-config/typescript"
+  ]
 }

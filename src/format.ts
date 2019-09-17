@@ -1,8 +1,8 @@
-const chalk = require('chalk');
-const _ = require('lodash');
-const fp = require('lodash/fp');
-const {relativeTime} = require('human-date');
-const longest = require('longest');
+import chalk from 'chalk';
+import _ from 'lodash';
+import fp from 'lodash/fp';
+import {relativeTime} from 'human-date';
+import longest from 'longest';
 
 module.exports.formatReposDiffsForChoices = function(diffs) {
   return filterAndSortDiffs(diffs).map(diff => formatRepoDiff(diffs, diff));
