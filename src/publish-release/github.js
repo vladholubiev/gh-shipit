@@ -34,7 +34,14 @@ module.exports.deleteBranch = async function({org, repo, name}) {
 
   debug(`Deleting release branch`);
 
-  const {data} = await gh.gitdata.deleteRef({owner: org, repo, ref: `heads/${name}`});
+  try {
+    const {data} = await gh.gitdata.deleteRef({owner: org, repo, ref: `heads/${name}`});
 
-  return data;
+    return data;
+  } catch (error) {
+    debug(
+      `Error deleting branch, possibly branch auto-delete feature is enabled in the repo settings`,
+      error
+    );
+  }
 };
