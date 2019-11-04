@@ -78,7 +78,7 @@
     "p-progress": "0.4.1",
     "pretty-version-diff": "1.0.0",
     "progress": "2.0.3",
-    "semver": "6.1.2",
+    "semver": "6.3.0",
     "smartwrap": "1.1.2",
     "string-width": "4.1.0",
     "update-notifier": "3.0.1"
