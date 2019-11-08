@@ -24,6 +24,6 @@ module.exports.publishRelease = async function({org, repo}) {
 
     print1Release({name, repo, date: new Date(published_at), version});
   } catch (error) {
-    console.log(logSymbols.error, JSON.parse(error.message).message);
+    console.log(logSymbols.error, error.message);
   }
 };
