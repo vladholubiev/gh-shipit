@@ -48,7 +48,7 @@ module.exports.getDraftReleaseTags = async function({org, repo}) {
 
 module.exports.getOpenReleasePRs = async function({org, repo}) {
   const gh = getClientGraphQL();
-  debug('Loading release PRs for repo  %s', repo);
+  debug('Loading release PRs for repo %s', repo);
 
   const {
     data: {
@@ -63,7 +63,7 @@ module.exports.getOpenReleasePRs = async function({org, repo}) {
       {
         organization(login: "${org}") {
           repository(name: "${repo}") {
-            pullRequests(states: [OPEN], labels: [release], first: 10) {
+            pullRequests(states: [OPEN], labels: ["release"], first: 10) {
               nodes {
                 title
                 baseRefName

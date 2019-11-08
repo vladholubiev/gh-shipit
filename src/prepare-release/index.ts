@@ -37,6 +37,6 @@ module.exports.prepareRelease = async function({org, repo}) {
 
     await askToOpenPR({org, repo, pr: number});
   } catch (error) {
-    console.log(logSymbols.error, JSON.parse(error.message).message);
+    console.log(logSymbols.error, error.message);
   }
 };
