@@ -96,7 +96,7 @@
     "mockdate": "2.0.5",
     "prettier": "1.19.1",
     "strip-color": "0.1.0",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "engines": {
     "node": ">=8"
