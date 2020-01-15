@@ -36,19 +36,31 @@ export async function compareBranches({org, repo}) {
 
 export async function getOrgRepos(org) {
   const gh = getClient();
-  const {data: repos} = await gh.repos.listForOrg({
-    org,
-    type: 'sources',
-    sort: 'pushed',
-    per_page: 100,
-    page: 1,
-    direction: 'desc'
-  });
+  const [{data: repos1}, {data: repos2}] = await Promise.all([
+    gh.repos.listForOrg({
+      org,
+      type: 'sources',
+      sort: 'pushed',
+      per_page: 100,
+      page: 1,
+      direction: 'desc'
+    }),
+    gh.repos.listForOrg({
+      org,
+      type: 'sources',
+      sort: 'pushed',
+      per_page: 100,
+      page: 2,
+      direction: 'desc'
+    })
+  ]);
+  const repos = [...repos1, ...repos2];
+
   const withoutArchived = fp.reject({archived: true});
   const getName = fp.map('name');
 
   const orgRepos = fp.flow(withoutArchived, getName)(repos);
   debug('Loaded repos %o', orgRepos);
 
-  return orgRepos;
+  return _.uniq(orgRepos);
 }
