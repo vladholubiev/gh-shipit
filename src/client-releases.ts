@@ -1,10 +1,12 @@
-const _ = require('lodash');
-const gql = require('graphql-tag');
-const path = require('path');
-const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
-const {getClient, getClientGraphQL} = require('./client');
+import _ from 'lodash';
+import gql from 'graphql-tag';
+import path from 'path';
+import debug0 from 'debug';
+import {getClient, getClientGraphQL} from './client';
 
-module.exports.getLastRelease = async function({org, repo}) {
+const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
+
+export async function getLastRelease({org, repo}) {
   const gh = getClient();
 
   try {
@@ -14,19 +16,19 @@ module.exports.getLastRelease = async function({org, repo}) {
   } catch (error) {
     return 'v0.0.0';
   }
-};
+}
 
-module.exports.getLastDraftReleaseTag = async function({org, repo}) {
+export async function getLastDraftReleaseTag({org, repo}) {
   try {
-    const draftReleaseTags = await module.exports.getDraftReleaseTags({org, repo});
+    const draftReleaseTags = await getDraftReleaseTags({org, repo});
 
     return _.first(_.map(draftReleaseTags, 'tag'));
   } catch (error) {
     return '';
   }
-};
+}
 
-module.exports.getDraftReleaseTags = async function({org, repo}) {
+export async function getDraftReleaseTags({org, repo}) {
   const gh = getClient();
 
   try {
@@ -44,9 +46,9 @@ module.exports.getDraftReleaseTags = async function({org, repo}) {
   } catch (error) {
     return [];
   }
-};
+}
 
-module.exports.getOpenReleasePRs = async function({org, repo}) {
+export async function getOpenReleasePRs({org, repo}) {
   const gh = getClientGraphQL();
   debug('Loading release PRs for repo %s', repo);
 
@@ -93,4 +95,4 @@ module.exports.getOpenReleasePRs = async function({org, repo}) {
   });
 
   return nodes;
-};
+}

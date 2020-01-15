@@ -1,14 +1,15 @@
-const octokit = require('@octokit/rest')();
-const {ApolloClient} = require('apollo-client');
-const {HttpLink} = require('apollo-link-http');
-const {InMemoryCache} = require('apollo-cache-inmemory');
-const {setContext} = require('apollo-link-context');
-const fetch = require('node-fetch');
+import Oktokit from '@octokit/rest';
+import {ApolloClient} from 'apollo-client';
+import {HttpLink} from 'apollo-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {setContext} from 'apollo-link-context';
+import fetch from 'node-fetch';
 
+const octokit = new Oktokit();
 let client;
 let clientGQL;
 
-module.exports.getClient = function() {
+export function getClient(): Oktokit {
   if (client) {
     return client;
   }
@@ -21,9 +22,9 @@ module.exports.getClient = function() {
   client = octokit;
 
   return client;
-};
+}
 
-module.exports.getClientGraphQL = function() {
+export function getClientGraphQL() {
   if (clientGQL) {
     return clientGQL;
   }
@@ -46,4 +47,4 @@ module.exports.getClientGraphQL = function() {
   });
 
   return clientGQL;
-};
+}

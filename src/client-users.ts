@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const {getClient} = require('./client');
+import _ from 'lodash';
+import {getClient} from './client';
 
 module.exports.getUserOrgs = async function() {
   const gh = getClient();
