@@ -2,7 +2,7 @@ const pProgress = require('p-progress');
 const pMap = require('p-map');
 const {getBranchDiff} = require('./repos');
 
-module.exports.getAllReposDiffs = function({org, repos}) {
+export function getAllReposDiffs({org, repos}) {
   return pProgress.fn((repos, progress) => {
     let i = 0;
 
@@ -17,4 +17,4 @@ module.exports.getAllReposDiffs = function({org, repos}) {
       {concurrency: 32}
     );
   })(repos);
-};
+}

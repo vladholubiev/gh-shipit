@@ -4,9 +4,9 @@ import fp from 'lodash/fp';
 import {relativeTime} from 'human-date';
 import longest from 'longest';
 
-module.exports.formatReposDiffsForChoices = function(diffs) {
+export function formatReposDiffsForChoices(diffs) {
   return filterAndSortDiffs(diffs).map(diff => formatRepoDiff(diffs, diff));
-};
+}
 
 function formatRepoDiff(diffs, diff) {
   const {
@@ -43,12 +43,7 @@ function filterAndSortDiffs(diffs) {
 }
 
 function getWidestProperty(diffs, property) {
-  return fp.flow(
-    fp.map(property),
-    fp.compact,
-    longest,
-    fp.size
-  )(diffs);
+  return fp.flow(fp.map(property), fp.compact, longest, fp.size)(diffs);
 }
 
 function formatBehindBy(behindBy) {

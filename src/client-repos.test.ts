@@ -1,14 +1,14 @@
 jest.mock('./client');
 
-const {getClient} = require('./client');
-const {getRepoBranches, compareBranches, getOrgRepos} = require('./client-repos');
+import {getClient} from './client';
+import {compareBranches, getOrgRepos, getRepoBranches} from './client-repos';
 
 const getBranchesMock = jest.fn().mockReturnValue({data: [{name: 'develop'}, {name: 'master'}]});
 const compareCommitsMock = jest.fn().mockReturnValue({data: []});
 const listForOrgMock = jest.fn().mockReturnValue({data: []});
 const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
-getClient.mockReturnValue({
+(getClient as jest.Mock).mockReturnValue({
   repos: {
     getBranches: getBranchesMock,
     compareCommits: compareCommitsMock,

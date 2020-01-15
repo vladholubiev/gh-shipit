@@ -1,17 +1,17 @@
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const ora = require('ora');
-const _ = require('lodash');
-const logSymbols = require('log-symbols');
-const ProgressBar = require('progress');
-const getCliWidth = require('cli-width');
-const {getBranchDiff} = require('./repos');
-const {getUserOrgs} = require('./client-users');
-const {getOrgRepos} = require('./client-repos');
-const {formatReposDiffsForChoices} = require('./format');
-const {getAllReposDiffs} = require('./diff');
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import ora from 'ora';
+import _ from 'lodash';
+import logSymbols from 'log-symbols';
+import ProgressBar from 'progress';
+import getCliWidth from 'cli-width';
+import {getBranchDiff} from './repos';
+import {getUserOrgs} from './client-users';
+import {getOrgRepos} from './client-repos';
+import {formatReposDiffsForChoices} from './format';
+import {getAllReposDiffs} from './diff';
 
-module.exports.askOrg = async function() {
+export async function askOrg() {
   if (process.env.GH_SHIPIT_ORG) {
     return process.env.GH_SHIPIT_ORG;
   }
@@ -28,9 +28,9 @@ module.exports.askOrg = async function() {
   ]);
 
   return org;
-};
+}
 
-module.exports.askRepo = async function(org) {
+export async function askRepo(org) {
   const repos = await loadRepos(org);
   const choices = await loadDiffsChoices({org, repos});
 
@@ -51,9 +51,9 @@ module.exports.askRepo = async function(org) {
   ]);
 
   return repo;
-};
+}
 
-module.exports.askRepoAction = async function({org, repo}) {
+export async function askRepoAction({org, repo}) {
   const choices = [];
   const {ahead_by, lastDraftReleaseTag} = await getBranchDiff({org, repo});
 
@@ -86,9 +86,9 @@ module.exports.askRepoAction = async function({org, repo}) {
   ]);
 
   return action;
-};
+}
 
-module.exports.askOrgAction = async function() {
+export async function askOrgAction() {
   const {action} = await inquirer.prompt([
     {
       type: 'list',
@@ -108,9 +108,9 @@ module.exports.askOrgAction = async function() {
   ]);
 
   return action;
-};
+}
 
-module.exports.askFormatOutput = async function() {
+export async function askFormatOutput() {
   const {format} = await inquirer.prompt([
     {
       type: 'list',
@@ -130,7 +130,7 @@ module.exports.askFormatOutput = async function() {
   ]);
 
   return format;
-};
+}
 
 async function loadRepos(org) {
   const reposSpinner = ora('Loading Repos').start();

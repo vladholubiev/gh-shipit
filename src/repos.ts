@@ -1,11 +1,12 @@
-const _ = require('lodash');
-const semver = require('semver');
-const path = require('path');
-const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
-const {getLastRelease, getLastDraftReleaseTag} = require('./client-releases');
-const {compareBranches} = require('./client-repos');
+import _ from 'lodash';
+import semver from 'semver';
+import path from 'path';
+import {getLastDraftReleaseTag, getLastRelease} from './client-releases';
+import {compareBranches} from './client-repos';
 
-module.exports.getBranchDiff = async function({org, repo}) {
+const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
+
+export async function getBranchDiff({org, repo}) {
   try {
     const [
       {status, ahead_by, behind_by, commits, base_commit},
@@ -42,4 +43,4 @@ module.exports.getBranchDiff = async function({org, repo}) {
 
     return {org, repo, status: 'no-branch'};
   }
-};
+}
