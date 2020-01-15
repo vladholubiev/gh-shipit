@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "sourceMap": false,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
+}
