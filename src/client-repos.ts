@@ -34,7 +34,13 @@ export async function compareBranches({org, repo}) {
   return data;
 }
 
-export async function getOrgRepos(org) {
+export async function getOrgRepoNames(org) {
+  const orgRepos = await getOrgRepos(org);
+
+  return _.map(orgRepos, 'name');
+}
+
+export async function getOrgRepos(org: string) {
   const gh = getClient();
   const [{data: repos1}, {data: repos2}] = await Promise.all([
     gh.repos.listForOrg({
@@ -56,11 +62,8 @@ export async function getOrgRepos(org) {
   ]);
   const repos = [...repos1, ...repos2];
 
-  const withoutArchived = fp.reject({archived: true});
-  const getName = fp.map('name');
-
-  const orgRepos = fp.flow(withoutArchived, getName)(repos);
-  debug('Loaded repos %o', orgRepos);
-
-  return _.uniq(orgRepos);
+  return _.uniqBy(
+    repos.filter(repo => !repo.archived),
+    'name'
+  );
 }

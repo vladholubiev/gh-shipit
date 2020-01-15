@@ -7,7 +7,7 @@ import ProgressBar from 'progress';
 import getCliWidth from 'cli-width';
 import {getBranchDiff} from './repos';
 import {getUserOrgs} from './client-users';
-import {getOrgRepos} from './client-repos';
+import {getOrgRepoNames} from './client-repos';
 import {formatReposDiffsForChoices} from './format';
 import {getAllReposDiffs} from './diff';
 
@@ -135,7 +135,7 @@ export async function askFormatOutput() {
 async function loadRepos(org) {
   const reposSpinner = ora('Loading Repos').start();
 
-  const repos = await getOrgRepos(org);
+  const repos = await getOrgRepoNames(org);
   reposSpinner.stop();
 
   return repos;

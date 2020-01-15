@@ -1,7 +1,7 @@
 jest.mock('./client');
 
 import {getClient} from './client';
-import {compareBranches, getOrgRepos, getRepoBranches} from './client-repos';
+import {compareBranches, getOrgRepoNames, getRepoBranches} from './client-repos';
 
 const getBranchesMock = jest.fn().mockReturnValue({data: [{name: 'develop'}, {name: 'master'}]});
 const compareCommitsMock = jest.fn().mockReturnValue({data: []});
@@ -68,11 +68,11 @@ describe('#compareBranches', () => {
 
 describe('#getOrgRepos', () => {
   it('should export getOrgRepos function', () => {
-    expect(getOrgRepos).toBeInstanceOf(Function);
+    expect(getOrgRepoNames).toBeInstanceOf(Function);
   });
 
   it('should call getForOrg w/ type:sources and size:100', async () => {
-    await getOrgRepos('my-org');
+    await getOrgRepoNames('my-org');
 
     expect(listForOrgMock).toHaveBeenCalledWith({
       org: 'my-org',
@@ -91,7 +91,7 @@ describe('#getOrgRepos', () => {
         {name: 'repo-3', archived: false}
       ]
     });
-    const repos = await getOrgRepos('my-org');
+    const repos = await getOrgRepoNames('my-org');
 
     expect(repos).toEqual(['repo-1', 'repo-3']);
   });
