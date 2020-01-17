@@ -1,7 +1,10 @@
-const gql = require('graphql-tag');
-const {getClientGraphQL} = require('../client');
-const path = require('path');
-const debug = require('debug')(`${require('../../package').name}:${path.basename(__filename)}`);
+import gql from 'graphql-tag';
+import path from 'path';
+import debug0 from 'debug';
+import {getClientGraphQL} from '../client';
+import {name} from '../../package.json';
+
+const debug = debug0(`${name}:${path.basename(__filename)}`);
 
 module.exports.getOrgReleases = async function(org) {
   const gh = getClientGraphQL();

@@ -10,7 +10,10 @@ const {
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const listReleasesMock = jest.fn().mockReturnValue({
-  data: [{id: 1, tag_name: 'v1.0.0', draft: false}, {id: 2, tag_name: 'v1.0.1', draft: true}]
+  data: [
+    {id: 1, tag_name: 'v1.0.0', draft: false},
+    {id: 2, tag_name: 'v1.0.1', draft: true}
+  ]
 });
 
 getClient.mockReturnValue({
