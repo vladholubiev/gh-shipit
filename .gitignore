@@ -6,5 +6,6 @@ yarn.lock
 *.log
 .DS_Store
 draft.js
+draft.ts
 *.draft.js
 lib/
