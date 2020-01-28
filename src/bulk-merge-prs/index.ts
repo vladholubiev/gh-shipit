@@ -42,6 +42,8 @@ export async function bulkMergePRs(org: string): Promise<void> {
     })
   });
 
+  const failedToMergePRsURLs = [];
+
   const mergedPrsCounts = await pMap(
     prsToMerge,
     async (prToMerge: string) => {
@@ -67,8 +69,10 @@ export async function bulkMergePRs(org: string): Promise<void> {
         return 1;
       } catch (error) {
         console.error(
-          `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pull/${prNumber}`
+          `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message}`
         );
+
+        failedToMergePRsURLs.push(`https://github.com/${org}/${repo}/pull/${prNumber}`);
 
         return 0;
       }
@@ -77,4 +81,6 @@ export async function bulkMergePRs(org: string): Promise<void> {
   );
 
   console.log(`\n${logSymbols.success} Merged ${sum(mergedPrsCounts)} PRs!`);
+  console.log(`\n${logSymbols.error} Failed to merge ${failedToMergePRsURLs.length} PRs!`);
+  console.log(failedToMergePRsURLs.join('\n'));
 }
