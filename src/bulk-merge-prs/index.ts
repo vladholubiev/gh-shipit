@@ -48,6 +48,14 @@ export async function bulkMergePRs(org: string): Promise<void> {
       const {prNumber, repo} = /#(?<prNumber>\d+) \[(?<repo>.+)\]/gi.exec(prToMerge).groups;
 
       try {
+        await gh.pulls.createReview({
+          owner: org,
+          repo,
+          event: 'APPROVE',
+          pull_number: Number(prNumber)
+        });
+        console.log(`${logSymbols.info} Approved PR #${prNumber} in ${repo}`);
+
         await gh.pulls.merge({
           repo,
           pull_number: Number(prNumber),
