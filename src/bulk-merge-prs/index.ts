@@ -54,7 +54,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
       console.log(`${logSymbols.success} Merged PR #${prNumber} in ${repo}`);
     } catch (error) {
       console.error(
-        `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pulls/${prNumber}`
+        `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pull/${prNumber}`
       );
     }
   }
