@@ -30,6 +30,9 @@ $ npx gh-shipit
   - Create `release` label in repo and assign it to PR
   - Open created PR in browser
 - Merge [Renovate bot](https://renovate.whitesourcesoftware.com/) PRs in bulk
+  - Fuzzy search with autocomplete
+  - Approve & merge PRs in parallel, 10 merges concurrently
+  - Print number of merged PRs and URLs to PRs failed to merge
 - View Latest Releases
   - Histogram of releases per week in current quarter
   - Releases this week
