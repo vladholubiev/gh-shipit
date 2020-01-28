@@ -29,6 +29,7 @@ $ npx gh-shipit
   - Create Release Notes Draft
   - Create `release` label in repo and assign it to PR
   - Open created PR in browser
+- Merge [Renovate bot](https://renovate.whitesourcesoftware.com/) PRs in bulk
 - View Latest Releases
   - Histogram of releases per week in current quarter
   - Releases this week
