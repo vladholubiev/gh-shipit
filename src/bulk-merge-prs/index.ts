@@ -1,5 +1,5 @@
 import {prompt} from 'enquirer';
-import {orderBy} from 'lodash';
+import {orderBy, sum} from 'lodash';
 import logSymbols from 'log-symbols';
 import pMap from 'p-map';
 import {getClient} from '../client';
@@ -42,7 +42,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
     })
   });
 
-  await pMap(
+  const mergedPrsCounts = await pMap(
     prsToMerge,
     async (prToMerge: string) => {
       const {prNumber, repo} = /#(?<prNumber>\d+) \[(?<repo>.+)\]/gi.exec(prToMerge).groups;
@@ -63,12 +63,18 @@ export async function bulkMergePRs(org: string): Promise<void> {
           merge_method: 'merge'
         });
         console.log(`${logSymbols.success} Merged PR #${prNumber} in ${repo}`);
+
+        return 1;
       } catch (error) {
         console.error(
           `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pull/${prNumber}`
         );
+
+        return 0;
       }
     },
     {concurrency: 10}
   );
+
+  console.log(`\n${logSymbols.success} Merged ${sum(mergedPrsCounts)} PRs!`);
 }
