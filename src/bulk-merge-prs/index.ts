@@ -1,5 +1,5 @@
 import {prompt} from 'enquirer';
-import {sum} from 'lodash';
+import {orderBy, sum} from 'lodash';
 import logSymbols from 'log-symbols';
 import pMap from 'p-map';
 import {getClient} from '../client';
@@ -25,7 +25,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
       page: 2
     })
   ]);
-  const items = [...items1, ...items2];
+  const items = orderBy([...items1, ...items2], ['updated_at'], ['desc']);
 
   const {prsToMerge} = await prompt({
     type: 'autocomplete',
