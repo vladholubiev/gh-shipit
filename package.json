@@ -25,7 +25,7 @@
     "coverage": "TZ=UTC jest --coverage",
     "lint": "eslint . --fix --ext .js,.json,.ts --quiet",
     "prepack": "yarn build",
-    "start": "yarn build && node ./lib/cli.js",
+    "start": "node ./lib/cli.js",
     "test": "TZ=UTC FORCE_COLOR=0 jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
