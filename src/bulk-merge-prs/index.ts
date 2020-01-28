@@ -1,4 +1,5 @@
 import {prompt} from 'enquirer';
+import {orderBy} from 'lodash';
 import {getClient} from '../client';
 
 export async function bulkMergePRs(org: string): Promise<void> {
@@ -22,10 +23,13 @@ export async function bulkMergePRs(org: string): Promise<void> {
       page: 2
     })
   ]);
-  const items = [...items1, ...items2];
+  const items = orderBy([...items1, ...items2], ['title'], ['asc']);
 
   const prsToMerge = await prompt({
-    type: 'multiselect',
+    type: 'autocomplete',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    multiple: true,
     name: 'prNumber',
     message: 'Pick a PR',
     choices: items.map(item => {
