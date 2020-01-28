@@ -3,7 +3,7 @@ const path = require('path');
 const debug = require('debug')(`${require('../../package').name}:${path.basename(__filename)}`);
 const {getClient} = require('../client');
 
-module.exports.getLastDevelopCommitSHA = async function({org, repo}) {
+export async function getLastDevelopCommitSHA({org, repo}) {
   const gh = getClient();
 
   const {data} = await gh.repos.getBranch({
@@ -14,9 +14,9 @@ module.exports.getLastDevelopCommitSHA = async function({org, repo}) {
   });
 
   return _.get(data, 'commit.sha', '');
-};
+}
 
-module.exports.createReleaseBranch = async function({org, repo, version, commitHash}) {
+export async function createReleaseBranch({org, repo, version, commitHash}) {
   const gh = getClient();
   const branchName = `refs/heads/release/v${version}`;
 
@@ -28,9 +28,9 @@ module.exports.createReleaseBranch = async function({org, repo, version, commitH
   });
 
   return data;
-};
+}
 
-module.exports.createReleaseNotes = async function({org, repo, version, releaseTitle}) {
+export async function createReleaseNotes({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
 
@@ -44,9 +44,9 @@ module.exports.createReleaseNotes = async function({org, repo, version, releaseT
   });
 
   return data;
-};
+}
 
-module.exports.createReleasePR = async function({org, repo, version, releaseTitle}) {
+export async function createReleasePR({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
   const branch = `release/${tagName}`;
@@ -62,4 +62,4 @@ module.exports.createReleasePR = async function({org, repo, version, releaseTitl
   });
 
   return data;
-};
+}

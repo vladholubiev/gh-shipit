@@ -10,6 +10,7 @@ import {verifyToken} from './verify-token';
 import {viewReleases} from './view-releases';
 import {publishRelease} from './publish-release';
 import {prepareRelease} from './prepare-release';
+import {bulkMergePRs} from './bulk-merge-prs';
 
 const debug = debug0(`${name}:${path.basename(__filename)}`);
 
@@ -35,7 +36,7 @@ updateNotifier({pkg}).notify();
       }
 
       if (action === 'bulk-merge-prs') {
-        await publishRelease({org, repo});
+        await bulkMergePRs(org);
       }
     }
 
