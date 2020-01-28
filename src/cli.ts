@@ -34,10 +34,10 @@ updateNotifier({pkg}).notify();
       if (action === 'publish-release') {
         await publishRelease({org, repo});
       }
+    }
 
-      if (action === 'bulk-merge-prs') {
-        await bulkMergePRs(org);
-      }
+    if (orgAction === 'bulk-merge-prs') {
+      await bulkMergePRs(org);
     }
 
     if (orgAction === 'view-releases') {
