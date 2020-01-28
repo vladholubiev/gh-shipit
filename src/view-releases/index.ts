@@ -10,7 +10,7 @@ const fields = [
   'name'
 ];
 
-module.exports.viewReleases = async function({org, format}) {
+export async function viewReleases({org, format}) {
   const releases = await getOrgReleases(org);
   const latestReleases = getLatestReleases(releases);
 
@@ -22,4 +22,4 @@ module.exports.viewReleases = async function({org, format}) {
     const serializer = new CSVSerializer({fields});
     console.log(serializer.parse(latestReleases));
   }
-};
+}

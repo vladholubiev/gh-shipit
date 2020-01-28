@@ -2,7 +2,7 @@ const boxen = require('boxen');
 const path = require('path');
 const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
 
-module.exports.verifyToken = function() {
+export function verifyToken() {
   const {GITHUB_TOKEN} = process.env;
 
   if (GITHUB_TOKEN && GITHUB_TOKEN.length === 40) {
@@ -15,9 +15,9 @@ module.exports.verifyToken = function() {
     boxen(
       `
     To use this CLI you need to set GITHUB_TOKEN as environment variable
-    
+
     Follow the steps:
-    
+
     - Go to https://github.com/settings/tokens/new?scopes=admin:org,repo&description=gh-shipit-cli
     - Click "Generate Token"
     - echo "export GITHUB_TOKEN=XXXXX" >> ~/.bashrc
@@ -32,4 +32,4 @@ module.exports.verifyToken = function() {
   );
 
   return process.exit(0);
-};
+}

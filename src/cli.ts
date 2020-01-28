@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
-const updateNotifier = require('update-notifier');
-const logSymbols = require('log-symbols');
-const path = require('path');
-const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
-const {askOrg, askRepo, askRepoAction, askOrgAction, askFormatOutput} = require('./inquirer');
-const {prepareRelease} = require('./prepare-release');
-const {publishRelease} = require('./publish-release');
-const {viewReleases} = require('./view-releases');
-const {verifyToken} = require('./verify-token');
-const pkg = require('../package.json');
+import updateNotifier from 'update-notifier';
+import logSymbols from 'log-symbols';
+import path from 'path';
+import debug0 from 'debug';
+import {askFormatOutput, askOrg, askOrgAction, askRepo, askRepoAction} from './inquirer';
+import pkg, {name} from '../package.json';
+import {verifyToken} from './verify-token';
+import {viewReleases} from './view-releases';
+import {publishRelease} from './publish-release';
+import {prepareRelease} from './prepare-release';
+
+const debug = debug0(`${name}:${path.basename(__filename)}`);
 
 updateNotifier({pkg}).notify();
 
@@ -31,6 +33,10 @@ updateNotifier({pkg}).notify();
       if (action === 'publish-release') {
         await publishRelease({org, repo});
       }
+
+      if (action === 'bulk-merge-prs') {
+        await publishRelease({org, repo});
+      }
     }
 
     if (orgAction === 'view-releases') {
@@ -45,7 +51,7 @@ updateNotifier({pkg}).notify();
       logSymbols.info,
       `
     For debug logs run again with DEBUG env var:
-    
+
     DEBUG=gh-shipit:* gh-shipit
     `.trim()
     );

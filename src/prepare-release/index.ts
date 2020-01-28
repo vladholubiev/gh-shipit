@@ -1,15 +1,15 @@
-const logSymbols = require('log-symbols');
-const {createReleaseLabel, assignReleaseLabel} = require('./github-labels');
-const {hasReleaseLabel} = require('./helpers-labels');
-const {
-  getLastDevelopCommitSHA,
+import logSymbols from 'log-symbols';
+import {assignReleaseLabel, createReleaseLabel} from './github-labels';
+import {hasReleaseLabel} from './helpers-labels';
+import {
   createReleaseBranch,
   createReleaseNotes,
-  createReleasePR
-} = require('./github');
-const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('./inquirer');
+  createReleasePR,
+  getLastDevelopCommitSHA
+} from './github';
+import {askNewReleaseVersion, askReleaseTitle, askToOpenPR} from './inquirer';
 
-module.exports.prepareRelease = async function({org, repo}) {
+export async function prepareRelease({org, repo}) {
   try {
     const version = await askNewReleaseVersion({org, repo});
     const commitHash = await getLastDevelopCommitSHA({org, repo});
@@ -39,4 +39,4 @@ module.exports.prepareRelease = async function({org, repo}) {
   } catch (error) {
     console.log(logSymbols.error, error.message);
   }
-};
+}

@@ -3,7 +3,7 @@ const {print1Release} = require('../view-releases/print');
 const {publishDraftRelease, mergePR, deleteBranch} = require('./github');
 const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
 
-module.exports.publishRelease = async function({org, repo}) {
+export async function publishRelease({org, repo}) {
   try {
     const {version, releaseId} = await askDraftReleaseVersion({org, repo});
     const prNumber = await askDraftReleasePRNumber({org, repo, version});
@@ -26,4 +26,4 @@ module.exports.publishRelease = async function({org, repo}) {
   } catch (error) {
     console.log(logSymbols.error, error.message);
   }
-};
+}

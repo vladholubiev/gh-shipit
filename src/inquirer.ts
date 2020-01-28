@@ -102,6 +102,10 @@ export async function askOrgAction() {
         {
           name: 'View Latest Releases',
           value: 'view-releases'
+        },
+        {
+          name: 'Bulk Merge PRs',
+          value: 'bulk-merge-prs'
         }
       ]
     }
