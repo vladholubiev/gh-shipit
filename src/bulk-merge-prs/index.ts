@@ -1,6 +1,7 @@
 import {prompt} from 'enquirer';
 import {orderBy} from 'lodash';
 import logSymbols from 'log-symbols';
+import pMap from 'p-map';
 import {getClient} from '../client';
 
 export async function bulkMergePRs(org: string): Promise<void> {
@@ -41,21 +42,25 @@ export async function bulkMergePRs(org: string): Promise<void> {
     })
   });
 
-  for (const prToMerge of prsToMerge) {
-    const {prNumber, repo} = /#(?<prNumber>\d+) \[(?<repo>.+)\]/gi.exec(prToMerge).groups;
+  await pMap(
+    prsToMerge,
+    async (prToMerge: string) => {
+      const {prNumber, repo} = /#(?<prNumber>\d+) \[(?<repo>.+)\]/gi.exec(prToMerge).groups;
 
-    try {
-      await gh.pulls.merge({
-        repo,
-        pull_number: Number(prNumber),
-        owner: org,
-        merge_method: 'merge'
-      });
-      console.log(`${logSymbols.success} Merged PR #${prNumber} in ${repo}`);
-    } catch (error) {
-      console.error(
-        `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pull/${prNumber}`
-      );
-    }
-  }
+      try {
+        await gh.pulls.merge({
+          repo,
+          pull_number: Number(prNumber),
+          owner: org,
+          merge_method: 'merge'
+        });
+        console.log(`${logSymbols.success} Merged PR #${prNumber} in ${repo}`);
+      } catch (error) {
+        console.error(
+          `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message} https://github.com/${org}/${repo}/pull/${prNumber}`
+        );
+      }
+    },
+    {concurrency: 4}
+  );
 }
