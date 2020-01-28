@@ -1,5 +1,6 @@
 import {prompt} from 'enquirer';
 import {orderBy} from 'lodash';
+import logSymbols from 'log-symbols';
 import {getClient} from '../client';
 
 export async function bulkMergePRs(org: string): Promise<void> {
@@ -52,9 +53,11 @@ export async function bulkMergePRs(org: string): Promise<void> {
         owner: org,
         merge_method: 'merge'
       });
-      console.log(`Merged PR #${prNumber} in ${repo}`);
+      console.log(`${logSymbols.success} Merged PR #${prNumber} in ${repo}`);
     } catch (error) {
-      console.error(error);
+      console.error(
+        `${logSymbols.error} Failed to merge PR #${prNumber} in ${repo}: ${error.message}`
+      );
     }
   }
 }
