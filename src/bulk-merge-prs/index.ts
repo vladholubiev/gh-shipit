@@ -69,6 +69,6 @@ export async function bulkMergePRs(org: string): Promise<void> {
         );
       }
     },
-    {concurrency: 4}
+    {concurrency: 10}
   );
 }
