@@ -104,8 +104,8 @@ export async function askOrgAction() {
           value: 'view-releases'
         },
         {
-          name: 'Bulk Merge PRs',
-          value: 'bulk-merge-prs'
+          name: 'Bulk Merge Renovate bot PRs',
+          value: 'bulk-merge-renovate-prs'
         }
       ]
     }

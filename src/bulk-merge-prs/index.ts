@@ -25,24 +25,36 @@ export async function bulkMergePRs(org: string): Promise<void> {
   ]);
   const items = orderBy([...items1, ...items2], ['title'], ['asc']);
 
-  const prsToMerge = await prompt({
+  const {prsToMerge} = await prompt({
     type: 'autocomplete',
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     multiple: true,
-    name: 'prNumber',
+    name: 'prsToMerge',
     message: 'Pick a PR',
     choices: items.map(item => {
       const [_, repoWithPrNumber] = item.url.split(`/${org}/`);
       const [repo, prNumber] = repoWithPrNumber.split('/issues/');
 
-      return {
-        name: `${repo}: ${item.title}`,
-        value: `${repo}/${prNumber}`
-      };
+      return `#${prNumber} [${repo}]: ${item.title}`;
     })
   });
 
-  console.log(items.length);
   console.log(prsToMerge);
+
+  for (const prToMerge of prsToMerge) {
+    const {prNumber, repo} = /#(?<prNumber>\d+) \[(?<repo>.+)\]/gi.exec(prToMerge).groups;
+
+    try {
+      await gh.pulls.merge({
+        repo,
+        pull_number: Number(prNumber),
+        owner: org,
+        merge_method: 'merge'
+      });
+      console.log(`Merged PR #${prNumber} in ${repo}`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

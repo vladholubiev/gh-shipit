@@ -36,7 +36,7 @@ updateNotifier({pkg}).notify();
       }
     }
 
-    if (orgAction === 'bulk-merge-prs') {
+    if (orgAction === 'bulk-merge-renovate-prs') {
       await bulkMergePRs(org);
     }
 
