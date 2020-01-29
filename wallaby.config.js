@@ -1,13 +1,12 @@
 module.exports = () => {
   return {
-    testFramework: 'jest',
-    files: ['package.json', 'src/**/*.js', '!src/**/*.test.js'],
-    tests: ['src/**/*.test.js'],
+    autoDetect: true,
+    files: ['package.json', 'src/**/*.ts', '!src/**/*.test.ts'],
+    tests: ['src/**/*.test.ts'],
     env: {
-      type: 'node'
-    },
-    setup(wallaby) {
-      wallaby.testFramework.configure(require('./package.json').jest);
+      params: {
+        env: 'TZ=UTC'
+      }
     }
   };
 };
