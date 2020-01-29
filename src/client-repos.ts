@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import fp from 'lodash/fp';
 import path from 'path';
 import debug0 from 'debug';
+import {listOrgRepos} from '@shelf/gh-sdk';
+import {ReposListForOrgResponseItem} from '@octokit/rest';
 import {getClient} from './client';
 
 const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
@@ -40,27 +41,8 @@ export async function getOrgRepoNames(org) {
   return _.map(orgRepos, 'name');
 }
 
-export async function getOrgRepos(org: string) {
-  const gh = getClient();
-  const [{data: repos1}, {data: repos2}] = await Promise.all([
-    gh.repos.listForOrg({
-      org,
-      type: 'sources',
-      sort: 'pushed',
-      per_page: 100,
-      page: 1,
-      direction: 'desc'
-    }),
-    gh.repos.listForOrg({
-      org,
-      type: 'sources',
-      sort: 'pushed',
-      per_page: 100,
-      page: 2,
-      direction: 'desc'
-    })
-  ]);
-  const repos = [...repos1, ...repos2];
+export async function getOrgRepos(org: string): Promise<ReposListForOrgResponseItem[]> {
+  const repos = await listOrgRepos(org);
 
   return _.uniqBy(
     repos.filter(repo => !repo.archived),
