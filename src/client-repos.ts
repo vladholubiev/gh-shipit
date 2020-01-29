@@ -2,7 +2,7 @@ import _ from 'lodash';
 import path from 'path';
 import debug0 from 'debug';
 import {listOrgRepos} from '@shelf/gh-sdk';
-import {getClient} from './client';
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 
 const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
 

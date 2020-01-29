@@ -1,6 +1,6 @@
-jest.mock('./client');
+jest.mock('@shelf/gh-sdk/lib/rest-client');
 
-const {getClient} = require('./client');
+const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
 const {
   getLastRelease,
   getOpenReleasePRs,

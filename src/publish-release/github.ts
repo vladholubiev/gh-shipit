@@ -1,8 +1,10 @@
-const path = require('path');
-const debug = require('debug')(`${require('../../package').name}:${path.basename(__filename)}`);
-const {getClient} = require('../client');
+import path from 'path';
+import debug0 from 'debug';
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 
-module.exports.publishDraftRelease = async function({org, repo, releaseId}) {
+const debug = debug0(`gh-shipit:${path.basename(__filename)}`);
+
+export async function publishDraftRelease({org, repo, releaseId}) {
   const gh = getClient();
 
   const {data} = await gh.repos.updateRelease({
@@ -13,12 +15,10 @@ module.exports.publishDraftRelease = async function({org, repo, releaseId}) {
   });
 
   return data;
-};
+}
 
-module.exports.mergePR = async function({org, repo, number}) {
+export async function mergePR({org, repo, number}) {
   const gh = getClient();
-
-  debug('Merging PR', {org, repo, number});
 
   const {data} = await gh.pullRequests.merge({
     owner: org,
@@ -27,12 +27,10 @@ module.exports.mergePR = async function({org, repo, number}) {
   });
 
   return data;
-};
+}
 
-module.exports.deleteBranch = async function({org, repo, name}) {
+export async function deleteBranch({org, repo, name}) {
   const gh = getClient();
-
-  debug(`Deleting release branch`);
 
   try {
     const {data} = await gh.gitdata.deleteRef({owner: org, repo, ref: `heads/${name}`});
@@ -44,4 +42,4 @@ module.exports.deleteBranch = async function({org, repo, name}) {
       error
     );
   }
-};
+}

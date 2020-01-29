@@ -1,28 +1,10 @@
-import Oktokit from '@octokit/rest';
 import {ApolloClient} from 'apollo-client';
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {setContext} from 'apollo-link-context';
 import fetch from 'node-fetch';
 
-const octokit = new Oktokit();
-let client;
 let clientGQL;
-
-export function getClient(): Oktokit {
-  if (client) {
-    return client;
-  }
-
-  octokit.authenticate({
-    type: 'oauth',
-    token: process.env.GITHUB_TOKEN
-  });
-
-  client = octokit;
-
-  return client;
-}
 
 export function getClientGraphQL() {
   if (clientGQL) {

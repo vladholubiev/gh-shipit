@@ -1,8 +1,8 @@
 jest.mock('@shelf/gh-sdk');
-jest.mock('./client');
+jest.mock('@shelf/gh-sdk/lib/rest-client');
 
 import {listOrgRepos} from '@shelf/gh-sdk';
-import {getClient} from './client';
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 import {compareBranches, getOrgRepoNames, getRepoBranches} from './client-repos';
 
 const getBranchesMock = jest.fn().mockReturnValue({data: [{name: 'develop'}, {name: 'master'}]});

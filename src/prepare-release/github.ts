@@ -1,7 +1,5 @@
-const _ = require('lodash');
-const path = require('path');
-const debug = require('debug')(`${require('../../package').name}:${path.basename(__filename)}`);
-const {getClient} = require('../client');
+import _ from 'lodash';
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 
 export async function getLastDevelopCommitSHA({org, repo}) {
   const gh = getClient();
@@ -50,8 +48,6 @@ export async function createReleasePR({org, repo, version, releaseTitle}) {
   const gh = getClient();
   const tagName = `v${version}`;
   const branch = `release/${tagName}`;
-
-  debug('Creating release PR', {org, repo, branch, version});
 
   const {data} = await gh.pullRequests.create({
     owner: org,

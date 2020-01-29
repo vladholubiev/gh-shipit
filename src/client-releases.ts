@@ -2,7 +2,8 @@ import _ from 'lodash';
 import gql from 'graphql-tag';
 import path from 'path';
 import debug0 from 'debug';
-import {getClient, getClientGraphQL} from './client';
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {getClientGraphQL} from './client';
 
 const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
 
