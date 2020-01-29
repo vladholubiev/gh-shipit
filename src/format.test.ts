@@ -43,10 +43,6 @@ describe('#formatReposDiffsForChoices', () => {
     }
   ];
 
-  it('should export formatReposDiffsForChoices function', () => {
-    expect(formatReposDiffsForChoices).toBeInstanceOf(Function);
-  });
-
   it('should return formatted array of repos diffs', async () => {
     const result = formatReposDiffsForChoices(diffs);
 

@@ -13,10 +13,6 @@ askDraftReleaseVersion.mockReturnValue({version: 'v1.0.1', releaseId: '1'});
 askDraftReleasePRNumber.mockReturnValue('123');
 publishDraftRelease.mockResolvedValue({name: 'release 1', published_at: new Date('2010-10-10')});
 
-it('should export publishRelease function', () => {
-  expect(publishRelease).toBeInstanceOf(Function);
-});
-
 it('should call askDraftReleaseVersion w/ org & repo', async () => {
   await publishRelease(params);
 

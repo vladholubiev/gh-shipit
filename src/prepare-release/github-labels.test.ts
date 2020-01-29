@@ -24,10 +24,6 @@ getClient.mockReturnValue({
 });
 
 describe('#getRepoLabels', () => {
-  it('should export getRepoLabels function', () => {
-    expect(getRepoLabels).toBeInstanceOf(Function);
-  });
-
   it('should call listLabelsForRepo w/ org and repo', async () => {
     await getRepoLabels({org: 'my-org', repo: 'my-repo'});
 
@@ -46,10 +42,6 @@ describe('#getRepoLabels', () => {
 });
 
 describe('#createReleaseLabel', () => {
-  it('should export createReleaseLabel function', () => {
-    expect(createReleaseLabel).toBeInstanceOf(Function);
-  });
-
   it('should call createLabel w/ label name and color', async () => {
     await createReleaseLabel({org: 'my-org', repo: 'my-repo'});
 
@@ -64,10 +56,6 @@ describe('#createReleaseLabel', () => {
 
 describe('#assignReleaseLabel', () => {
   const params = {org: 'my-org', repo: 'my-repo', pr: 123};
-
-  it('should export assignReleaseLabel function', () => {
-    expect(assignReleaseLabel).toBeInstanceOf(Function);
-  });
 
   it('should call addLabels w/ 1 label and pr number', async () => {
     await assignReleaseLabel(params);

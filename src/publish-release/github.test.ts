@@ -16,10 +16,6 @@ getClient.mockReturnValue({
 });
 
 describe('#mergePR', () => {
-  it('should export mergePR function', () => {
-    expect(mergePR).toBeInstanceOf(Function);
-  });
-
   it('should call pullRequests.merge w/ proper params', async () => {
     await mergePR({
       org: 'my-org',
@@ -36,10 +32,6 @@ describe('#mergePR', () => {
 });
 
 describe('#publishDraftRelease', () => {
-  it('should export publishDraftRelease function', () => {
-    expect(publishDraftRelease).toBeInstanceOf(Function);
-  });
-
   it('should call editRelease w/ proper params', async () => {
     const params = {
       org: 'my-org',

@@ -2,10 +2,6 @@ const {valid, invalid} = require('./release-prs.fixture');
 const {getOpenReleasePRForVersion} = require('./helpers');
 
 describe('#getFirstOpenReleasePR', () => {
-  it('should export getOpenReleasePRForVersion function', () => {
-    expect(getOpenReleasePRForVersion).toBeInstanceOf(Function);
-  });
-
   it('should skip if no open PRs found at all', () => {
     const pr = getOpenReleasePRForVersion(invalid.noOpenPRs, 'v0.4.0');
 

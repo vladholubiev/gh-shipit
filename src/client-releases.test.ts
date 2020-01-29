@@ -1,12 +1,7 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
 
 const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
-const {
-  getLastRelease,
-  getOpenReleasePRs,
-  getLastDraftReleaseTag,
-  getDraftReleaseTags
-} = require('./client-releases');
+const {getLastRelease, getLastDraftReleaseTag, getDraftReleaseTags} = require('./client-releases');
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const listReleasesMock = jest.fn().mockReturnValue({
@@ -24,10 +19,6 @@ getClient.mockReturnValue({
 });
 
 describe('#getLastRelease', () => {
-  it('should export getLastRelease function', () => {
-    expect(getLastRelease).toBeInstanceOf(Function);
-  });
-
   it('should call getLatestRelease w/ repo name', async () => {
     await getLastRelease({org: 'my-org', repo: 'my-repo'});
 
@@ -42,10 +33,6 @@ describe('#getLastRelease', () => {
 });
 
 describe('#getLastDraftReleaseTag', () => {
-  it('should export getLastDraftReleaseTag function', () => {
-    expect(getLastDraftReleaseTag).toBeInstanceOf(Function);
-  });
-
   it('should call getReleases w/ repo name', async () => {
     await getLastDraftReleaseTag({org: 'my-org', repo: 'my-repo'});
 
@@ -60,10 +47,6 @@ describe('#getLastDraftReleaseTag', () => {
 });
 
 describe('#getDraftReleaseTags', () => {
-  it('should export getDraftReleaseTags function', () => {
-    expect(getDraftReleaseTags).toBeInstanceOf(Function);
-  });
-
   it('should call getReleases w/ repo name', async () => {
     await getDraftReleaseTags({org: 'my-org', repo: 'my-repo'});
 
@@ -74,11 +57,5 @@ describe('#getDraftReleaseTags', () => {
     const lastDraftReleases = await getDraftReleaseTags({org: 'my-org', repo: 'my-repo'});
 
     expect(lastDraftReleases).toEqual([{id: 2, tag: 'v1.0.1'}]);
-  });
-});
-
-describe('#getOpenReleasePRs', () => {
-  it('should export getOpenReleasePRs function', () => {
-    expect(getOpenReleasePRs).toBeInstanceOf(Function);
   });
 });

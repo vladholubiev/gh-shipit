@@ -25,10 +25,6 @@ describe('#prepareRelease', () => {
     createReleaseLabel.mockClear();
   });
 
-  it('should export prepareRelease function', () => {
-    expect(prepareRelease).toBeInstanceOf(Function);
-  });
-
   it('should call askNewReleaseVersion w/ org and repo', async () => {
     await prepareRelease(params);
 

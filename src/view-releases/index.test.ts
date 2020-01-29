@@ -13,10 +13,6 @@ getLatestReleases.mockReturnValue(latestReleasesMock);
 
 const params = {org: 'my-org', format: 'table'};
 
-it('should export viewReleases function', () => {
-  expect(viewReleases).toBeInstanceOf(Function);
-});
-
 it('should call getOrgReleases w/ org name', async () => {
   await viewReleases(params);
 

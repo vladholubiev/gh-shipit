@@ -27,10 +27,6 @@ getClient.mockReturnValue({
 });
 
 describe('#getLastDevelopCommitSHA', () => {
-  it('should export getLastDevelopCommitSHA function', () => {
-    expect(getLastDevelopCommitSHA).toBeInstanceOf(Function);
-  });
-
   it('should call getBranch w/ develop branch in params', async () => {
     await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
 
@@ -50,10 +46,6 @@ describe('#getLastDevelopCommitSHA', () => {
 });
 
 describe('#createReleaseBranch', () => {
-  it('should export createReleaseBranch function', () => {
-    expect(createReleaseBranch).toBeInstanceOf(Function);
-  });
-
   it('should call createRef w/ all branch name and commit hash', async () => {
     const params = {org: 'my-org', repo: 'my-repo', version: '1.0.0', commitHash: 'b4c59e'};
     await createReleaseBranch(params);
@@ -68,10 +60,6 @@ describe('#createReleaseBranch', () => {
 });
 
 describe('#createReleaseNotes', () => {
-  it('should export createReleaseNotes function', () => {
-    expect(createReleaseNotes).toBeInstanceOf(Function);
-  });
-
   it('should call createRelease w/ proper params', async () => {
     const params = {
       org: 'my-org',
@@ -93,10 +81,6 @@ describe('#createReleaseNotes', () => {
 });
 
 describe('#createReleasePR', () => {
-  it('should export createReleasePR function', () => {
-    expect(createReleasePR).toBeInstanceOf(Function);
-  });
-
   it('should call pullRequests.create w/ proper branches', async () => {
     await createReleasePR({
       org: 'my-org',

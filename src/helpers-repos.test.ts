@@ -6,10 +6,6 @@ const {hasMasterAndDevelop} = require('./helpers-repos');
 getRepoBranches.mockReturnValue([]);
 
 describe('#hasMasterAndDevelop', () => {
-  it('should export hasMasterAndDevelop function', () => {
-    expect(hasMasterAndDevelop).toBeInstanceOf(Function);
-  });
-
   it('should call getRepoBranches w/ org and repo', async () => {
     await hasMasterAndDevelop({org: 'my-org', repo: 'my-repo'});
 

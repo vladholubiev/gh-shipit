@@ -7,10 +7,6 @@ const {print1Release} = require('./print');
 describe('print1Release', () => {
   getCliWidth.mockReturnValue('500');
 
-  it('should export print1Release function', () => {
-    expect(print1Release).toBeInstanceOf(Function);
-  });
-
   it('should return formatted table for 1 release', () => {
     const release = {
       repo: 'some-example-repo',

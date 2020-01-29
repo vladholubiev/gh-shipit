@@ -5,10 +5,6 @@ const {getLatestReleases} = require('./format');
 MockDate.set('5/1/2017', 0);
 
 describe('#getLatestReleases', () => {
-  it('should export getLatestReleases function', () => {
-    expect(getLatestReleases).toBeInstanceOf(Function);
-  });
-
   it('should return array of latest releases grouped by period', () => {
     const latestReleases = getLatestReleases(edges);
 

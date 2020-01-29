@@ -8,10 +8,6 @@ describe('#hasReleaseLabel', () => {
 
   const params = {org: 'my-org', repo: 'my-repo'};
 
-  it('should export hasReleaseLabel function', () => {
-    expect(hasReleaseLabel).toBeInstanceOf(Function);
-  });
-
   it('should call getRepoLabels for repo to get list of labels', async () => {
     await hasReleaseLabel(params);
 

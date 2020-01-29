@@ -10,10 +10,6 @@ describe('#getAllReposDiffs', () => {
     getBranchDiff.mockClear();
   });
 
-  it('should export getAllReposDiffs function', () => {
-    expect(getAllReposDiffs).toBeInstanceOf(Function);
-  });
-
   it('should call getBranchDiff 3 times for 3 repos', async () => {
     await getAllReposDiffs({
       org: 'some-org',

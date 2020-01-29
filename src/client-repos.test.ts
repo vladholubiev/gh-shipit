@@ -27,10 +27,6 @@ describe('#getRepoBranches', () => {
     getBranchesMock.mockClear();
   });
 
-  it('should export getRepoBranches function', () => {
-    expect(getRepoBranches).toBeInstanceOf(Function);
-  });
-
   it('should call getBranches w/ 100 page size', async () => {
     await getRepoBranches({org: 'my-org', repo: 'my-repo'});
 
@@ -47,10 +43,6 @@ describe('#getRepoBranches', () => {
 describe('#compareBranches', () => {
   beforeEach(() => {
     compareCommitsMock.mockClear();
-  });
-
-  it('should export compareBranches function', () => {
-    expect(compareBranches).toBeInstanceOf(Function);
   });
 
   it('should call compareCommits w/ develop and master', async () => {
