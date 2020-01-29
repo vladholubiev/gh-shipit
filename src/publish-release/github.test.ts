@@ -1,34 +1,14 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
 
 const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
-const {mergePR, publishDraftRelease} = require('./github');
+const {publishDraftRelease} = require('./github');
 
-const mergeMock = jest.fn().mockReturnValue({data: {}});
 const updateReleaseMock = jest.fn().mockReturnValue({data: {}});
 
 getClient.mockReturnValue({
-  pullRequests: {
-    merge: mergeMock
-  },
   repos: {
     updateRelease: updateReleaseMock
   }
-});
-
-describe('#mergePR', () => {
-  it('should call pullRequests.merge w/ proper params', async () => {
-    await mergePR({
-      org: 'my-org',
-      repo: 'my-repo',
-      number: 1
-    });
-
-    expect(mergeMock).toHaveBeenCalledWith({
-      number: 1,
-      owner: 'my-org',
-      repo: 'my-repo'
-    });
-  });
 });
 
 describe('#publishDraftRelease', () => {

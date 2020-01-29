@@ -1,7 +1,8 @@
-const logSymbols = require('log-symbols');
-const {print1Release} = require('../view-releases/print');
-const {publishDraftRelease, mergePR, deleteBranch} = require('./github');
-const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
+import logSymbols from 'log-symbols';
+import {mergePR} from '@shelf/gh-sdk';
+import {print1Release} from '../view-releases/print';
+import {deleteBranch, publishDraftRelease} from './github';
+import {askDraftReleasePRNumber, askDraftReleaseVersion} from './inquirer';
 
 export async function publishRelease({org, repo}) {
   try {
@@ -16,7 +17,7 @@ export async function publishRelease({org, repo}) {
     const {name, published_at} = await publishDraftRelease({org, repo, releaseId});
     console.log(logSymbols.success, `Release ${version} published`);
 
-    await mergePR({org, repo, number: prNumber});
+    await mergePR({owner: org, repo, pr: Number(prNumber)});
     console.log(logSymbols.success, `Pull request merged to master`);
 
     await deleteBranch({org, repo, name: `release/${version}`});

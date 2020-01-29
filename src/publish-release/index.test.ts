@@ -1,11 +1,13 @@
+jest.mock('@shelf/gh-sdk');
 jest.mock('../view-releases/print');
 jest.mock('./github');
 jest.mock('./inquirer');
 
-const {print1Release} = require('../view-releases/print');
-const {publishDraftRelease, mergePR, deleteBranch} = require('./github');
-const {askDraftReleaseVersion, askDraftReleasePRNumber} = require('./inquirer');
-const {publishRelease} = require('./');
+import {mergePR} from '@shelf/gh-sdk';
+import {print1Release} from '../view-releases/print';
+import {deleteBranch, publishDraftRelease} from './github';
+import {askDraftReleasePRNumber, askDraftReleaseVersion} from './inquirer';
+import {publishRelease} from './';
 
 const params = {org: 'my-org', repo: 'my-repo'};
 
@@ -34,7 +36,7 @@ it('should call publishDraftRelease w/ org & repo & release id', async () => {
 it('should call mergePR w/ org & repo & release PR number', async () => {
   await publishRelease(params);
 
-  expect(mergePR).toHaveBeenCalledWith({...params, number: '123'});
+  expect(mergePR).toHaveBeenCalledWith({owner: 'my-org', pr: 123, repo: 'my-repo'});
 });
 
 it('should call deleteBranch w/ org & repo & branch name', async () => {
