@@ -2,6 +2,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import ora from 'ora';
 import _ from 'lodash';
+import {prompt} from 'enquirer';
 import logSymbols from 'log-symbols';
 import ProgressBar from 'progress';
 import getCliWidth from 'cli-width';
@@ -40,15 +41,12 @@ export async function askRepo(org) {
     return process.exit(0);
   }
 
-  const {repo} = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'repo',
-      message: 'Repository?',
-      pageSize: choices.length,
-      choices
-    }
-  ]);
+  const {repo} = await prompt({
+    type: 'autocomplete',
+    name: 'repo',
+    message: 'Repository?',
+    choices
+  });
 
   return repo;
 }
