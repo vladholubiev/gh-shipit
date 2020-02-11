@@ -17,18 +17,6 @@ export async function publishDraftRelease({org, repo, releaseId}) {
   return data;
 }
 
-export async function mergePR({org, repo, number}) {
-  const gh = getClient();
-
-  const {data} = await gh.pullRequests.merge({
-    owner: org,
-    repo,
-    number
-  });
-
-  return data;
-}
-
 export async function deleteBranch({org, repo, name}) {
   const gh = getClient();
 
