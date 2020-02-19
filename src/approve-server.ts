@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import express from 'express';
 import {parse} from 'url';
 import {approvePR} from '@shelf/gh-sdk';
