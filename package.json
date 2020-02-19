@@ -18,6 +18,7 @@
     "lib/"
   ],
   "bin": {
+    "gh-easy-approve": "./lib/approve-server.js",
     "shipit": "./lib/cli.js"
   },
   "scripts": {
@@ -27,6 +28,7 @@
     "lint:ci": "eslint . --ext .js,.ts,.json",
     "prepack": "yarn build",
     "start": "node ./lib/cli.js",
+    "start:approve-server": "node ./lib/approve-server.js",
     "test": "TZ=UTC FORCE_COLOR=0 jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
@@ -65,6 +67,7 @@
     "date-fns": "1.30.1",
     "debug": "4.1.1",
     "enquirer": "2.3.4",
+    "express": "4.17.1",
     "graphql": "14.5.8",
     "graphql-tag": "2.10.1",
     "human-date": "1.4.0",
@@ -93,6 +96,7 @@
     "@babel/preset-typescript": "7.8.3",
     "@shelf/eslint-config": "0.14.2",
     "@types/debug": "4.1.5",
+    "@types/express": "4.17.2",
     "@types/inquirer": "6.5.0",
     "@types/jest": "25.1.2",
     "@types/json2csv": "4.5.1",
