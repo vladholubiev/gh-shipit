@@ -18,7 +18,6 @@
     "lib/"
   ],
   "bin": {
-    "gh-easy-approve": "./lib/approve-server.js",
     "shipit": "./lib/cli.js"
   },
   "scripts": {
@@ -67,7 +66,6 @@
     "date-fns": "1.30.1",
     "debug": "4.1.1",
     "enquirer": "2.3.4",
-    "express": "4.17.1",
     "graphql": "14.5.8",
     "graphql-tag": "2.10.1",
     "human-date": "1.4.0",
