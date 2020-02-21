@@ -45,19 +45,6 @@ $ npx gh-shipit
 - Releases this month
 - Releases this quarter
 
-### Easily Approve GitHub PRs from any PR page
-
-1. Create a browser bookmarklet with the following code:
-
-```js
-javascript: window.location.href = `http://localhost:5000/${encodeURIComponent(
-  window.location.href
-)}`;
-```
-
-2. Run in your terminal `gh-easy-approve`
-3. Profit! Now you don't need to go to the "Files changed" tab to approve a PR
-
 ### Screenshots
 
 ![](media/demo-releases.png)
