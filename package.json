@@ -81,7 +81,7 @@
     "opn": "5.5.0",
     "ora": "3.4.0",
     "p-map": "3.0.0",
-    "p-progress": "0.4.1",
+    "p-progress": "0.4.2",
     "pretty-version-diff": "1.0.0",
     "progress": "2.0.3",
     "semver": "6.3.0",
