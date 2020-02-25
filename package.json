@@ -83,7 +83,7 @@
     "pretty-version-diff": "1.0.0",
     "progress": "2.0.3",
     "semver": "6.3.0",
-    "smartwrap": "1.1.2",
+    "smartwrap": "1.2.5",
     "string-width": "4.2.0",
     "update-notifier": "3.0.1"
   },
