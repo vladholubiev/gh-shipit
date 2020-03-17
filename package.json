@@ -52,7 +52,7 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@octokit/graphql-schema": "4.27.0",
+    "@octokit/graphql-schema": "6.70.1",
     "@octokit/rest": "16.36.0",
     "@shelf/gh-sdk": "0.1.0",
     "apollo-cache-inmemory": "1.6.3",
