@@ -54,7 +54,7 @@
   "dependencies": {
     "@octokit/graphql-schema": "4.27.0",
     "@octokit/rest": "16.36.0",
-    "@shelf/gh-sdk": "0.2.0",
+    "@shelf/gh-sdk": "0.2.2",
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
     "apollo-link-context": "1.0.19",
