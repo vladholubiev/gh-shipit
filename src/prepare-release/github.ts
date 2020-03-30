@@ -6,15 +6,14 @@ import {
   createReleasePR as createReleasePullRequest
 } from '@shelf/gh-sdk';
 
-export async function getLastDevelopCommitSHA({org, repo}) {
+export async function getLastDevelopCommitSHA({org, repo}: {org: string; repo: string}) {
   const gh = getClient();
 
   const {data} = await gh.repos.getBranch({
     owner: org,
     repo,
-    branch: 'develop',
-    per_page: 1
-  });
+    branch: 'develop'
+  } as any);
 
   return _.get(data, 'commit.sha', '');
 }

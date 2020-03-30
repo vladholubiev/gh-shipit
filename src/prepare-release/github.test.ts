@@ -1,24 +1,24 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
 
-const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
-const {
-  getLastDevelopCommitSHA,
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {
   createReleaseBranch,
   createReleaseNotes,
-  createReleasePR
-} = require('./github');
+  createReleasePR,
+  getLastDevelopCommitSHA
+} from './github';
 
 const createMock = jest.fn().mockReturnValue({data: {}});
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
 const createRefMock = jest.fn().mockReturnValue({data: []});
 const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
-getClient.mockReturnValue({
+(getClient as jest.Mock).mockReturnValue({
   repos: {
     getBranch: getBranchMock,
     createRelease: createReleaseMock
   },
-  gitdata: {
+  git: {
     createRef: createRefMock
   },
   pullRequests: {
