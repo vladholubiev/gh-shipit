@@ -1,6 +1,12 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
+jest.mock('@shelf/gh-sdk/lib/repos/get-latest-branch-commit');
+jest.mock('@shelf/gh-sdk/lib/prs/create-release-pr');
 
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {
+  createReleasePR as createReleasePullRequest,
+  getLatestDevelopCommitSHA as getLatestDevCommitSHA
+} from '@shelf/gh-sdk';
 import {
   createReleaseBranch,
   createReleaseNotes,
@@ -8,34 +14,26 @@ import {
   getLastDevelopCommitSHA
 } from './github';
 
-const createMock = jest.fn().mockReturnValue({data: {}});
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
 const createRefMock = jest.fn().mockReturnValue({data: []});
-const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
 (getClient as jest.Mock).mockReturnValue({
   repos: {
-    getBranch: getBranchMock,
     createRelease: createReleaseMock
   },
   git: {
     createRef: createRefMock
-  },
-  pullRequests: {
-    create: createMock
   }
 });
 
-describe('#getLastDevelopCommitSHA', () => {
-  it('should call getBranch w/ develop branch in params', async () => {
-    await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
+(getLatestDevCommitSHA as jest.Mock).mockResolvedValue('a1b2c3');
+(createReleasePullRequest as jest.Mock).mockResolvedValue({id: 'some-id', url: 'some-url'});
 
-    expect(getBranchMock).toHaveBeenCalledWith({
-      branch: 'develop',
-      owner: 'my-org',
-      per_page: 1,
-      repo: 'my-repo'
-    });
+describe('#getLastDevelopCommitSHA', () => {
+  it('should return correct value', async () => {
+    const result = await getLastDevelopCommitSHA({org: 'my-org', repo: 'my-repo'});
+
+    expect(result).toEqual('a1b2c3');
   });
 
   it('should return sha of last commit in develop', async () => {
@@ -81,20 +79,14 @@ describe('#createReleaseNotes', () => {
 });
 
 describe('#createReleasePR', () => {
-  it('should call pullRequests.create w/ proper branches', async () => {
-    await createReleasePR({
+  it('should return correct response', async () => {
+    const PR = await createReleasePR({
       org: 'my-org',
       repo: 'my-repo',
       version: '1.0.0',
       releaseTitle: 'New Login Page'
     });
 
-    expect(createMock).toHaveBeenCalledWith({
-      base: 'master',
-      head: 'release/v1.0.0',
-      owner: 'my-org',
-      repo: 'my-repo',
-      title: 'Release v1.0.0: New Login Page'
-    });
+    expect(PR).toEqual({id: 'some-id', url: 'some-url'});
   });
 });
