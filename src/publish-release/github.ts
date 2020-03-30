@@ -1,6 +1,7 @@
 import path from 'path';
 import debug0 from 'debug';
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {deleteBranch as deleteRepoBranch} from '@shelf/gh-sdk';
 
 const debug = debug0(`gh-shipit:${path.basename(__filename)}`);
 
@@ -17,17 +18,10 @@ export async function publishDraftRelease({org, repo, releaseId}) {
   return data;
 }
 
-export async function deleteBranch({org, repo, name}) {
-  const gh = getClient();
-
-  try {
-    const {data} = await gh.gitdata.deleteRef({owner: org, repo, ref: `heads/${name}`});
-
-    return data;
-  } catch (error) {
-    debug(
-      `Error deleting branch, possibly branch auto-delete feature is enabled in the repo settings`,
-      error
-    );
-  }
+export async function deleteBranch({org, repo, name}): Promise<any> {
+  return deleteRepoBranch({
+    owner: org,
+    repo,
+    ref: `heads/${name}`
+  });
 }

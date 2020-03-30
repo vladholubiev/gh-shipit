@@ -1,31 +1,37 @@
 import _ from 'lodash';
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {GitCreateRefResponse, PullsCreateResponse} from '@octokit/rest';
+import {
+  createReleaseBranch as createBranchRelease,
+  createReleasePR as createReleasePullRequest,
+  getLatestDevelopCommitSHA as getLatestDevCommitSHA
+} from '@shelf/gh-sdk';
 
-export async function getLastDevelopCommitSHA({org, repo}) {
-  const gh = getClient();
-
-  const {data} = await gh.repos.getBranch({
+export async function getLastDevelopCommitSHA({
+  org,
+  repo
+}: {
+  org: string;
+  repo: string;
+}): Promise<string> {
+  return getLatestDevCommitSHA({
     owner: org,
-    repo,
-    branch: 'develop',
-    per_page: 1
+    repo
   });
-
-  return _.get(data, 'commit.sha', '');
 }
 
-export async function createReleaseBranch({org, repo, version, commitHash}) {
-  const gh = getClient();
-  const branchName = `refs/heads/release/v${version}`;
-
-  const {data} = await gh.gitdata.createRef({
+export async function createReleaseBranch({
+  org,
+  repo,
+  version,
+  commitHash
+}): Promise<GitCreateRefResponse> {
+  return createBranchRelease({
     owner: org,
+    sha: commitHash,
     repo,
-    ref: branchName,
-    sha: commitHash
+    version
   });
-
-  return data;
 }
 
 export async function createReleaseNotes({org, repo, version, releaseTitle}) {
@@ -44,18 +50,16 @@ export async function createReleaseNotes({org, repo, version, releaseTitle}) {
   return data;
 }
 
-export async function createReleasePR({org, repo, version, releaseTitle}) {
-  const gh = getClient();
-  const tagName = `v${version}`;
-  const branch = `release/${tagName}`;
-
-  const {data} = await gh.pullRequests.create({
+export async function createReleasePR({
+  org,
+  repo,
+  version,
+  releaseTitle
+}): Promise<PullsCreateResponse> {
+  return createReleasePullRequest({
     owner: org,
     repo,
-    head: branch,
-    base: 'master',
-    title: `Release ${tagName}: ${releaseTitle}`
+    version,
+    releaseTitle
   });
-
-  return data;
 }
