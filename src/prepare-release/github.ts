@@ -3,19 +3,21 @@ import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 import {GitCreateRefResponse, PullsCreateResponse} from '@octokit/rest';
 import {
   createReleaseBranch as createBranchRelease,
-  createReleasePR as createReleasePullRequest
+  createReleasePR as createReleasePullRequest,
+  getLatestDevelopCommitSHA as getLatestDevCommitSHA
 } from '@shelf/gh-sdk';
 
-export async function getLastDevelopCommitSHA({org, repo}: {org: string; repo: string}) {
-  const gh = getClient();
-
-  const {data} = await gh.repos.getBranch({
+export async function getLastDevelopCommitSHA({
+  org,
+  repo
+}: {
+  org: string;
+  repo: string;
+}): Promise<string> {
+  return getLatestDevCommitSHA({
     owner: org,
-    repo,
-    branch: 'develop'
-  } as any);
-
-  return _.get(data, 'commit.sha', '');
+    repo
+  });
 }
 
 export async function createReleaseBranch({
