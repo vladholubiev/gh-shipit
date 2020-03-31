@@ -1,6 +1,6 @@
 {
   "name": "gh-shipit",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "Ship Releases",
   "keywords": [
     "github",
@@ -14,12 +14,12 @@
     "email": "golubev.vld@gmail.com",
     "url": "vladholubiev.com"
   },
-  "bin": {
-    "shipit": "./lib/cli.js"
-  },
   "files": [
     "lib/"
   ],
+  "bin": {
+    "shipit": "./lib/cli.js"
+  },
   "scripts": {
     "build": "rm -rf lib/ && babel src --out-dir lib --ignore '**/*.test.ts' --extensions '.ts'",
     "coverage": "TZ=UTC jest --coverage",
