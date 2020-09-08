@@ -71,7 +71,7 @@
     "human-date": "1.4.0",
     "inquirer": "7.3.2",
     "json2csv": "4.5.4",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "log-symbols": "3.0.0",
     "longest": "2.0.1",
     "node-fetch": "2.6.0",
