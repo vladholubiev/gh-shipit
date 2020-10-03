@@ -4,10 +4,9 @@ import updateNotifier from 'update-notifier';
 import logSymbols from 'log-symbols';
 import path from 'path';
 import debug0 from 'debug';
-import {askFormatOutput, askOrg, askOrgAction, askRepo, askRepoAction} from './inquirer';
+import {askOrg, askOrgAction, askRepo, askRepoAction} from './inquirer';
 import pkg, {name} from '../package.json';
 import {verifyToken} from './verify-token';
-import {viewReleases} from './view-releases';
 import {publishRelease} from './publish-release';
 import {prepareRelease} from './prepare-release';
 import {bulkMergePRs} from './bulk-merge-prs';
@@ -38,11 +37,6 @@ updateNotifier({pkg}).notify();
 
     if (orgAction === 'bulk-merge-renovate-prs') {
       await bulkMergePRs(org);
-    }
-
-    if (orgAction === 'view-releases') {
-      const format = await askFormatOutput();
-      await viewReleases({org, format});
     }
   } catch (error) {
     debug(error);

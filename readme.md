@@ -37,20 +37,6 @@ $ npx gh-shipit
 - Approve & merge PRs in parallel, 10 merges concurrently
 - Print number of merged PRs and URLs to PRs failed to merge
 
-### View Latest Releases
-
-- Histogram of releases per week in current quarter
-- Releases this week
-- Releases last week
-- Releases this month
-- Releases this quarter
-
-### Screenshots
-
-![](media/demo-releases.png)
-
-![](media/demo-histogram.png)
-
 ## Usage
 
 Follow interactive instructions

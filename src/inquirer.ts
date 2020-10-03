@@ -98,10 +98,6 @@ export async function askOrgAction() {
           value: 'releases'
         },
         {
-          name: 'View Latest Releases',
-          value: 'view-releases'
-        },
-        {
           name: 'Bulk Merge Renovate bot PRs',
           value: 'bulk-merge-renovate-prs'
         }
@@ -110,28 +106,6 @@ export async function askOrgAction() {
   ]);
 
   return action;
-}
-
-export async function askFormatOutput() {
-  const {format} = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'format',
-      message: 'Format?',
-      choices: [
-        {
-          name: 'Table',
-          value: 'table'
-        },
-        {
-          name: 'CSV',
-          value: 'csv'
-        }
-      ]
-    }
-  ]);
-
-  return format;
 }
 
 async function loadRepos(org) {

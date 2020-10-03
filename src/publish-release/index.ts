@@ -1,6 +1,5 @@
 import logSymbols from 'log-symbols';
 import {mergePR} from '@shelf/gh-sdk';
-import {print1Release} from '../view-releases/print';
 import {deleteBranch, publishDraftRelease} from './github';
 import {askDraftReleasePRNumber, askDraftReleaseVersion} from './inquirer';
 
@@ -22,8 +21,6 @@ export async function publishRelease({org, repo}) {
 
     await deleteBranch({org, repo, name: `release/${version}`});
     console.log(logSymbols.success, `Deleted release branch`);
-
-    print1Release({name, repo, date: new Date(published_at), version});
   } catch (error) {
     console.log(logSymbols.error, error.message);
   }
