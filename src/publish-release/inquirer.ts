@@ -4,7 +4,7 @@ const logSymbols = require('log-symbols');
 const {getOpenReleasePRForVersion} = require('./helpers');
 const {getDraftReleaseTags, getOpenReleasePRs} = require('../client-releases');
 
-module.exports.askDraftReleaseVersion = async function({org, repo}) {
+module.exports.askDraftReleaseVersion = async function ({org, repo}) {
   const tagsSpinner = ora('Fetching draft releases');
   const draftReleaseTags = await getDraftReleaseTags({org, repo});
   tagsSpinner.stop();
@@ -29,7 +29,7 @@ module.exports.askDraftReleaseVersion = async function({org, repo}) {
   };
 };
 
-module.exports.askDraftReleasePRNumber = async function({org, repo, version}) {
+module.exports.askDraftReleasePRNumber = async function ({org, repo, version}) {
   const prsSpinner = ora('Fetching open PRs');
   const prs = await getOpenReleasePRs({org, repo});
   prsSpinner.stop();

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 import {GitCreateRefResponse, PullsCreateResponse} from '@octokit/rest';
 import {

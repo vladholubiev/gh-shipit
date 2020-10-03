@@ -4,7 +4,7 @@ const chalk = require('chalk');
 
 const increments = ['patch', 'minor', 'major'];
 
-module.exports.getNextVersionOptions = function(currentVersion) {
+module.exports.getNextVersionOptions = function (currentVersion) {
   currentVersion = semver.clean(currentVersion);
 
   return increments.map(increment => ({

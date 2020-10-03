@@ -6,7 +6,6 @@ import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 import {compareBranches, getOrgRepoNames, getRepoBranches} from './client-repos';
 
 const compareCommitsMock = jest.fn().mockReturnValue({data: []});
-const getBranchMock = jest.fn().mockReturnValue({data: {commit: {sha: 'a1b2c3'}}});
 
 (getClient as jest.Mock).mockReturnValue({
   repos: {

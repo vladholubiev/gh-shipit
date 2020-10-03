@@ -11,14 +11,17 @@ export async function bulkMergePRs(org: string): Promise<void> {
     ['desc']
   );
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const {prsToMerge} = await prompt({
     type: 'autocomplete',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     multiple: true,
     name: 'prsToMerge',
     message: 'Pick a PR',
     choices: items.map(item => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, repoWithPrNumber] = item.url.split(`/${org}/`);
       const [repo, prNumber] = repoWithPrNumber.split('/issues/');
 

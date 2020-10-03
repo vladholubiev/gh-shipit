@@ -5,7 +5,7 @@ const opn = require('opn');
 const {getLastRelease} = require('../client-releases');
 const {getNextVersionOptions} = require('../semver');
 
-module.exports.askNewReleaseVersion = async function({org, repo}) {
+module.exports.askNewReleaseVersion = async function ({org, repo}) {
   const lastRelease = await getLastRelease({org, repo});
   const {version} = await inquirer.prompt([
     {
@@ -19,7 +19,7 @@ module.exports.askNewReleaseVersion = async function({org, repo}) {
   return version;
 };
 
-module.exports.askReleaseTitle = async function({org, repo}) {
+module.exports.askReleaseTitle = async function ({org, repo}) {
   const {inputType} = await inquirer.prompt([
     {
       type: 'list',
@@ -67,7 +67,7 @@ module.exports.askReleaseTitle = async function({org, repo}) {
   return releaseTitle;
 };
 
-module.exports.askToOpenPR = async function({org, repo, pr}) {
+module.exports.askToOpenPR = async function ({org, repo, pr}) {
   const {shouldOpenPR} = await inquirer.prompt([
     {
       type: 'confirm',

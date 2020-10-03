@@ -13,7 +13,7 @@ export async function publishRelease({org, repo}) {
       `You are about to publish release ${version} and merge PR to master`
     );
 
-    const {name, published_at} = await publishDraftRelease({org, repo, releaseId});
+    await publishDraftRelease({org, repo, releaseId});
     console.log(logSymbols.success, `Release ${version} published`);
 
     await mergePR({owner: org, repo, pr: Number(prNumber)});
