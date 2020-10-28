@@ -95,7 +95,7 @@
     "@types/human-date": "1.4.0",
     "@types/inquirer": "6.5.0",
     "@types/jest": "26.0.14",
-    "@types/lodash": "4.14.161",
+    "@types/lodash": "4.14.163",
     "@types/mockdate": "2.0.0",
     "@types/node-fetch": "2.5.7",
     "@types/progress": "2.0.3",
