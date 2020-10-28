@@ -1,5 +1,5 @@
 import logSymbols from 'log-symbols';
-import {assignReleaseLabel, createReleaseLabel} from './github-labels';
+import {assignReleaseLabelToPR, createReleaseLabel} from '@shelf/gh-sdk';
 import {hasReleaseLabel} from './helpers-labels';
 import {
   createReleaseBranch,
@@ -28,11 +28,11 @@ export async function prepareRelease({org, repo}) {
     if (!(await hasReleaseLabel({org, repo}))) {
       console.log(logSymbols.warning, `No Release Label Found`);
 
-      await createReleaseLabel({org, repo});
+      await createReleaseLabel(org, repo);
       console.log(logSymbols.success, `Created Release Label!`);
     }
 
-    await assignReleaseLabel({org, repo, pr: number});
+    await assignReleaseLabelToPR(org, repo, number);
     console.log(logSymbols.success, `Assigned Release Label to PR #${number}!`);
 
     await askToOpenPR({org, repo, pr: number});

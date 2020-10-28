@@ -1,9 +1,9 @@
-jest.mock('./github-labels');
+jest.mock('@shelf/gh-sdk');
 jest.mock('./helpers-labels');
 jest.mock('./inquirer');
 jest.mock('./github');
 
-const {createReleaseLabel, assignReleaseLabel} = require('./github-labels');
+const {assignReleaseLabelToPR, createReleaseLabel} = require('@shelf/gh-sdk');
 const {hasReleaseLabel} = require('./helpers-labels');
 const {
   getLastDevelopCommitSHA,
@@ -78,20 +78,20 @@ describe('#prepareRelease', () => {
   it('should call createReleaseLabel if one not exists', async () => {
     await prepareRelease(params);
 
-    expect(createReleaseLabel).toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
+    expect(createReleaseLabel).toHaveBeenCalledWith('my-org', 'my-repo');
   });
 
   it('should not call createReleaseLabel if one exists', async () => {
     hasReleaseLabel.mockReturnValueOnce(true);
     await prepareRelease(params);
 
-    expect(createReleaseLabel).not.toHaveBeenCalledWith({org: 'my-org', repo: 'my-repo'});
+    expect(createReleaseLabel).not.toHaveBeenCalledWith('my-org', 'my-repo');
   });
 
-  it('should call assignReleaseLabel w/ repo and pr number', async () => {
+  it('should call assignReleaseLabelToPR w/ repo and pr number', async () => {
     await prepareRelease(params);
 
-    expect(assignReleaseLabel).toHaveBeenCalledWith({org: 'my-org', pr: 123, repo: 'my-repo'});
+    expect(assignReleaseLabelToPR).toHaveBeenCalledWith('my-org', 'my-repo', 123);
   });
 
   it('should call askToOpenPR w/ org, repo, pr number', async () => {

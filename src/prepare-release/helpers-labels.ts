@@ -1,7 +1,7 @@
-const {getRepoLabels} = require('./github-labels');
+import {getRepoLabels} from '@shelf/gh-sdk';
 
-module.exports.hasReleaseLabel = async function ({org, repo}) {
-  const labels = await getRepoLabels({org, repo});
+export async function hasReleaseLabel({org, repo}): Promise<boolean> {
+  const labels = await getRepoLabels(org, repo);
 
   return labels.includes('release');
-};
+}
