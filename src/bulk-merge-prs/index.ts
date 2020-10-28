@@ -2,13 +2,32 @@ import {prompt} from 'enquirer';
 import {orderBy, sum} from 'lodash';
 import logSymbols from 'log-symbols';
 import pMap from 'p-map';
-import {approvePR, listOpenPRs, mergePR} from '@shelf/gh-sdk';
+import pFilter from 'p-filter';
+import {approvePR, getPR, listOpenPRs, mergePR} from '@shelf/gh-sdk';
 
 export async function bulkMergePRs(org: string): Promise<void> {
   const items = orderBy(
     await listOpenPRs({owner: org, searchText: 'renovate'}),
     ['updated_at'],
     ['desc']
+  );
+  const itemsFiltered = await pFilter(
+    items,
+    async item => {
+      console.log({owner: org, repo: item.repository_url.split('/')[4], pr: item.number});
+      try {
+        const pr = await getPR({
+          owner: org,
+          repo: item.repository_url.split('/')[4],
+          pr: item.number
+        });
+
+        return pr.mergeable_state === 'clean';
+      } catch (error) {
+        return true;
+      }
+    },
+    {concurrency: 20}
   );
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,7 +39,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
     multiple: true,
     name: 'prsToMerge',
     message: 'Pick a PR',
-    choices: items.map(item => {
+    choices: itemsFiltered.map(item => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, repoWithPrNumber] = item.url.split(`/${org}/`);
       const [repo, prNumber] = repoWithPrNumber.split('/issues/');
