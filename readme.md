@@ -45,6 +45,15 @@ Follow interactive instructions
 $ shipit
 ```
 
+## Publish
+
+```sh
+$ git checkout master
+$ yarn version
+$ yarn publish
+$ git push origin master
+```
+
 ## License
 
-MIT © [Vlad Holubiev](http://vladholubiev.com)
+MIT © [Shelf](https://shelf.io)
