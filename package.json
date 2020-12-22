@@ -89,7 +89,7 @@
     "@babel/core": "7.12.3",
     "@babel/preset-env": "7.12.1",
     "@babel/preset-typescript": "7.12.1",
-    "@octokit/graphql-schema": "9.0.0",
+    "@octokit/graphql-schema": "10.11.0",
     "@shelf/eslint-config": "0.24.0",
     "@shelf/prettier-config": "0.0.7",
     "@types/debug": "4.1.5",
