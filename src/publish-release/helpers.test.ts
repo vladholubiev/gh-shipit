@@ -1,5 +1,7 @@
-const {valid, invalid} = require('./release-prs.fixture');
-const {getOpenReleasePRForVersion} = require('./helpers');
+import {getOpenReleasePRForVersion} from './helpers';
+import fixture from './release-prs.fixture';
+
+const {invalid, valid} = fixture;
 
 describe('#getFirstOpenReleasePR', () => {
   it('should skip if no open PRs found at all', () => {

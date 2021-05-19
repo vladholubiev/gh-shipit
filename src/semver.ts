@@ -1,14 +1,14 @@
-const prettyVersionDiff = require('pretty-version-diff');
-const semver = require('semver');
-const chalk = require('chalk');
+import prettyVersionDiff from 'pretty-version-diff';
+import semver from 'semver';
+import chalk from 'chalk';
 
 const increments = ['patch', 'minor', 'major'];
 
-module.exports.getNextVersionOptions = function (currentVersion) {
+export function getNextVersionOptions(currentVersion) {
   currentVersion = semver.clean(currentVersion);
 
   return increments.map(increment => ({
     name: `${increment}  ${chalk.dim('v')}${prettyVersionDiff(currentVersion, increment)}`,
-    value: semver.inc(currentVersion, increment),
+    value: semver.inc(currentVersion, increment as any),
   }));
-};
+}

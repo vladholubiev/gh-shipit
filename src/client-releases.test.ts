@@ -1,7 +1,7 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
 
-const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
-const {getLastRelease, getLastDraftReleaseTag, getDraftReleaseTags} = require('./client-releases');
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {getDraftReleaseTags, getLastDraftReleaseTag, getLastRelease} from './client-releases';
 
 const getLatestReleaseMock = jest.fn().mockReturnValue({data: {tag_name: 'v1.0.1'}});
 const listReleasesMock = jest.fn().mockReturnValue({
@@ -11,7 +11,7 @@ const listReleasesMock = jest.fn().mockReturnValue({
   ],
 });
 
-getClient.mockReturnValue({
+(getClient as jest.Mock).mockReturnValue({
   repos: {
     getLatestRelease: getLatestReleaseMock,
     listReleases: listReleasesMock,

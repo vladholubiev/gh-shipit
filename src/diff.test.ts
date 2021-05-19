@@ -1,13 +1,13 @@
 jest.mock('./repos');
 
-const {getBranchDiff} = require('./repos');
-const {getAllReposDiffs} = require('./diff');
+import {getBranchDiff} from './repos';
+import {getAllReposDiffs} from './diff';
 
-getBranchDiff.mockReturnValue(Promise.resolve({}));
+(getBranchDiff as jest.Mock).mockReturnValue(Promise.resolve({}));
 
 describe('#getAllReposDiffs', () => {
   beforeEach(() => {
-    getBranchDiff.mockClear();
+    (getBranchDiff as jest.Mock).mockClear();
   });
 
   it('should call getBranchDiff 3 times for 3 repos', async () => {

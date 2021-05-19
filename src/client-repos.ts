@@ -3,8 +3,9 @@ import path from 'path';
 import debug0 from 'debug';
 import {getRepoBranchesNames, listOrgRepos} from '@shelf/gh-sdk';
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {name} from '../package.json';
 
-const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
+const debug = debug0(`${name}:${path.basename(__filename)}`);
 
 export async function getRepoBranches({org, repo}): Promise<string[]> {
   const branches = await getRepoBranchesNames({

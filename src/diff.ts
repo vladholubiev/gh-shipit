@@ -1,6 +1,6 @@
-const pProgress = require('p-progress');
-const pMap = require('p-map');
-const {getBranchDiff} = require('./repos');
+import pProgress from 'p-progress';
+import pMap from 'p-map';
+import {getBranchDiff} from './repos';
 
 export function getAllReposDiffs({org, repos}) {
   return pProgress.fn((repos, progress) => {

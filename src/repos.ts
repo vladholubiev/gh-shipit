@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import semver from 'semver';
 import path from 'path';
+import debug0 from 'debug';
+import {name} from '../package.json';
 import {getLastDraftReleaseTag, getLastRelease} from './client-releases';
 import {compareBranches} from './client-repos';
 
-const debug = require('debug')(`${require('../package').name}:${path.basename(__filename)}`);
+const debug = debug0(`${name}:${path.basename(__filename)}`);
 
 export async function getBranchDiff({org, repo}) {
   try {

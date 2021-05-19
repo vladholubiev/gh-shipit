@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   valid: [
     {
       title: 'Release v0.4.0: Some PR title',

@@ -1,10 +1,10 @@
-const ora = require('ora');
-const inquirer = require('inquirer');
-const logSymbols = require('log-symbols');
-const {getOpenReleasePRForVersion} = require('./helpers');
-const {getDraftReleaseTags, getOpenReleasePRs} = require('../client-releases');
+import ora from 'ora';
+import inquirer from 'inquirer';
+import logSymbols from 'log-symbols';
+import {getOpenReleasePRForVersion} from './helpers';
+import {getDraftReleaseTags, getOpenReleasePRs} from '../client-releases';
 
-module.exports.askDraftReleaseVersion = async function ({org, repo}) {
+export async function askDraftReleaseVersion({org, repo}) {
   const tagsSpinner = ora('Fetching draft releases');
   const draftReleaseTags = await getDraftReleaseTags({org, repo});
   tagsSpinner.stop();
@@ -27,9 +27,9 @@ module.exports.askDraftReleaseVersion = async function ({org, repo}) {
     version: release.tag,
     releaseId: release.id,
   };
-};
+}
 
-module.exports.askDraftReleasePRNumber = async function ({org, repo, version}) {
+export async function askDraftReleasePRNumber({org, repo, version}) {
   const prsSpinner = ora('Fetching open PRs');
   const prs = await getOpenReleasePRs({org, repo});
   prsSpinner.stop();
@@ -57,4 +57,4 @@ module.exports.askDraftReleasePRNumber = async function ({org, repo, version}) {
   }
 
   return prNumber;
-};
+}

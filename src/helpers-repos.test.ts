@@ -1,9 +1,9 @@
 jest.mock('./client-repos');
 
-const {getRepoBranches} = require('./client-repos');
-const {hasMasterAndDevelop} = require('./helpers-repos');
+import {getRepoBranches} from './client-repos';
+import {hasMasterAndDevelop} from './helpers-repos';
 
-getRepoBranches.mockReturnValue([]);
+(getRepoBranches as jest.Mock).mockReturnValue([]);
 
 describe('#hasMasterAndDevelop', () => {
   it('should call getRepoBranches w/ org and repo', async () => {
@@ -13,7 +13,7 @@ describe('#hasMasterAndDevelop', () => {
   });
 
   it('should return true when repo has both branches', async () => {
-    getRepoBranches.mockReturnValueOnce(['master', 'develop', 'feature/cool']);
+    (getRepoBranches as jest.Mock).mockReturnValueOnce(['master', 'develop', 'feature/cool']);
     const result = await hasMasterAndDevelop({org: 'my-org', repo: 'my-repo'});
 
     expect(result).toEqual(true);
@@ -26,7 +26,7 @@ describe('#hasMasterAndDevelop', () => {
   });
 
   it('should return false when repo has only master', async () => {
-    getRepoBranches.mockReturnValueOnce(['master']);
+    (getRepoBranches as jest.Mock).mockReturnValueOnce(['master']);
     const result = await hasMasterAndDevelop({org: 'my-org', repo: 'my-repo'});
 
     expect(result).toEqual(false);

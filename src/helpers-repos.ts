@@ -1,7 +1,7 @@
-const {getRepoBranches} = require('./client-repos');
+import {getRepoBranches} from './client-repos';
 
-module.exports.hasMasterAndDevelop = async function ({org, repo}) {
+export async function hasMasterAndDevelop({org, repo}) {
   const branches = await getRepoBranches({org, repo});
 
   return branches.includes('develop') && branches.includes('master');
-};
+}

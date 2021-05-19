@@ -1,11 +1,11 @@
 jest.mock('@shelf/gh-sdk/lib/rest-client');
 
-const {getClient} = require('@shelf/gh-sdk/lib/rest-client');
-const {publishDraftRelease} = require('./github');
+import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {publishDraftRelease} from './github';
 
 const updateReleaseMock = jest.fn().mockReturnValue({data: {}});
 
-getClient.mockReturnValue({
+(getClient as jest.Mock).mockReturnValue({
   repos: {
     updateRelease: updateReleaseMock,
   },

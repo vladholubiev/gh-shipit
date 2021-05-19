@@ -1,5 +1,5 @@
-const MockDate = require('mockdate');
-const {formatReposDiffsForChoices} = require('./format');
+import MockDate from 'mockdate';
+import {formatReposDiffsForChoices} from './format';
 
 MockDate.set('1/1/2018', 0);
 

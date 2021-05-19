@@ -1,4 +1,4 @@
-const {getNextVersionOptions} = require('./semver');
+import {getNextVersionOptions} from './semver';
 
 it('should return array of 3 options', () => {
   expect(getNextVersionOptions('1.0.0')).toEqual([

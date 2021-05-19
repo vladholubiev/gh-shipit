@@ -1,11 +1,11 @@
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const {normalizeSpace} = require('normalize-space-x');
-const opn = require('opn');
-const {getLastRelease} = require('../client-releases');
-const {getNextVersionOptions} = require('../semver');
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import {normalizeSpace} from 'normalize-space-x';
+import opn from 'opn';
+import {getLastRelease} from '../client-releases';
+import {getNextVersionOptions} from '../semver';
 
-module.exports.askNewReleaseVersion = async function ({org, repo}) {
+export async function askNewReleaseVersion({org, repo}) {
   const lastRelease = await getLastRelease({org, repo});
   const {version} = await inquirer.prompt([
     {
@@ -17,9 +17,9 @@ module.exports.askNewReleaseVersion = async function ({org, repo}) {
   ]);
 
   return version;
-};
+}
 
-module.exports.askReleaseTitle = async function ({org, repo}) {
+export async function askReleaseTitle({org, repo}) {
   const {inputType} = await inquirer.prompt([
     {
       type: 'list',
@@ -65,9 +65,9 @@ module.exports.askReleaseTitle = async function ({org, repo}) {
   ]);
 
   return releaseTitle;
-};
+}
 
-module.exports.askToOpenPR = async function ({org, repo, pr}) {
+export async function askToOpenPR({org, repo, pr}) {
   const {shouldOpenPR} = await inquirer.prompt([
     {
       type: 'confirm',
@@ -81,4 +81,4 @@ module.exports.askToOpenPR = async function ({org, repo, pr}) {
     const prURL = `https://github.com/${org}/${repo}/pull/${pr}`;
     opn(prURL);
   }
-};
+}

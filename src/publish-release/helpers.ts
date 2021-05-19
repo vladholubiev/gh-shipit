@@ -1,6 +1,6 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-module.exports.getOpenReleasePRForVersion = function (prs, version) {
+export function getOpenReleasePRForVersion(prs, version) {
   if (_.isEmpty(prs)) {
     return {
       isReadyToMerge: false,
@@ -75,7 +75,7 @@ module.exports.getOpenReleasePRForVersion = function (prs, version) {
     prTitle: pr.title,
     prNumber: pr.number,
   };
-};
+}
 
 function hasLabel(pr, label) {
   const labels = getPRLabels(pr);
@@ -84,7 +84,7 @@ function hasLabel(pr, label) {
 }
 
 function getPRLabels(pr) {
-  return _.map(_.get(pr, 'labels.nodes'), 'name', []);
+  return _.map(_.get(pr, 'labels.nodes'), 'name');
 }
 
 function hasApproves(pr) {

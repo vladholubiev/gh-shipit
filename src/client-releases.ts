@@ -3,9 +3,10 @@ import gql from 'graphql-tag';
 import path from 'path';
 import debug0 from 'debug';
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
+import {name} from '../package.json';
 import {getClientGraphQL} from './client';
 
-const debug = debug0(`${require('../package').name}:${path.basename(__filename)}`);
+const debug = debug0(`${name}:${path.basename(__filename)}`);
 
 export async function getLastRelease({org, repo}) {
   const gh = getClient();
