@@ -9,13 +9,13 @@ const compareCommitsMock = jest.fn().mockReturnValue({data: []});
 
 (getClient as jest.Mock).mockReturnValue({
   repos: {
-    compareCommits: compareCommitsMock
-  }
+    compareCommits: compareCommitsMock,
+  },
 });
 (listOrgRepos as jest.Mock).mockResolvedValue([
   {name: 'repo-1', archived: false},
   {name: 'repo-2', archived: true},
-  {name: 'repo-3', archived: false}
+  {name: 'repo-3', archived: false},
 ]);
 (getRepoBranchesNames as jest.Mock).mockResolvedValue(['develop', 'master']);
 
@@ -39,7 +39,7 @@ describe('#compareBranches', () => {
       base: 'master',
       head: 'develop',
       owner: 'my-org',
-      repo: 'my-repo'
+      repo: 'my-repo',
     });
   });
 

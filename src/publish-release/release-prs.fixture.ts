@@ -9,20 +9,20 @@ module.exports = {
       number: 1,
       labels: {
         nodes: [{name: 'release', __typename: 'Label'}],
-        __typename: 'LabelConnection'
+        __typename: 'LabelConnection',
       },
       reviews: {
         nodes: [
           {
             state: 'APPROVED',
             author: {login: 'some-reviewer-username', __typename: 'User'},
-            __typename: 'PullRequestReview'
-          }
+            __typename: 'PullRequestReview',
+          },
         ],
-        __typename: 'PullRequestReviewConnection'
+        __typename: 'PullRequestReviewConnection',
       },
-      __typename: 'PullRequest'
-    }
+      __typename: 'PullRequest',
+    },
   ],
   invalid: {
     noOpenPRs: [],
@@ -36,20 +36,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     noReleaseLabel: [
       {
@@ -61,20 +61,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     noApproves: [
       {
@@ -86,14 +86,14 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     hasDontMergeLabel: [
       {
@@ -106,22 +106,22 @@ module.exports = {
         labels: {
           nodes: [
             {name: 'release', __typename: 'Label'},
-            {name: `don't-merge`, __typename: 'Label'}
+            {name: `don't-merge`, __typename: 'Label'},
           ],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     notToMaster: [
       {
@@ -133,20 +133,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     notFromReleaseBranch: [
       {
@@ -158,20 +158,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     notMergeable: [
       {
@@ -183,20 +183,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
+        __typename: 'PullRequest',
+      },
     ],
     noAccessToMerge: [
       {
@@ -208,20 +208,20 @@ module.exports = {
         number: 1,
         labels: {
           nodes: [{name: 'release', __typename: 'Label'}],
-          __typename: 'LabelConnection'
+          __typename: 'LabelConnection',
         },
         reviews: {
           nodes: [
             {
               state: 'APPROVED',
               author: {login: 'some-reviewer-username', __typename: 'User'},
-              __typename: 'PullRequestReview'
-            }
+              __typename: 'PullRequestReview',
+            },
           ],
-          __typename: 'PullRequestReviewConnection'
+          __typename: 'PullRequestReviewConnection',
         },
-        __typename: 'PullRequest'
-      }
-    ]
-  }
+        __typename: 'PullRequest',
+      },
+    ],
+  },
 };

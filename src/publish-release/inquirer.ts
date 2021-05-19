@@ -17,15 +17,15 @@ module.exports.askDraftReleaseVersion = async function ({org, repo}) {
       choices: draftReleaseTags.map(release => {
         return {
           name: release.tag,
-          value: release
+          value: release,
         };
-      })
-    }
+      }),
+    },
   ]);
 
   return {
     version: release.tag,
-    releaseId: release.id
+    releaseId: release.id,
   };
 };
 
@@ -46,8 +46,8 @@ module.exports.askDraftReleasePRNumber = async function ({org, repo, version}) {
     {
       type: 'confirm',
       name: 'confirm',
-      message: prTitle
-    }
+      message: prTitle,
+    },
   ]);
 
   if (!confirm) {

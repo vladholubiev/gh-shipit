@@ -13,7 +13,7 @@ describe('#getAllReposDiffs', () => {
   it('should call getBranchDiff 3 times for 3 repos', async () => {
     await getAllReposDiffs({
       org: 'some-org',
-      repos: ['some-repo-1', 'some-repo-2', 'some-repo-3']
+      repos: ['some-repo-1', 'some-repo-2', 'some-repo-3'],
     });
 
     expect(getBranchDiff).toHaveBeenCalledTimes(3);

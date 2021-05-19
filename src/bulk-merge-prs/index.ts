@@ -7,7 +7,7 @@ import {approvePR, getPR, listOpenPRs, mergePR} from '@shelf/gh-sdk';
 
 export async function bulkMergePRs(org: string): Promise<void> {
   const items = orderBy(
-    await listOpenPRs({owner: org, searchText: 'renovate'}),
+    await listOpenPRs({owner: org, searchText: 'label:backend label:dependencies'}),
     ['updated_at'],
     ['desc']
   );
@@ -19,7 +19,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
         const pr = await getPR({
           owner: org,
           repo: item.repository_url.split('/')[4],
-          pr: item.number
+          pr: item.number,
         });
 
         return pr.mergeable_state === 'clean';
@@ -45,7 +45,7 @@ export async function bulkMergePRs(org: string): Promise<void> {
       const [repo, prNumber] = repoWithPrNumber.split('/issues/');
 
       return `#${prNumber} [${repo}]: ${item.title}`;
-    })
+    }),
   });
 
   const failedToMergePRsURLs = [];

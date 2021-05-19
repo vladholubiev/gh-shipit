@@ -9,14 +9,8 @@ export function formatReposDiffsForChoices(diffs) {
 }
 
 function formatRepoDiff(diffs, diff) {
-  const {
-    behind_by,
-    ahead_by,
-    lastCommitDateFormatted,
-    repo,
-    lastRelease,
-    lastDraftReleaseTag
-  } = diff;
+  const {behind_by, ahead_by, lastCommitDateFormatted, repo, lastRelease, lastDraftReleaseTag} =
+    diff;
   const widestDateLength = getWidestProperty(diffs, 'lastCommitDateFormatted');
   const widestRepoLength = getWidestProperty(diffs, 'repo');
 
@@ -29,7 +23,7 @@ function formatRepoDiff(diffs, diff) {
 
   return {
     name: chalk`${behind} ${ahead} ${repoFmt} ${release} ${releaseDraft} ${date}`,
-    value: repo
+    value: repo,
   };
 }
 

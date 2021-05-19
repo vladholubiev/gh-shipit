@@ -24,8 +24,8 @@ export async function askOrg() {
       message: 'Organization?',
       choices() {
         return getUserOrgs();
-      }
-    }
+      },
+    },
   ]);
 
   return org;
@@ -45,7 +45,7 @@ export async function askRepo(org) {
     type: 'autocomplete',
     name: 'repo',
     message: 'Repository?',
-    choices
+    choices,
   });
 
   return repo;
@@ -63,14 +63,14 @@ export async function askRepoAction({org, repo}) {
 
     choices.push({
       name: `Prepare release ${prepareReleaseActionDescription}`,
-      value: 'prepare-release'
+      value: 'prepare-release',
     });
   }
 
   if (lastDraftReleaseTag !== '-') {
     choices.push({
       name: `Publish release ${lastDraftReleaseTag}`,
-      value: 'publish-release'
+      value: 'publish-release',
     });
   }
 
@@ -79,8 +79,8 @@ export async function askRepoAction({org, repo}) {
       type: 'list',
       name: 'action',
       message: 'Action?',
-      choices
-    }
+      choices,
+    },
   ]);
 
   return action;
@@ -95,14 +95,14 @@ export async function askOrgAction() {
       choices: [
         {
           name: 'Create/Publish Releases & PRs',
-          value: 'releases'
+          value: 'releases',
         },
         {
           name: 'Bulk Merge Renovate bot PRs',
-          value: 'bulk-merge-renovate-prs'
-        }
-      ]
-    }
+          value: 'bulk-merge-renovate-prs',
+        },
+      ],
+    },
   ]);
 
   return action;
@@ -121,7 +121,7 @@ async function loadDiffsChoices({org, repos}) {
   const bar = new ProgressBar('Calculating Difference [:bar] :percent   ', {
     total: repos.length,
     clear: true,
-    width: getCliWidth()
+    width: getCliWidth(),
   });
 
   const diffs = await getAllReposDiffs({org, repos}).onProgress(() => {

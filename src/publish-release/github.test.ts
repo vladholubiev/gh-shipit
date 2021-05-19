@@ -7,8 +7,8 @@ const updateReleaseMock = jest.fn().mockReturnValue({data: {}});
 
 getClient.mockReturnValue({
   repos: {
-    updateRelease: updateReleaseMock
-  }
+    updateRelease: updateReleaseMock,
+  },
 });
 
 describe('#publishDraftRelease', () => {
@@ -16,7 +16,7 @@ describe('#publishDraftRelease', () => {
     const params = {
       org: 'my-org',
       repo: 'my-repo',
-      releaseId: 'q1w2e3rr4'
+      releaseId: 'q1w2e3rr4',
     };
     await publishDraftRelease(params);
 
@@ -24,7 +24,7 @@ describe('#publishDraftRelease', () => {
       draft: false,
       owner: 'my-org',
       release_id: 'q1w2e3rr4',
-      repo: 'my-repo'
+      repo: 'my-repo',
     });
   });
 });

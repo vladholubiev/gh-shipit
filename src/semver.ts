@@ -9,6 +9,6 @@ module.exports.getNextVersionOptions = function (currentVersion) {
 
   return increments.map(increment => ({
     name: `${increment}  ${chalk.dim('v')}${prettyVersionDiff(currentVersion, increment)}`,
-    value: semver.inc(currentVersion, increment)
+    value: semver.inc(currentVersion, increment),
   }));
 };

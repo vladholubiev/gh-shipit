@@ -12,8 +12,8 @@ module.exports.askNewReleaseVersion = async function ({org, repo}) {
       type: 'list',
       name: 'version',
       message: 'Version?',
-      choices: getNextVersionOptions(lastRelease)
-    }
+      choices: getNextVersionOptions(lastRelease),
+    },
   ]);
 
   return version;
@@ -28,14 +28,14 @@ module.exports.askReleaseTitle = async function ({org, repo}) {
       choices: [
         {
           name: 'Enter now',
-          value: 'enter-now'
+          value: 'enter-now',
         },
         {
           name: chalk`Enter after comparing branches {dim (opens github in browser)}`,
-          value: 'enter-after'
-        }
-      ]
-    }
+          value: 'enter-after',
+        },
+      ],
+    },
   ]);
 
   if (inputType === 'enter-after') {
@@ -60,8 +60,8 @@ module.exports.askReleaseTitle = async function ({org, repo}) {
         }
 
         return true;
-      }
-    }
+      },
+    },
   ]);
 
   return releaseTitle;
@@ -73,8 +73,8 @@ module.exports.askToOpenPR = async function ({org, repo, pr}) {
       type: 'confirm',
       name: 'shouldOpenPR',
       message: 'Open PR in Browser?',
-      default: true
-    }
+      default: true,
+    },
   ]);
 
   if (shouldOpenPR) {

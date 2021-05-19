@@ -40,7 +40,7 @@ export async function getDraftReleaseTags({org, repo}) {
       _.map(draftReleases, release => {
         return {
           tag: release.tag_name,
-          id: release.id
+          id: release.id,
         };
       })
     );
@@ -57,10 +57,10 @@ export async function getOpenReleasePRs({org, repo}) {
     data: {
       organization: {
         repository: {
-          pullRequests: {nodes}
-        }
-      }
-    }
+          pullRequests: {nodes},
+        },
+      },
+    },
   } = await gh.query({
     query: gql`
       {
@@ -92,7 +92,7 @@ export async function getOpenReleasePRs({org, repo}) {
           }
         }
       }
-    `
+    `,
   });
 
   return nodes;

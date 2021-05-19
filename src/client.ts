@@ -18,14 +18,14 @@ export function getClientGraphQL() {
     return {
       headers: {
         ...headers,
-        authorization: token ? `token ${token}` : null
-      }
+        authorization: token ? `token ${token}` : null,
+      },
     };
   });
 
   clientGQL = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   });
 
   return clientGQL;

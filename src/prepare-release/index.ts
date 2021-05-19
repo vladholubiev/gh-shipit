@@ -5,7 +5,7 @@ import {
   createReleaseBranch,
   createReleaseNotes,
   createReleasePR,
-  getLastDevelopCommitSHA
+  getLastDevelopCommitSHA,
 } from './github';
 import {askNewReleaseVersion, askReleaseTitle, askToOpenPR} from './inquirer';
 

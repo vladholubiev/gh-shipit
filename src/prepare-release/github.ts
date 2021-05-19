@@ -3,19 +3,19 @@ import {GitCreateRefResponse, PullsCreateResponse} from '@octokit/rest';
 import {
   createReleaseBranch as createBranchRelease,
   createReleasePR as createReleasePullRequest,
-  getLatestDevelopCommitSHA as getLatestDevCommitSHA
+  getLatestDevelopCommitSHA as getLatestDevCommitSHA,
 } from '@shelf/gh-sdk';
 
 export async function getLastDevelopCommitSHA({
   org,
-  repo
+  repo,
 }: {
   org: string;
   repo: string;
 }): Promise<string> {
   return getLatestDevCommitSHA({
     owner: org,
-    repo
+    repo,
   });
 }
 
@@ -23,13 +23,13 @@ export async function createReleaseBranch({
   org,
   repo,
   version,
-  commitHash
+  commitHash,
 }): Promise<GitCreateRefResponse> {
   return createBranchRelease({
     owner: org,
     sha: commitHash,
     repo,
-    version
+    version,
   });
 }
 
@@ -43,7 +43,7 @@ export async function createReleaseNotes({org, repo, version, releaseTitle}) {
     tag_name: tagName,
     target_commitish: `release/${tagName}`,
     name: `Release ${tagName}: ${releaseTitle}`,
-    draft: true
+    draft: true,
   });
 
   return data;
@@ -53,12 +53,12 @@ export async function createReleasePR({
   org,
   repo,
   version,
-  releaseTitle
+  releaseTitle,
 }): Promise<PullsCreateResponse> {
   return createReleasePullRequest({
     owner: org,
     repo,
     version,
-    releaseTitle
+    releaseTitle,
   });
 }

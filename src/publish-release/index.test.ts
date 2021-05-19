@@ -13,7 +13,7 @@ const params = {org: 'my-org', repo: 'my-repo'};
 (askDraftReleasePRNumber as jest.Mock).mockReturnValue('123');
 (publishDraftRelease as jest.Mock).mockResolvedValue({
   name: 'release 1',
-  published_at: new Date('2010-10-10')
+  published_at: new Date('2010-10-10'),
 });
 
 it('should call askDraftReleaseVersion w/ org & repo', async () => {
@@ -46,6 +46,6 @@ it('should call deleteBranch w/ org & repo & branch name', async () => {
   expect(deleteBranch).toHaveBeenCalledWith({
     name: 'release/v1.0.1',
     org: 'my-org',
-    repo: 'my-repo'
+    repo: 'my-repo',
   });
 });

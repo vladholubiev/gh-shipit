@@ -9,7 +9,7 @@ const debug = debug0(`${require('../package').name}:${path.basename(__filename)}
 export async function getRepoBranches({org, repo}): Promise<string[]> {
   const branches = await getRepoBranchesNames({
     owner: org,
-    repo
+    repo,
   });
   debug('Loaded branches. Repo: %s, Branches: %o', repo, branches);
 
@@ -23,7 +23,7 @@ export async function compareBranches({org, repo}) {
     owner: org,
     repo,
     base: 'master',
-    head: 'develop'
+    head: 'develop',
   });
 
   return data;

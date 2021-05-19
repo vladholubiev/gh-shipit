@@ -9,7 +9,7 @@ const {
   getLastDevelopCommitSHA,
   createReleasePR,
   createReleaseBranch,
-  createReleaseNotes
+  createReleaseNotes,
 } = require('./github');
 const {askNewReleaseVersion, askReleaseTitle, askToOpenPR} = require('./inquirer');
 const {prepareRelease} = require('./');
@@ -55,7 +55,7 @@ describe('#prepareRelease', () => {
     expect(createReleaseNotes).toHaveBeenCalledWith({
       ...params,
       version: '1.0.1',
-      releaseTitle: 'My new release'
+      releaseTitle: 'My new release',
     });
   });
 
@@ -65,7 +65,7 @@ describe('#prepareRelease', () => {
     expect(createReleasePR).toHaveBeenCalledWith({
       ...params,
       version: '1.0.1',
-      releaseTitle: 'My new release'
+      releaseTitle: 'My new release',
     });
   });
 
@@ -99,7 +99,7 @@ describe('#prepareRelease', () => {
 
     expect(askToOpenPR).toHaveBeenCalledWith({
       ...params,
-      pr: 123
+      pr: 123,
     });
   });
 });

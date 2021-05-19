@@ -7,7 +7,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: 'No open PRs present in this repo'
+      reason: 'No open PRs present in this repo',
     });
   });
 
@@ -16,7 +16,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: 'No PRs found for version v0.4.0. Make sure PR title is correct'
+      reason: 'No PRs found for version v0.4.0. Make sure PR title is correct',
     });
   });
 
@@ -25,7 +25,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: 'No release label present'
+      reason: 'No release label present',
     });
   });
 
@@ -34,7 +34,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `Release PR has no approves`
+      reason: `Release PR has no approves`,
     });
   });
 
@@ -43,7 +43,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `Release PR has a "don't merge" label`
+      reason: `Release PR has a "don't merge" label`,
     });
   });
 
@@ -52,7 +52,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `Release PR is not targeted to master branch`
+      reason: `Release PR is not targeted to master branch`,
     });
   });
 
@@ -61,7 +61,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `Release PR is not originated from release/hotfix branch`
+      reason: `Release PR is not originated from release/hotfix branch`,
     });
   });
 
@@ -70,7 +70,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `Release PR has merge conflicts`
+      reason: `Release PR has merge conflicts`,
     });
   });
 
@@ -79,7 +79,7 @@ describe('#getFirstOpenReleasePR', () => {
 
     expect(pr).toEqual({
       isReadyToMerge: false,
-      reason: `You don't have permissions to merge this PR. Ask someone why`
+      reason: `You don't have permissions to merge this PR. Ask someone why`,
     });
   });
 
@@ -89,7 +89,7 @@ describe('#getFirstOpenReleasePR', () => {
     expect(pr).toEqual({
       isReadyToMerge: true,
       prTitle: 'Release v0.4.0: Some PR title',
-      prNumber: 1
+      prNumber: 1,
     });
   });
 });

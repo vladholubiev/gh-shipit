@@ -5,13 +5,13 @@ jest.mock('@shelf/gh-sdk/lib/prs/create-release-pr');
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
 import {
   createReleasePR as createReleasePullRequest,
-  getLatestDevelopCommitSHA as getLatestDevCommitSHA
+  getLatestDevelopCommitSHA as getLatestDevCommitSHA,
 } from '@shelf/gh-sdk';
 import {
   createReleaseBranch,
   createReleaseNotes,
   createReleasePR,
-  getLastDevelopCommitSHA
+  getLastDevelopCommitSHA,
 } from './github';
 
 const createReleaseMock = jest.fn().mockReturnValue({data: {}});
@@ -19,11 +19,11 @@ const createRefMock = jest.fn().mockReturnValue({data: []});
 
 (getClient as jest.Mock).mockReturnValue({
   repos: {
-    createRelease: createReleaseMock
+    createRelease: createReleaseMock,
   },
   git: {
-    createRef: createRefMock
-  }
+    createRef: createRefMock,
+  },
 });
 
 (getLatestDevCommitSHA as jest.Mock).mockResolvedValue('a1b2c3');
@@ -52,7 +52,7 @@ describe('#createReleaseBranch', () => {
       owner: 'my-org',
       ref: 'refs/heads/release/v1.0.0',
       repo: 'my-repo',
-      sha: 'b4c59e'
+      sha: 'b4c59e',
     });
   });
 });
@@ -63,7 +63,7 @@ describe('#createReleaseNotes', () => {
       org: 'my-org',
       repo: 'my-repo',
       version: '1.0.0',
-      releaseTitle: 'New Login Page'
+      releaseTitle: 'New Login Page',
     };
     await createReleaseNotes(params);
 
@@ -73,7 +73,7 @@ describe('#createReleaseNotes', () => {
       owner: 'my-org',
       repo: 'my-repo',
       tag_name: 'v1.0.0',
-      target_commitish: 'release/v1.0.0'
+      target_commitish: 'release/v1.0.0',
     });
   });
 });
@@ -84,7 +84,7 @@ describe('#createReleasePR', () => {
       org: 'my-org',
       repo: 'my-repo',
       version: '1.0.0',
-      releaseTitle: 'New Login Page'
+      releaseTitle: 'New Login Page',
     });
 
     expect(PR).toEqual({id: 'some-id', url: 'some-url'});

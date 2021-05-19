@@ -26,7 +26,7 @@ export function verifyToken() {
         align: 'left',
         float: 'center',
         borderColor: 'magenta',
-        padding: 1
+        padding: 1,
       }
     )
   );

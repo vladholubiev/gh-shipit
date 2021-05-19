@@ -4,7 +4,7 @@ module.exports.getOpenReleasePRForVersion = function (prs, version) {
   if (_.isEmpty(prs)) {
     return {
       isReadyToMerge: false,
-      reason: 'No open PRs present in this repo'
+      reason: 'No open PRs present in this repo',
     };
   }
 
@@ -13,7 +13,7 @@ module.exports.getOpenReleasePRForVersion = function (prs, version) {
   if (_.isEmpty(prsForVersion)) {
     return {
       isReadyToMerge: false,
-      reason: `No PRs found for version ${version}. Make sure PR title is correct`
+      reason: `No PRs found for version ${version}. Make sure PR title is correct`,
     };
   }
 
@@ -22,7 +22,7 @@ module.exports.getOpenReleasePRForVersion = function (prs, version) {
   if (_.isEmpty(prsWithReleaseLabel)) {
     return {
       isReadyToMerge: false,
-      reason: 'No release label present'
+      reason: 'No release label present',
     };
   }
 
@@ -31,49 +31,49 @@ module.exports.getOpenReleasePRForVersion = function (prs, version) {
   if (!hasApproves(pr)) {
     return {
       isReadyToMerge: false,
-      reason: `Release PR has no approves`
+      reason: `Release PR has no approves`,
     };
   }
 
   if (hasLabel(pr, `don't-merge`)) {
     return {
       isReadyToMerge: false,
-      reason: `Release PR has a "don't merge" label`
+      reason: `Release PR has a "don't merge" label`,
     };
   }
 
   if (!isTargetBranchMaster(pr)) {
     return {
       isReadyToMerge: false,
-      reason: `Release PR is not targeted to master branch`
+      reason: `Release PR is not targeted to master branch`,
     };
   }
 
   if (!isFromReleaseBranch(pr)) {
     return {
       isReadyToMerge: false,
-      reason: `Release PR is not originated from release/hotfix branch`
+      reason: `Release PR is not originated from release/hotfix branch`,
     };
   }
 
   if (!isMergeable(pr)) {
     return {
       isReadyToMerge: false,
-      reason: `Release PR has merge conflicts`
+      reason: `Release PR has merge conflicts`,
     };
   }
 
   if (!canUserMerge(pr)) {
     return {
       isReadyToMerge: false,
-      reason: `You don't have permissions to merge this PR. Ask someone why`
+      reason: `You don't have permissions to merge this PR. Ask someone why`,
     };
   }
 
   return {
     isReadyToMerge: true,
     prTitle: pr.title,
-    prNumber: pr.number
+    prNumber: pr.number,
   };
 };
 
