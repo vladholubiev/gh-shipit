@@ -31,8 +31,8 @@ function filterAndSortDiffs(diffs) {
   return fp.flow(
     fp.reject({status: 'no-branch'}),
     fp.reject({ahead_by: 0, behind_by: 0}),
-    fp.orderBy([d => new Date(d.lastCommitDate)], ['asc']),
-    fp.map(d => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
+    fp.orderBy([(d: any) => new Date(d.lastCommitDate)], ['asc']),
+    fp.map((d: any) => _.set(d, 'lastCommitDateFormatted', formatDate(d.lastCommitDate)))
   )(diffs);
 }
 

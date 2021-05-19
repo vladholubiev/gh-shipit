@@ -41,19 +41,19 @@ export async function askRepo(org) {
     return process.exit(0);
   }
 
-  const {repo} = await prompt({
+  const {repo} = (await prompt({
     type: 'autocomplete',
     name: 'repo',
     message: 'Repository?',
     choices,
-  });
+  })) as any;
 
   return repo;
 }
 
 export async function askRepoAction({org, repo}) {
   const choices = [];
-  const {ahead_by, lastDraftReleaseTag} = await getBranchDiff({org, repo});
+  const {ahead_by, lastDraftReleaseTag} = (await getBranchDiff({org, repo})) as any;
 
   if (ahead_by > 0) {
     const prepareReleaseActionDescription = chalk`{dim ${_.padStart(

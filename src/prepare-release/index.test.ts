@@ -22,7 +22,7 @@ describe('#prepareRelease', () => {
   const params = {org: 'my-org', repo: 'my-repo'};
 
   beforeEach(() => {
-    createReleaseLabel.mockClear();
+    (createReleaseLabel as jest.Mock).mockClear();
   });
 
   it('should call askNewReleaseVersion w/ org and repo', async () => {

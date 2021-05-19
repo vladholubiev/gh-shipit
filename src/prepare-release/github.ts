@@ -1,10 +1,11 @@
 import {getClient} from '@shelf/gh-sdk/lib/rest-client';
-import {GitCreateRefResponse, PullsCreateResponse} from '@octokit/rest';
+import {GitCreateRefResponse} from '@octokit/rest';
 import {
   createReleaseBranch as createBranchRelease,
   createReleasePR as createReleasePullRequest,
   getLatestDevelopCommitSHA as getLatestDevCommitSHA,
 } from '@shelf/gh-sdk';
+import {PullsCreateResponseData} from '@octokit/types';
 
 export async function getLastDevelopCommitSHA({
   org,
@@ -54,7 +55,7 @@ export async function createReleasePR({
   repo,
   version,
   releaseTitle,
-}): Promise<PullsCreateResponse> {
+}): Promise<PullsCreateResponseData> {
   return createReleasePullRequest({
     owner: org,
     repo,
