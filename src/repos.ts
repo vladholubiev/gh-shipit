@@ -36,7 +36,7 @@ export async function getBranchDiff({org, repo}) {
 
     return repoDiff;
   } catch (error) {
-    if (error.code === 404) {
+    if (error.status === 404) {
       debug('repo %s, no master or develop branch', repo);
     }
 
