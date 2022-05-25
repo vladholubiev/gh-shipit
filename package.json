@@ -14,12 +14,12 @@
     "email": "hello@vladholubiev.com",
     "url": "vladholubiev.com"
   },
-  "files": [
-    "lib/"
-  ],
   "bin": {
     "shipit": "./lib/cli.js"
   },
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "build": "rm -rf lib/ && babel src --out-dir lib --ignore '**/*.test.ts' --extensions '.ts'",
     "coverage": "TZ=UTC jest --coverage",
@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@octokit/rest": "16.36.0",
-    "@shelf/gh-sdk": "0.4.0",
+    "@shelf/gh-sdk": "0.8.1",
     "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.10",
     "apollo-link-context": "1.0.20",
