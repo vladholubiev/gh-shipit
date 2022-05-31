@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import _ from 'lodash';
 import semver from 'semver';
 import path from 'path';

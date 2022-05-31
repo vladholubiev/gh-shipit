@@ -43,7 +43,7 @@ describe('#formatReposDiffsForChoices', () => {
     },
   ];
 
-  it('should return formatted array of repos diffs', async () => {
+  it('should return formatted array of repos diffs', () => {
     const result = formatReposDiffsForChoices(diffs);
 
     expect(result).toEqual([

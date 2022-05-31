@@ -14,7 +14,7 @@ export async function publishDraftRelease({org, repo, releaseId}) {
   return data;
 }
 
-export async function deleteBranch({org, repo, name}): Promise<any> {
+export function deleteBranch({org, repo, name}): Promise<any> {
   return deleteRepoBranch({
     owner: org,
     repo,

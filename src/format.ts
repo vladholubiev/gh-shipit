@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import chalk from 'chalk';
 import _ from 'lodash';
 import fp from 'lodash/fp';
