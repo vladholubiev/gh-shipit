@@ -3,11 +3,11 @@ import {orderBy, sum} from 'lodash';
 import logSymbols from 'log-symbols';
 import pMap from 'p-map';
 import pFilter from 'p-filter';
-import {approvePR, getPR, listOpenPRs, mergePR} from '@shelf/gh-sdk';
+import {approvePR, getPR, listPrs, mergePR} from '@shelf/gh-sdk';
 
 export async function bulkMergePRs(org: string): Promise<void> {
   const items = orderBy(
-    await listOpenPRs({owner: org, searchText: 'label:backend label:dependencies'}),
+    await listPrs({owner: org, searchText: 'label:backend label:dependencies'}),
     ['updated_at'],
     ['desc']
   );
