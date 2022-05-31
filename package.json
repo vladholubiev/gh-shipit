@@ -32,20 +32,12 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "post-commit": "git update-index --again"
-    }
-  },
   "lint-staged": {
     "*.{html,json,md,yml,graphql}": [
-      "prettier --write --ignore-path=./.eslintignore",
-      "git add"
+      "prettier --write --ignore-path=./.eslintignore"
     ],
     "*.{ts,json}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "prettier": "@shelf/prettier-config",
@@ -105,7 +97,7 @@
     "@types/strip-color": "0.1.0",
     "@types/update-notifier": "2.5.0",
     "eslint": "7.26.0",
-    "husky": "4.3.0",
+    "husky": "8.0.1",
     "jest": "26.6.3",
     "lint-staged": "12.5.0",
     "mockdate": "2.0.5",

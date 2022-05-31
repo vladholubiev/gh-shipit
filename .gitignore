@@ -9,3 +9,4 @@ draft.js
 draft.ts
 *.draft.js
 lib/
+!.husky/_/husky.sh
