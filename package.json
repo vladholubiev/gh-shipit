@@ -60,7 +60,7 @@
     "graphql-tag": "2.11.0",
     "human-date": "1.4.0",
     "inquirer": "7.3.3",
-    "lodash": "4.17.21",
+    "lodash": "4.18.1",
     "log-symbols": "3.0.0",
     "longest": "2.0.1",
     "node-fetch": "2.6.1",
